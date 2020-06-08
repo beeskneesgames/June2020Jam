@@ -17,7 +17,7 @@ public class Cell : MonoBehaviour {
         renderer.material.color = new Color(1.0f, 1.0f, 0.5f);
     }
 
-    public void UnHighlight() {
+    public void ClearHighlight() {
         renderer.material.color = originalColor;
     }
 }

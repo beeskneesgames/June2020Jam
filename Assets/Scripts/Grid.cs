@@ -26,7 +26,7 @@ public class Grid : MonoBehaviour {
 
     public void SetHoveredCoords(Vector2Int coords) {
         if (HasHoveredCoords) {
-            HoveredCell.UnHighlight();
+            HoveredCell.ClearHighlight();
         }
 
         hoveredCoords = coords;
@@ -35,7 +35,7 @@ public class Grid : MonoBehaviour {
 
     public void ClearHoveredCoords() {
         if (HasHoveredCoords) {
-            HoveredCell.UnHighlight();
+            HoveredCell.ClearHighlight();
         }
 
         hoveredCoords = new Vector2Int(-1, -1);
