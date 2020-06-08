@@ -21,6 +21,6 @@ public class Turn : MonoBehaviour {
     }
 
     public static void EndTurn() {
-        Turn.instance.TurnCount++;
+        Turn.Instance.TurnCount++;
     }
 }
