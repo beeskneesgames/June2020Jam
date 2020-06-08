@@ -11,10 +11,7 @@ public class Turn : MonoBehaviour {
         }
         private set {
             turnCount = value;
-
-            if (turnCount >= MaxTurnCount) {
-                GameManager.Instance.EndGame();
-            }
+            GameManager.Instance.CheckEndGame();
         }
     }
 

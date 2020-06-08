@@ -19,7 +19,29 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    public void EndGame() {
-        Debug.Log($"End Game");
+    public void CheckEndGame() {
+        Debug.Log($"Check if we should end the game");
+
+        if (CheckForWin()) {
+            TriggerWin();
+        } else if (CheckForLoss()) {
+            TriggerLoss();
+        }
+    }
+
+    private bool CheckForWin() {
+        return true;
+    }
+
+    private bool CheckForLoss() {
+        return false;
+    }
+
+    private void TriggerWin() {
+        Debug.Log($"You Win!");
+    }
+
+    private void TriggerLoss() {
+        Debug.Log($"You Lose :(");
     }
 }

@@ -17,6 +17,12 @@ public class Player : MonoBehaviour {
         }
     }
 
+    public void MoveTo(Vector2Int coords) {
+        //TODO Move
+
+        GameManager.Instance.CheckEndGame();
+    }
+
     private void EndTurn() {
         Turn.Instance.EndTurn();
         ActionPoints = MaxPoints;
