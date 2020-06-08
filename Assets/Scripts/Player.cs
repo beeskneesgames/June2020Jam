@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
 public class Player : MonoBehaviour {
+    private const int MaxPoints = 5;
     private int actionPoints;
-    private int maxPoints = 5;
 
     public int ActionPoints {
         get {
@@ -17,6 +17,6 @@ public class Player : MonoBehaviour {
 
     private void EndTurn() {
         Turn.Instance.EndTurn();
-        actionPoints = maxPoints;
+        actionPoints = MaxPoints;
     }
 }
