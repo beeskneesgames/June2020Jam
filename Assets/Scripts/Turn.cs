@@ -20,7 +20,7 @@ public class Turn : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    public static void EndTurn() {
+    public void EndTurn() {
         Turn.Instance.TurnCount++;
     }
 }
