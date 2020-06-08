@@ -18,9 +18,11 @@ public class Turn : MonoBehaviour {
 
         instance = this;
         DontDestroyOnLoad(gameObject);
+        Debug.Log($"Turn Count: {Turn.Instance.TurnCount}");
     }
 
     public void EndTurn() {
         Turn.Instance.TurnCount++;
+        Debug.Log($"Turn Count: {Turn.Instance.TurnCount}");
     }
 }
