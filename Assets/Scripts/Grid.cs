@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Grid : MonoBehaviour {
-    public GameObject[] column0;
-    public GameObject[] column1;
-    public GameObject[] column2;
-    public GameObject[] column3;
-    public GameObject[] column4;
-    public GameObject[] column5;
-    public GameObject[] column6;
-    public GameObject[] column7;
+    public GameObject[] row0;
+    public GameObject[] row1;
+    public GameObject[] row2;
+    public GameObject[] row3;
+    public GameObject[] row4;
+    public GameObject[] row5;
+    public GameObject[] row6;
+    public GameObject[] row7;
 }
