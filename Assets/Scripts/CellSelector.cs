@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
 public class CellSelector : MonoBehaviour {
@@ -13,6 +14,7 @@ public class CellSelector : MonoBehaviour {
 
     private void Start() {
         mainCamera = Camera.main;
+
         cellLayerMask = LayerMask.GetMask("Cells");
     }
 
@@ -22,7 +24,7 @@ public class CellSelector : MonoBehaviour {
         Cell hitCell = null;
         bool clicked = Input.GetMouseButtonDown(0);
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, cellLayerMask)) {
+        if (!EventSystem.current.IsPointerOverGameObject() && Physics.Raycast(ray, out hit, Mathf.Infinity, cellLayerMask)) {
             hitCell = hit.transform.GetComponent<Cell>();
         }
 
