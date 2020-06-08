@@ -26,16 +26,16 @@ public class Grid : MonoBehaviour {
 
     public void SetHoveredCoords(Vector2Int coords) {
         if (HasHoveredCoords) {
-            HoveredCell.ClearHighlight();
+            HoveredCell.CurrentMouseState = Cell.MouseState.None;
         }
 
         hoveredCoords = coords;
-        HoveredCell.Highlight();
+        HoveredCell.CurrentMouseState = Cell.MouseState.Hovered;
     }
 
     public void ClearHoveredCoords() {
         if (HasHoveredCoords) {
-            HoveredCell.ClearHighlight();
+            HoveredCell.CurrentMouseState = Cell.MouseState.None;
         }
 
         hoveredCoords = new Vector2Int(-1, -1);
