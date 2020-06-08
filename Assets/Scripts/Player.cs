@@ -9,6 +9,8 @@ public class Player : MonoBehaviour {
             return actionPoints;
         }
         set {
+            actionPoints = value;
+
             if (actionPoints <= 0) {
                 EndTurn();
             }
