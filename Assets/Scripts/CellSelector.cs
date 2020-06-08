@@ -28,7 +28,6 @@ public class CellSelector : MonoBehaviour {
 
         if (hitCell) {
             coordsText.text = $"({hitCell.Coords.x}, {hitCell.Coords.y})";
-            grid.SetHoveredCoords(hitCell.Coords);
 
             if (clicked) {
                 actionCanvas.transform.position = new Vector3(
@@ -38,6 +37,9 @@ public class CellSelector : MonoBehaviour {
                 );
                 // TODO do this nicer
                 actionCanvas.transform.GetChild(0).gameObject.SetActive(true);
+                grid.SetSelectedCoords(hitCell.Coords);
+            } else {
+                grid.SetHoveredCoords(hitCell.Coords);
             }
         } else {
             coordsText.text = "(?, ?)";
@@ -46,6 +48,7 @@ public class CellSelector : MonoBehaviour {
             if (clicked) {
                 // TODO do this nicer
                 actionCanvas.transform.GetChild(0).gameObject.SetActive(false);
+                grid.ClearSelectedCoords();
             }
         }
 

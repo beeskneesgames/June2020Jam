@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,13 @@ public class Grid : MonoBehaviour {
     public bool HasHoveredCoords {
         get {
             return hoveredCoords.x >= 0;
+        }
+    }
+
+    private Vector2Int selectedCoords = new Vector2Int(-1, -1);
+    public bool HasSelectedCoords {
+        get {
+            return selectedCoords.x >= 0;
         }
     }
 
@@ -25,12 +33,17 @@ public class Grid : MonoBehaviour {
     }
 
     public void SetHoveredCoords(Vector2Int coords) {
-        if (HasHoveredCoords) {
+        if (HasHoveredCoords && HoveredCell != SelectedCell) {
             HoveredCell.CurrentMouseState = Cell.MouseState.None;
         }
 
         hoveredCoords = coords;
-        HoveredCell.CurrentMouseState = Cell.MouseState.Hovered;
+
+        if (HoveredCell != SelectedCell) {
+            // If a cell is both hovered and selected, we just want to show the
+            // selected color.
+            HoveredCell.CurrentMouseState = Cell.MouseState.Hovered;
+        }
     }
 
     public void ClearHoveredCoords() {
@@ -41,6 +54,23 @@ public class Grid : MonoBehaviour {
         hoveredCoords = new Vector2Int(-1, -1);
     }
 
+    public void SetSelectedCoords(Vector2Int coords) {
+        if (HasSelectedCoords) {
+            SelectedCell.CurrentMouseState = Cell.MouseState.None;
+        }
+
+        selectedCoords = coords;
+        SelectedCell.CurrentMouseState = Cell.MouseState.Selected;
+    }
+
+    public void ClearSelectedCoords() {
+        if (HasSelectedCoords) {
+            SelectedCell.CurrentMouseState = Cell.MouseState.None;
+        }
+
+        selectedCoords = new Vector2Int(-1, -1);
+    }
+
     private Cell CellAt(int row, int col) {
         return rows[row].cells[col];
     }
@@ -49,6 +79,16 @@ public class Grid : MonoBehaviour {
         get {
             if (HasHoveredCoords) {
                 return CellAt(hoveredCoords.x, hoveredCoords.y);
+            } else {
+                return null;
+            }
+        }
+    }
+
+    private Cell SelectedCell {
+        get {
+            if (HasSelectedCoords) {
+                return CellAt(selectedCoords.x, selectedCoords.y);
             } else {
                 return null;
             }
