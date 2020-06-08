@@ -8,7 +8,7 @@ using TMPro;
 public class CellSelector : MonoBehaviour {
     public TextMeshProUGUI coordsText;
     public Grid grid;
-    public Canvas actionCanvas;
+    public ActionMenu actionMenu;
     private Camera mainCamera;
     private int cellLayerMask;
 
@@ -32,13 +32,13 @@ public class CellSelector : MonoBehaviour {
             coordsText.text = $"({hitCell.Coords.x}, {hitCell.Coords.y})";
 
             if (clicked) {
-                actionCanvas.transform.position = new Vector3(
-                    hitCell.transform.position.x + 2.0f,
+                actionMenu.transform.position = new Vector3(
+                    hitCell.transform.position.x + 1.5f,
                     hitCell.transform.position.y + 4.0f,
                     hitCell.transform.position.z + 3.5f
                 );
-                // TODO do this nicer
-                actionCanvas.transform.GetChild(0).gameObject.SetActive(true);
+
+                actionMenu.OpenMenu();
                 grid.SetSelectedCoords(hitCell.Coords);
             } else {
                 grid.SetHoveredCoords(hitCell.Coords);
@@ -48,8 +48,7 @@ public class CellSelector : MonoBehaviour {
             grid.ClearHoveredCoords();
 
             if (clicked) {
-                // TODO do this nicer
-                actionCanvas.transform.GetChild(0).gameObject.SetActive(false);
+                actionMenu.CloseMenu();
                 grid.ClearSelectedCoords();
             }
         }
