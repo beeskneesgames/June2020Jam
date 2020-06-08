@@ -22,8 +22,8 @@ public class CellSelector : MonoBehaviour {
         }
 
         if (hitCell) {
-            coordsText.text = $"({hitCell.Row}, {hitCell.Col})";
-            grid.SetHoveredCoords(hitCell.Row, hitCell.Col);
+            coordsText.text = $"({hitCell.Coords.x}, {hitCell.Coords.y})";
+            grid.SetHoveredCoords(hitCell.Coords);
         } else {
             coordsText.text = "(?, ?)";
             grid.ClearHoveredCoords();

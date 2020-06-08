@@ -19,18 +19,17 @@ public class Grid : MonoBehaviour {
 
             for (int j = 0; j < row.cells.Length; j++) {
                 Cell cell = row.cells[j];
-                cell.Row = i;
-                cell.Col = j;
+                cell.Coords = new Vector2Int(i, j);
             }
         }
     }
 
-    public void SetHoveredCoords(int row, int col) {
+    public void SetHoveredCoords(Vector2Int coords) {
         if (HasHoveredCoords) {
             HoveredCell.UnHighlight();
         }
 
-        hoveredCoords = new Vector2Int(row, col);
+        hoveredCoords = coords;
         HoveredCell.Highlight();
     }
 

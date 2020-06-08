@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Cell : MonoBehaviour {
-    public int Row { get; set; }
-    public int Col { get; set; }
+    public Vector2Int Coords { get; set; }
 
     private new Renderer renderer;
     private Color originalColor;
