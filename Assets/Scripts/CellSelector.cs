@@ -7,9 +7,11 @@ public class CellSelector : MonoBehaviour {
     public TextMeshProUGUI coordsText;
     public Grid grid;
     private Camera mainCamera;
+    private int cellLayerMask;
 
     private void Start() {
         mainCamera = Camera.main;
+        cellLayerMask = LayerMask.GetMask("Cells");
     }
 
     private void Update() {
@@ -17,7 +19,7 @@ public class CellSelector : MonoBehaviour {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         Cell hitCell = null;
 
-        if (Physics.Raycast(ray, out hit)) {
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, cellLayerMask)) {
             hitCell = hit.transform.GetComponent<Cell>();
         }
 
