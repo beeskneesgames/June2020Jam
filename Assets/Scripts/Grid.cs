@@ -7,8 +7,11 @@ public class Grid : MonoBehaviour {
 
     private void Start() {
         for (int i = 0; i < rows.Length; i++) {
-            for (int j = 0; j < rows[i].cells.Length; j++) {
-                Cell cell = rows[i].cells[j];
+            Row row = rows[i]; // your boat
+            row.Index = i;
+
+            for (int j = 0; j < row.cells.Length; j++) {
+                Cell cell = row.cells[j];
                 cell.Row = i;
                 cell.Col = j;
             }
