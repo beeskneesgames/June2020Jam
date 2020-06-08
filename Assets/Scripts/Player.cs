@@ -17,6 +17,6 @@ public class Player : MonoBehaviour {
 
     private void EndTurn() {
         Turn.Instance.EndTurn();
-        actionPoints = MaxPoints;
+        ActionPoints = MaxPoints;
     }
 }
