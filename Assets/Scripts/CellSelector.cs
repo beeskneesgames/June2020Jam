@@ -23,8 +23,10 @@ public class CellSelector : MonoBehaviour {
 
         if (hitCell) {
             coordsText.text = $"({hitCell.Row}, {hitCell.Col})";
+            grid.SetHoveredCoords(hitCell.Row, hitCell.Col);
         } else {
             coordsText.text = "(?, ?)";
+            grid.ClearHoveredCoords();
         }
 
     }
