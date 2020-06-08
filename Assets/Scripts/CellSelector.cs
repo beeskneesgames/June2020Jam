@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CellSelector : MonoBehaviour {
+    public TextMeshProUGUI coordsText;
+    public Grid grid;
     private Camera mainCamera;
 
     private void Start() {
@@ -12,5 +15,17 @@ public class CellSelector : MonoBehaviour {
     private void Update() {
         RaycastHit hit;
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        Cell hitCell = null;
+
+        if (Physics.Raycast(ray, out hit)) {
+            hitCell = hit.transform.GetComponent<Cell>();
+        }
+
+        if (hitCell) {
+            coordsText.text = $"({hitCell.Row}, {hitCell.Col})";
+        } else {
+            coordsText.text = "(?, ?)";
+        }
+
     }
 }
