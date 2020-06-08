@@ -1057,7 +1057,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 791890958}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1119,6 +1119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coordsText: {fileID: 994667294}
   grid: {fileID: 897747125}
+  actionCanvas: {fileID: 1031893460}
 --- !u!4 &1134642325
 Transform:
   m_ObjectHideFlags: 0
@@ -2023,7 +2024,7 @@ PrefabInstance:
     - target: {fileID: 7032044279354848074, guid: eec33171f083b463c8df379f4be5be46,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eec33171f083b463c8df379f4be5be46, type: 3}
