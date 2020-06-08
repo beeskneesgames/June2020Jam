@@ -2,7 +2,21 @@
 
 public class Turn : MonoBehaviour {
     private static Turn instance;
-    public int TurnCount { get; private set; }
+    private int turnCount;
+    private const int MaxTurnCount = 15;
+
+    public int TurnCount {
+        get {
+            return turnCount;
+        }
+        private set {
+            turnCount = value;
+
+            if (turnCount >= MaxTurnCount) {
+                GameManager.Instance.EndGame();
+            }
+        }
+    }
 
     public static Turn Instance {
         get {
