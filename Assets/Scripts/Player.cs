@@ -10,8 +10,13 @@ public class Player : MonoBehaviour {
         }
         set {
             if (actionPoints <= 0) {
-                Turn.Instance.EndTurn();
+                EndTurn();
             }
         }
+    }
+
+    private void EndTurn() {
+        Turn.Instance.EndTurn();
+        actionPoints = maxPoints;
     }
 }
