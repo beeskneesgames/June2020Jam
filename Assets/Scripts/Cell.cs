@@ -8,6 +8,17 @@ public class Cell : MonoBehaviour {
     private new Renderer renderer;
     private Color originalColor;
 
+    public bool isDamaged;
+    public bool IsDamaged {
+        get {
+            return isDamaged;
+        }
+        set {
+            isDamaged = value;
+            GameManager.Instance.CheckEndGame();
+        }
+    }
+
     private void Start() {
         renderer = GetComponent<Renderer>();
         originalColor = renderer.material.color;
