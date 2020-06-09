@@ -132,7 +132,7 @@ public class Grid : MonoBehaviour {
         }
 
         if (possibleCells.Count > 0) {
-            newCoord = possibleCells[UnityEngine.Random.Range(1, possibleCells.Count)].Coords;
+            newCoord = possibleCells[UnityEngine.Random.Range(0, possibleCells.Count)].Coords;
         }
 
         return newCoord;

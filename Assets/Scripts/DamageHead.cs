@@ -24,7 +24,5 @@ public class DamageHead {
         if (nextCoord != null) {
             Coords = Grid.Instance.ChooseDamageableCoord(coords);
         }
-
-        Debug.Log(Coords);
     }
 }

@@ -25,6 +25,10 @@ public class DamageManager : MonoBehaviour {
     }
 
     public void Spread() {
+        if ((Turn.Instance.TurnCount % 3) == 0) {
+            AddHead(damageHeads[UnityEngine.Random.Range(0, damageHeads.Count)].Coords);
+        }
+
         foreach (DamageHead damageHead in damageHeads) {
             damageHead.Move();
         }
