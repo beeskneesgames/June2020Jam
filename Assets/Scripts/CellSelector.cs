@@ -7,7 +7,6 @@ using TMPro;
 
 public class CellSelector : MonoBehaviour {
     public TextMeshProUGUI coordsText;
-    public Grid grid;
     public ActionMenu actionMenu;
     private Camera mainCamera;
     private int cellLayerMask;
@@ -39,17 +38,17 @@ public class CellSelector : MonoBehaviour {
                 );
 
                 actionMenu.OpenMenu();
-                grid.SetSelectedCoords(hitCell.Coords);
+                Grid.Instance.SetSelectedCoords(hitCell.Coords);
             } else {
-                grid.SetHoveredCoords(hitCell.Coords);
+                Grid.Instance.SetHoveredCoords(hitCell.Coords);
             }
         } else {
             coordsText.text = "(?, ?)";
-            grid.ClearHoveredCoords();
+            Grid.Instance.ClearHoveredCoords();
 
             if (clicked) {
                 actionMenu.CloseMenu();
-                grid.ClearSelectedCoords();
+                Grid.Instance.ClearSelectedCoords();
             }
         }
 

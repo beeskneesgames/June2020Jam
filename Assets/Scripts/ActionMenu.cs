@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ActionMenu : MonoBehaviour {
-    public Grid grid;
     public GameObject panel;
 
     public void OnCloseClicked() {
         CloseMenu();
-        grid.ClearSelectedCoords();
+        Grid.Instance.ClearSelectedCoords();
     }
 
     public void CloseMenu() {
