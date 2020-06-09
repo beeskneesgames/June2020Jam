@@ -22,9 +22,14 @@ public class Grid : MonoBehaviour {
     }
 
     private Vector2Int selectedCoords = new Vector2Int(-1, -1);
+    public Vector2Int SelectedCoords {
+        get {
+            return selectedCoords;
+        }
+    }
     public bool HasSelectedCoords {
         get {
-            return selectedCoords.x >= 0;
+            return SelectedCoords.x >= 0;
         }
     }
 
@@ -88,14 +93,18 @@ public class Grid : MonoBehaviour {
         selectedCoords = new Vector2Int(-1, -1);
     }
 
-    private Cell CellAt(int row, int col) {
-        return rows[row].cells[col];
+    public Vector3 PositionForCoords(Vector2Int coords) {
+        return CellAt(coords).transform.position;
+    }
+
+    private Cell CellAt(Vector2Int coords) {
+        return rows[coords.x].cells[coords.y];
     }
 
     private Cell HoveredCell {
         get {
             if (HasHoveredCoords) {
-                return CellAt(hoveredCoords.x, hoveredCoords.y);
+                return CellAt(hoveredCoords);
             } else {
                 return null;
             }
@@ -105,7 +114,7 @@ public class Grid : MonoBehaviour {
     private Cell SelectedCell {
         get {
             if (HasSelectedCoords) {
-                return CellAt(selectedCoords.x, selectedCoords.y);
+                return CellAt(SelectedCoords);
             } else {
                 return null;
             }

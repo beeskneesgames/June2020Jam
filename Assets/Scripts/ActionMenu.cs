@@ -10,6 +10,12 @@ public class ActionMenu : MonoBehaviour {
         Grid.Instance.ClearSelectedCoords();
     }
 
+    public void OnMoveClicked() {
+        CloseMenu();
+        Player.Instance.MoveTo(Grid.Instance.SelectedCoords);
+        Grid.Instance.ClearSelectedCoords();
+    }
+
     public void CloseMenu() {
         panel.SetActive(false);
     }

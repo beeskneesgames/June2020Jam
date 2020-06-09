@@ -18,6 +18,12 @@ public class CellSelector : MonoBehaviour {
     }
 
     private void Update() {
+        if (!EventSystem.current.IsPointerOverGameObject()) {
+            UpdateCellMouseState();
+        }
+    }
+
+    private void UpdateCellMouseState() {
         RaycastHit hit;
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         Cell hitCell = null;
