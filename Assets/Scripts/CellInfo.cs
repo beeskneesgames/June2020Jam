@@ -19,4 +19,13 @@ public class CellInfo {
     public void Damage() {
         IsDamaged = true;
     }
+
+    public void Fix() {
+        IsDamaged = false;
+
+        if (HasDamageHead) {
+            DamageManager.Instance.RemoveHeadsAt(Coords);
+            HasDamageHead = false;
+        }
+    }
 }
