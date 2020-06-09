@@ -69,6 +69,10 @@ public class Player : MonoBehaviour {
         }
     }
 
+    public bool IsOnDamagedSquare() {
+        return Grid.Instance.CellInfoAt(currentCoords).IsDamaged;
+    }
+
     public void MoveTo(Vector2Int coords, System.Action callback = null) {
         if (isMoving) {
             // Don't allow double-moving

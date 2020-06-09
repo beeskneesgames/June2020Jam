@@ -33,6 +33,10 @@ public class GameManager : MonoBehaviour {
             return true;
         }
 
+        if (Player.Instance.IsOnDamagedSquare()) {
+            return true;
+        }
+
         return false;
     }
 
