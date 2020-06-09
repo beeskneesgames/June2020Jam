@@ -15,7 +15,6 @@ public class Cell : MonoBehaviour {
     private new Renderer renderer;
     private Color originalColor;
 
-    public bool isDamageHead;
     public bool IsDamageHead { get; set; }
 
     public bool isDamaged;

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class DamageManager : MonoBehaviour {
     private static DamageManager instance;
+    private const int SpreadRate = 3;
     private List<DamageHead> damageHeads = new List<DamageHead>();
 
     public static DamageManager Instance {
@@ -21,13 +22,13 @@ public class DamageManager : MonoBehaviour {
     }
 
     private void Start() {
-        AddHead(new Vector2Int(0,0));
+        AddHead(new Vector2Int(0, 0));
 
         Grid.Instance.SetDamageHeads(damageHeads);
     }
 
     public void Spread() {
-        if ((Turn.Instance.TurnCount % 3) == 0) {
+        if ((Turn.Instance.TurnCount % SpreadRate) == 0) {
             AddHead(damageHeads[UnityEngine.Random.Range(0, damageHeads.Count)].Coords);
         }
 
