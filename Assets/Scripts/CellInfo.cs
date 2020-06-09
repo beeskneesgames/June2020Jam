@@ -15,4 +15,8 @@ public class CellInfo {
     }
 
     public bool IsDamageHead { get; set; } = false;
+
+    public void Damage() {
+        IsDamaged = true;
+    }
 }

@@ -29,7 +29,7 @@ public class DamageManager : MonoBehaviour {
 
     public void Spread() {
         if ((Turn.Instance.TurnCount % SpreadRate) == 0) {
-            AddHead(damageHeads[UnityEngine.Random.Range(0, damageHeads.Count)].Coords);
+            AddHead(damageHeads[Random.Range(0, damageHeads.Count)].Coords);
         }
 
         foreach (DamageHead damageHead in damageHeads) {
@@ -40,9 +40,6 @@ public class DamageManager : MonoBehaviour {
     }
 
     private void AddHead(Vector2Int coords) {
-        DamageHead damageHead = new DamageHead(coords);
-
-        damageHeads.Add(damageHead);
-        Grid.Instance.DamageCell(coords);
+        damageHeads.Add(new DamageHead(coords));
     }
 }

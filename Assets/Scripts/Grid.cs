@@ -131,14 +131,6 @@ public class Grid : MonoBehaviour {
         return cellInfos.ToArray();
     }
 
-    public void DamageCell(Vector2Int coords) {
-        Cell cellToDamage = CellAt(coords);
-
-        if (cellToDamage != null) {
-            cellToDamage.Info.IsDamaged = true;
-        }
-    }
-
     public void SetDamageHeads(List<DamageHead> damageHeads) {
         foreach (var damageHeadCell in damageHeadCells) {
             damageHeadCell.Info.IsDamageHead = false;
@@ -151,6 +143,10 @@ public class Grid : MonoBehaviour {
             damageHeadCells.Add(newCell);
             newCell.Info.IsDamageHead = true;
         }
+    }
+
+    public CellInfo CellInfoAt(Vector2Int coords) {
+        return CellAt(coords)?.Info;
     }
 
     private Cell CellAt(Vector2Int coords) {

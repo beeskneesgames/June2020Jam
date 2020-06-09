@@ -2,6 +2,11 @@
 
 public class DamageHead {
     public Vector2Int coords;
+    private CellInfo CurrentCellInfo {
+        get {
+            return Grid.Instance.CellInfoAt(coords);
+        }
+    }
 
     public Vector2Int Coords {
         get {
@@ -9,8 +14,7 @@ public class DamageHead {
         }
         set {
             coords = value;
-            Grid.Instance.DamageCell(coords);
-            GameManager.Instance.CheckEndGame();
+            CurrentCellInfo.Damage();
         }
     }
 
