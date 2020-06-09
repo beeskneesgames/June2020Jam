@@ -39,6 +39,10 @@ public class DamageManager : MonoBehaviour {
         Grid.Instance.SetDamageHeads(damageHeads);
     }
 
+    public void RemoveHeadsAt(Vector2Int coords) {
+        damageHeads.RemoveAll(head => head.Coords == coords);
+    }
+
     private void AddHead(Vector2Int coords) {
         damageHeads.Add(new DamageHead(coords));
     }

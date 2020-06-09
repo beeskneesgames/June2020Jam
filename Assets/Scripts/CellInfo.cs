@@ -23,5 +23,9 @@ public class CellInfo {
     public void Fix() {
         IsDamaged = false;
         HasDamageHead = false;
+
+        if (HasDamageHead) {
+            DamageManager.Instance.RemoveHeadsAt(Coords);
+        }
     }
 }
