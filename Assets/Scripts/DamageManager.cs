@@ -22,9 +22,15 @@ public class DamageManager : MonoBehaviour {
 
     private void Start() {
         AddHead(new Vector2Int(0,0));
+
+        Grid.Instance.SetDamageHeads(damageHeads);
     }
 
     public void Spread() {
+        if (damageHeads.Count == 0) {
+            // Add head in an available spot
+        }
+
         if ((Turn.Instance.TurnCount % 3) == 0) {
             AddHead(damageHeads[UnityEngine.Random.Range(0, damageHeads.Count)].Coords);
         }
@@ -32,6 +38,8 @@ public class DamageManager : MonoBehaviour {
         foreach (DamageHead damageHead in damageHeads) {
             damageHead.Move();
         }
+
+        Grid.Instance.SetDamageHeads(damageHeads);
     }
 
     private void AddHead(Vector2Int coords) {

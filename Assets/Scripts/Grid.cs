@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour {
     private static Grid instance;
+    private List<Cell> damageHeadCells = new List<Cell>();
 
     public static Grid Instance {
         get {
@@ -125,7 +126,7 @@ public class Grid : MonoBehaviour {
         foreach (var x in possibleX) {
             foreach (var y in possibleY) {
                 Cell cell = CellAt(new Vector2Int(x, y));
-                if (!cell.IsDamaged) {
+                if (cell != null) {
                     possibleCells.Add(cell);
                 }
             }
@@ -140,7 +141,24 @@ public class Grid : MonoBehaviour {
 
     public void DamageCell(Vector2Int coords) {
         Cell cellToDamage = CellAt(coords);
-        cellToDamage.IsDamaged = true;
+
+        if (cellToDamage != null) {
+            cellToDamage.IsDamaged = true;
+        }
+    }
+
+    public void SetDamageHeads(List<DamageHead> damageHeads) {
+        foreach (var damageHeadCell in damageHeadCells) {
+            damageHeadCell.IsDamageHead = false;
+        }
+
+        damageHeadCells.Clear();
+
+        foreach (var damageHead in damageHeads) {
+            Cell newCell = CellAt(damageHead.Coords);
+            damageHeadCells.Add(newCell);
+            newCell.IsDamageHead = true;
+        }
     }
 
     private Cell CellAt(Vector2Int coords) {
