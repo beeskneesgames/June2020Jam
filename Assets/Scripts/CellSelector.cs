@@ -34,7 +34,7 @@ public class CellSelector : MonoBehaviour {
         }
 
         if (hitCell) {
-            coordsText.text = $"({hitCell.Coords.x}, {hitCell.Coords.y})";
+            coordsText.text = $"({hitCell.Info.Coords.x}, {hitCell.Info.Coords.y})";
 
             if (clicked) {
                 actionMenu.transform.position = new Vector3(
@@ -44,9 +44,9 @@ public class CellSelector : MonoBehaviour {
                 );
 
                 actionMenu.OpenMenu();
-                Grid.Instance.SetSelectedCoords(hitCell.Coords);
+                Grid.Instance.SetSelectedCoords(hitCell.Info.Coords);
             } else {
-                Grid.Instance.SetHoveredCoords(hitCell.Coords);
+                Grid.Instance.SetHoveredCoords(hitCell.Info.Coords);
             }
         } else {
             coordsText.text = "(?, ?)";

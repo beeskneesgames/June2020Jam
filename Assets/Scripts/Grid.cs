@@ -50,7 +50,7 @@ public class Grid : MonoBehaviour {
 
             for (int j = 0; j < row.cells.Length; j++) {
                 Cell cell = row.cells[j];
-                cell.Coords = new Vector2Int(i, j);
+                cell.Info.Coords = new Vector2Int(i, j);
             }
         }
     }
@@ -133,7 +133,7 @@ public class Grid : MonoBehaviour {
         }
 
         if (possibleCells.Count > 0) {
-            newCoord = possibleCells[UnityEngine.Random.Range(0, possibleCells.Count)].Coords;
+            newCoord = possibleCells[UnityEngine.Random.Range(0, possibleCells.Count)].Info.Coords;
         }
 
         return newCoord;

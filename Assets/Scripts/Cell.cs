@@ -9,8 +9,8 @@ public class Cell : MonoBehaviour {
         Selected
     }
 
+    public CellInfo Info { get; set; } = new CellInfo();
     public MouseState CurrentMouseState { get; set; } = MouseState.None;
-    public Vector2Int Coords { get; set; }
 
     private new Renderer renderer;
     private Color originalColor;
