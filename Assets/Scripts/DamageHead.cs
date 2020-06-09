@@ -14,7 +14,7 @@ public class DamageHead {
     }
 
     public void Move() {
-        //TODO: Move to a random cell that isn't damaged
-        coords = new Vector2Int(-1, -1);
+        Vector2Int[] possibleCoords = Grid.Instance.FindDamageableCoords(coords);
+        Coords = possibleCoords[UnityEngine.Random.Range(0, possibleCoords.Length)];
     }
 }

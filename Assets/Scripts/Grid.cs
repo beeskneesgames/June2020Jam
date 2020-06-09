@@ -88,6 +88,13 @@ public class Grid : MonoBehaviour {
         selectedCoords = new Vector2Int(-1, -1);
     }
 
+    public Vector2Int[] FindDamageableCoords(Vector2Int currentCoords) {
+        //TODO: Find damageable adjacent coordinates
+        List<Vector2Int> coords = new List<Vector2Int> { currentCoords };
+
+        return coords.ToArray();
+    }
+
     private Cell CellAt(int row, int col) {
         return rows[row].cells[col];
     }
@@ -110,12 +117,5 @@ public class Grid : MonoBehaviour {
                 return null;
             }
         }
-    }
-
-    private Vector2Int[] FindDamageableCoords(Vector2Int currentCoords) {
-        //TODO: Find damageable adjacent coordinates
-        List<Vector2Int> coords = new List<Vector2Int> { currentCoords };
-
-        return coords.ToArray();
     }
 }
