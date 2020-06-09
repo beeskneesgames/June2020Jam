@@ -32,7 +32,6 @@ public class Player : MonoBehaviour {
         }
 
         instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     public void MoveTo(Vector2Int coords) {

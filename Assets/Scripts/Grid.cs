@@ -35,7 +35,6 @@ public class Grid : MonoBehaviour {
         }
 
         instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Start() {
