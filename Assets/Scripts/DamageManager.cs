@@ -45,9 +45,7 @@ public class DamageManager : MonoBehaviour {
     }
 
     public void RemoveHeadsAt(Vector2Int coords) {
-        Debug.Log($"damageHeads before: {damageHeads}");
         damageHeads.RemoveAll(head => head.Coords == coords);
-        Debug.Log($"damageHeads after: {damageHeads}");
     }
 
     private void AddHead(Vector2Int coords) {
