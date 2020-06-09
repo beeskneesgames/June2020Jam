@@ -94,31 +94,46 @@ public class Grid : MonoBehaviour {
     }
 
     public Vector2Int ChooseDamageableCoord(Vector2Int currentCoords) {
-        Vector2Int newCoord;
+        Vector2Int newCoord = new Vector2Int(-1, -1);
 
-        List<int> possibleRows = new List<int> {
-            currentCoords.x - 1,
-            currentCoords.x,
-            currentCoords.x + 1
+        List<int> possibleX = new List<int> {
+            currentCoords.x
         };
 
-        List<int> possibleCols = new List<int> {
-            currentCoords.y - 1,
-            currentCoords.y,
-            currentCoords.y + 1
+        if (currentCoords.x > 0) {
+            possibleX.Add(currentCoords.x - 1);
+        }
+
+        if (currentCoords.x < rows.Length - 1) {
+            possibleX.Add(currentCoords.x + 1);
+        }
+
+        List<int> possibleY = new List<int> {
+            currentCoords.y
         };
 
-        do {
-            newCoord = new Vector2Int(
-                possibleRows[UnityEngine.Random.Range(0, possibleRows.Count)],
-                possibleCols[UnityEngine.Random.Range(0, possibleCols.Count)]
-            );
-        } while (
-            CellAt(newCoord) == null ||
-            CellAt(newCoord).IsDamaged ||
-            possibleRows.Count == 0 ||
-            possibleCols.Count == 0
-        );
+        if (currentCoords.y > 0) {
+            possibleY.Add(currentCoords.y - 1);
+        }
+
+        if (currentCoords.y < rows.Length - 1) {
+            possibleY.Add(currentCoords.y + 1);
+        }
+
+        List<Cell> possibleCells = new List<Cell>();
+
+        foreach (var x in possibleX) {
+            foreach (var y in possibleY) {
+                Cell cell = CellAt(new Vector2Int(x, y));
+                if (!cell.IsDamaged) {
+                    possibleCells.Add(cell);
+                }
+            }
+        }
+
+        if (possibleCells.Count > 0) {
+            newCoord = possibleCells[UnityEngine.Random.Range(1, possibleCells.Count)].Coords;
+        }
 
         return newCoord;
     }

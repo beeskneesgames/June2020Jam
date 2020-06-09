@@ -19,7 +19,12 @@ public class DamageHead {
     }
 
     public void Move() {
-        Coords = Grid.Instance.ChooseDamageableCoord(coords);
+        Vector2Int nextCoord = Grid.Instance.ChooseDamageableCoord(coords);
+
+        if (nextCoord != null) {
+            Coords = Grid.Instance.ChooseDamageableCoord(coords);
+        }
+
         Debug.Log(Coords);
     }
 }
