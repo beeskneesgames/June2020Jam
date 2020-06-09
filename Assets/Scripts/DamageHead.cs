@@ -9,6 +9,7 @@ public class DamageHead {
         }
         set {
             coords = value;
+            Grid.Instance.DamageCell(coords);
             GameManager.Instance.CheckEndGame();
         }
     }
@@ -19,5 +20,6 @@ public class DamageHead {
 
     public void Move() {
         Coords = Grid.Instance.ChooseDamageableCoord(coords);
+        Debug.Log(Coords);
     }
 }
