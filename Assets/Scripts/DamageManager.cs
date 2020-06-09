@@ -25,6 +25,12 @@ public class DamageManager : MonoBehaviour {
         AddHead();
     }
 
+    public void Spread() {
+        foreach (DamageHead damageHead in damageHeads) {
+            damageHead.Move();
+        }
+    }
+
     private void AddHead() {
         DamageHead damageHead = new DamageHead();
 

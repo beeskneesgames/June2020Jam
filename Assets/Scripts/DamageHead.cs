@@ -13,7 +13,7 @@ public class DamageHead {
         }
     }
 
-    private void Move() {
+    public void Move() {
         //TODO: Move to a random cell that isn't damaged
         coords = new Vector2Int(-1, -1);
     }
