@@ -16,6 +16,15 @@ public class ActionMenu : MonoBehaviour {
         Grid.Instance.ClearSelectedCoords();
     }
 
+    public void OnFixClicked() {
+        Grid grid = Grid.Instance;
+        CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
+
+        CloseMenu();
+        cell.Fix();
+        Grid.Instance.ClearSelectedCoords();
+    }
+
     public void CloseMenu() {
         panel.SetActive(false);
     }
