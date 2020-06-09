@@ -77,7 +77,7 @@ public class Grid : MonoBehaviour {
             }
         }
 
-        return (cellCount / cellsWithDamage.Count);
+        return ((float)cellsWithDamage.Count / (float)cellCount);
     }
 
     public void SetHoveredCoords(Vector2Int coords) {

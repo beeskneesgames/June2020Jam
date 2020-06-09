@@ -2,7 +2,7 @@
 
 public class GameManager : MonoBehaviour {
     private static GameManager instance;
-    private static float LossPercentage = 0.75;
+    private static float LossPercentage = 0.75f;
 
     public static GameManager Instance {
         get {
