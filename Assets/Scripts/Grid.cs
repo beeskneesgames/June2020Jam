@@ -95,6 +95,11 @@ public class Grid : MonoBehaviour {
         return coords.ToArray();
     }
 
+    public void DamageCell(Vector2Int coords) {
+        Cell cellToDamage = CellAt(coords[0], coords[1]);
+        cellToDamage.IsDamaged = true;
+    }
+
     private Cell CellAt(int row, int col) {
         return rows[row].cells[col];
     }

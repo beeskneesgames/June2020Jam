@@ -35,5 +35,6 @@ public class DamageManager : MonoBehaviour {
         damageHead.coords = coords;
 
         damageHeads.Add(damageHead);
+        Grid.Instance.DamageCell(coords);
     }
 }
