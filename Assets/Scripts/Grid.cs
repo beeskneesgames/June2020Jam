@@ -5,6 +5,7 @@ public class Grid : MonoBehaviour {
     private static Grid instance;
     private List<Cell> damageHeadCells = new List<Cell>();
     private List<CellInfo> allCells = new List<CellInfo>();
+    private int cellCount;
 
     public static Grid Instance {
         get {
@@ -50,6 +51,7 @@ public class Grid : MonoBehaviour {
             for (int j = 0; j < row.cells.Length; j++) {
                 Cell cell = row.cells[j];
                 cell.Info.Coords = new Vector2Int(i, j);
+                cellCount++;
 
                 allCells.Add(cell.Info);
             }
@@ -64,6 +66,18 @@ public class Grid : MonoBehaviour {
         }
 
         return false;
+    }
+
+    public float PercentageDamaged() {
+        List<CellInfo> cellsWithDamage = new List<CellInfo>();
+
+        foreach (var cell in allCells) {
+            if (cell.IsDamaged) {
+                cellsWithDamage.Add(cell);
+            }
+        }
+
+        return (cellCount / cellsWithDamage.Count);
     }
 
     public void SetHoveredCoords(Vector2Int coords) {
