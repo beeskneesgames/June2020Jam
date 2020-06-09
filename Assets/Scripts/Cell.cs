@@ -17,17 +17,6 @@ public class Cell : MonoBehaviour {
 
     public bool IsDamageHead { get; set; }
 
-    public bool isDamaged;
-    public bool IsDamaged {
-        get {
-            return isDamaged;
-        }
-        set {
-            isDamaged = value;
-            GameManager.Instance.CheckEndGame();
-        }
-    }
-
     private void Start() {
         renderer = GetComponent<Renderer>();
         originalColor = renderer.material.color;
@@ -42,7 +31,7 @@ public class Cell : MonoBehaviour {
             case MouseState.None:
                 if (IsDamageHead) {
                     renderer.material.color = new Color(1.0f, 0.0f, 0.0f);
-                } else if (IsDamaged) {
+                } else if (Info.IsDamaged) {
                     renderer.material.color = new Color(1.0f, 0.5f, 0.5f);
                 } else {
                     renderer.material.color = originalColor;

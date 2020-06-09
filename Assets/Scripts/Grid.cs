@@ -143,7 +143,7 @@ public class Grid : MonoBehaviour {
         Cell cellToDamage = CellAt(coords);
 
         if (cellToDamage != null) {
-            cellToDamage.IsDamaged = true;
+            cellToDamage.Info.IsDamaged = true;
         }
     }
 
