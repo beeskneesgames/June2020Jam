@@ -1,6 +1,14 @@
 ﻿using UnityEngine;
 
 public class Player : MonoBehaviour {
+    private static Player instance;
+
+    public static Player Instance {
+        get {
+            return instance;
+        }
+    }
+
     private const int MaxPoints = 5;
     private int actionPoints;
 
@@ -15,6 +23,15 @@ public class Player : MonoBehaviour {
                 EndTurn();
             }
         }
+    }
+
+    private void Awake() {
+        if (instance != null && instance != this) {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
     }
 
     public void MoveTo(Vector2Int coords) {

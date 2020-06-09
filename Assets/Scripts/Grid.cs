@@ -4,6 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Grid : MonoBehaviour {
+    private static Grid instance;
+
+    public static Grid Instance {
+        get {
+            return instance;
+        }
+    }
+
     public Row[] rows;
 
     private Vector2Int hoveredCoords = new Vector2Int(-1, -1);
@@ -18,6 +26,15 @@ public class Grid : MonoBehaviour {
         get {
             return selectedCoords.x >= 0;
         }
+    }
+
+    private void Awake() {
+        if (instance != null && instance != this) {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
     }
 
     private void Start() {
