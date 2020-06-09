@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DamageManager : MonoBehaviour {
     private static DamageManager instance;
-    private List<DamageHead> damageHeads;
+    private List<DamageHead> damageHeads = new List<DamageHead>();
 
     public static DamageManager Instance {
         get {
@@ -31,8 +31,7 @@ public class DamageManager : MonoBehaviour {
     }
 
     private void AddHead(Vector2Int coords) {
-        DamageHead damageHead = new DamageHead();
-        damageHead.coords = coords;
+        DamageHead damageHead = new DamageHead(coords);
 
         damageHeads.Add(damageHead);
         Grid.Instance.DamageCell(coords);

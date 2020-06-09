@@ -9,18 +9,7 @@ public class Cell : MonoBehaviour {
         Selected
     }
 
-    private MouseState currentMouseState = MouseState.None;
-    public MouseState CurrentMouseState {
-        get {
-            return currentMouseState;
-        }
-
-        set {
-            currentMouseState = value;
-            UpdateAppearance();
-        }
-    }
-
+    public MouseState CurrentMouseState { get; set; } = MouseState.None;
     public Vector2Int Coords { get; set; }
 
     private new Renderer renderer;
@@ -42,10 +31,18 @@ public class Cell : MonoBehaviour {
         originalColor = renderer.material.color;
     }
 
+    private void Update() {
+        UpdateAppearance();
+    }
+
     private void UpdateAppearance() {
         switch(CurrentMouseState) {
             case MouseState.None:
-                renderer.material.color = originalColor;
+                if (IsDamaged) {
+                    renderer.material.color = new Color(1.0f, 0.5f, 0.5f);
+                } else {
+                    renderer.material.color = originalColor;
+                }
                 break;
             case MouseState.Hovered:
                 renderer.material.color = new Color(1.0f, 1.0f, 0.5f);
