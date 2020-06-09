@@ -28,11 +28,25 @@ public class Grid : MonoBehaviour {
             return selectedCoords;
         }
     }
+
     public bool HasSelectedCoords {
         get {
             return SelectedCoords.x >= 0;
         }
     }
+
+    public bool HasDamage {
+        get {
+            foreach (var cell in allCells) {
+                if (cell.IsDamaged) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+
 
     private void Awake() {
         if (instance != null && instance != this) {
@@ -58,17 +72,7 @@ public class Grid : MonoBehaviour {
         }
     }
 
-    public bool HasDamage() {
-        foreach (var cell in allCells) {
-            if (cell.IsDamaged) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public float PercentageDamaged() {
+    public float PercentDamaged() {
         List<CellInfo> cellsWithDamage = new List<CellInfo>();
 
         foreach (var cell in allCells) {
@@ -77,7 +81,7 @@ public class Grid : MonoBehaviour {
             }
         }
 
-        return ((float)cellsWithDamage.Count / (float)cellCount);
+        return (float)cellsWithDamage.Count / (float)cellCount;
     }
 
     public void SetHoveredCoords(Vector2Int coords) {

@@ -3,7 +3,7 @@
 public class Turn : MonoBehaviour {
     private static Turn instance;
     private int turnCount;
-    private const int MaxTurnCount = 15;
+    public const int MaxTurnCount = 15;
 
     public int TurnCount {
         get {
