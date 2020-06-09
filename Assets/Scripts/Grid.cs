@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour {
     private static Grid instance;
+    private const int MaxSize = 7;
 
     public static Grid Instance {
         get {
@@ -93,11 +94,30 @@ public class Grid : MonoBehaviour {
         selectedCoords = new Vector2Int(-1, -1);
     }
 
-    public Vector2Int[] FindDamageableCoords(Vector2Int currentCoords) {
-        //TODO: Find damageable adjacent coordinates
+    public Vector2Int ChooseDamageableCoord(Vector2Int currentCoords) {
         List<Vector2Int> coords = new List<Vector2Int> { currentCoords };
+        Vector2Int newCoords;
 
-        return coords.ToArray();
+        List<int> possibleRows = new List<int> {
+            currentCoords[0] - 1,
+            currentCoords[0],
+            currentCoords[0] + 1
+        };
+
+        List<int> possibleCols = new List<int> {
+            currentCoords[1] - 1,
+            currentCoords[1],
+            currentCoords[1] + 1
+        };
+
+        do {
+            newCoords = new Vector2Int(
+                possibleRows[UnityEngine.Random.Range(0, possibleRows.Count)],
+                possibleCols[UnityEngine.Random.Range(0, possibleCols.Count)]
+            );
+        } while (CellAt(newCoords) == null || CellAt(newCoords).IsDamaged);
+
+        return newCoords;
     }
 
     public void DamageCell(Vector2Int coords) {

@@ -18,7 +18,6 @@ public class DamageHead {
     }
 
     public void Move() {
-        Vector2Int[] possibleCoords = Grid.Instance.FindDamageableCoords(coords);
-        Coords = possibleCoords[UnityEngine.Random.Range(0, possibleCoords.Length)];
+        Coords = Grid.Instance.ChooseDamageableCoord(coords);
     }
 }

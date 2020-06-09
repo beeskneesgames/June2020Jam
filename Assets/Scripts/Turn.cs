@@ -12,6 +12,7 @@ public class Turn : MonoBehaviour {
         private set {
             turnCount = value;
             GameManager.Instance.CheckEndGame();
+            DamageManager.Instance.Spread();
         }
     }
 
