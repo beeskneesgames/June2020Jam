@@ -2,6 +2,11 @@
 
 public class DamageHead {
     public Vector2Int coords;
+    private CellInfo CurrentCellInfo {
+        get {
+            return Grid.Instance.CellInfoAt(coords);
+        }
+    }
 
     public Vector2Int Coords {
         get {
@@ -9,8 +14,7 @@ public class DamageHead {
         }
         set {
             coords = value;
-            Grid.Instance.DamageCell(coords);
-            GameManager.Instance.CheckEndGame();
+            CurrentCellInfo.Damage();
         }
     }
 
@@ -19,12 +23,16 @@ public class DamageHead {
     }
 
     public void Move() {
-        Vector2Int nextCoord = Grid.Instance.ChooseDamageableCoord(coords);
+        CellInfo[] possibleCells = Grid.Instance.AdjacentTo(coords);
 
-        // If negative, the nextCoord is still set as its sentinel value, which
-        // is effectively null here.
-        if (nextCoord.x >= 0) {
-            Coords = nextCoord;
+        if (possibleCells.Length > 0) {
+            Vector2Int nextCoords = possibleCells[Random.Range(0, possibleCells.Length)].Coords;
+
+            // If negative, the nextCoords is still set as its sentinel value,
+            // which is effectively null here.
+            if (nextCoords.x >= 0) {
+                Coords = nextCoords;
+            }
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Grid : MonoBehaviour {
@@ -50,7 +48,7 @@ public class Grid : MonoBehaviour {
 
             for (int j = 0; j < row.cells.Length; j++) {
                 Cell cell = row.cells[j];
-                cell.Coords = new Vector2Int(i, j);
+                cell.Info.Coords = new Vector2Int(i, j);
             }
         }
     }
@@ -94,62 +92,48 @@ public class Grid : MonoBehaviour {
         selectedCoords = new Vector2Int(-1, -1);
     }
 
-    public Vector2Int ChooseDamageableCoord(Vector2Int currentCoords) {
-        Vector2Int newCoord = new Vector2Int(-1, -1);
-
+    public CellInfo[] AdjacentTo(Vector2Int coords) {
         List<int> possibleX = new List<int> {
-            currentCoords.x
+            coords.x
         };
 
-        if (currentCoords.x > 0) {
-            possibleX.Add(currentCoords.x - 1);
+        if (coords.x > 0) {
+            possibleX.Add(coords.x - 1);
         }
 
-        if (currentCoords.x < rows.Length - 1) {
-            possibleX.Add(currentCoords.x + 1);
+        if (coords.x < rows.Length - 1) {
+            possibleX.Add(coords.x + 1);
         }
 
         List<int> possibleY = new List<int> {
-            currentCoords.y
+            coords.y
         };
 
-        if (currentCoords.y > 0) {
-            possibleY.Add(currentCoords.y - 1);
+        if (coords.y > 0) {
+            possibleY.Add(coords.y - 1);
         }
 
-        if (currentCoords.y < rows.Length - 1) {
-            possibleY.Add(currentCoords.y + 1);
+        if (coords.y < rows.Length - 1) {
+            possibleY.Add(coords.y + 1);
         }
 
-        List<Cell> possibleCells = new List<Cell>();
+        List<CellInfo> cellInfos = new List<CellInfo>();
 
         foreach (var x in possibleX) {
             foreach (var y in possibleY) {
                 Cell cell = CellAt(new Vector2Int(x, y));
                 if (cell != null) {
-                    possibleCells.Add(cell);
+                    cellInfos.Add(cell.Info);
                 }
             }
         }
 
-        if (possibleCells.Count > 0) {
-            newCoord = possibleCells[UnityEngine.Random.Range(0, possibleCells.Count)].Coords;
-        }
-
-        return newCoord;
-    }
-
-    public void DamageCell(Vector2Int coords) {
-        Cell cellToDamage = CellAt(coords);
-
-        if (cellToDamage != null) {
-            cellToDamage.IsDamaged = true;
-        }
+        return cellInfos.ToArray();
     }
 
     public void SetDamageHeads(List<DamageHead> damageHeads) {
         foreach (var damageHeadCell in damageHeadCells) {
-            damageHeadCell.IsDamageHead = false;
+            damageHeadCell.Info.HasDamageHead = false;
         }
 
         damageHeadCells.Clear();
@@ -157,8 +141,12 @@ public class Grid : MonoBehaviour {
         foreach (var damageHead in damageHeads) {
             Cell newCell = CellAt(damageHead.Coords);
             damageHeadCells.Add(newCell);
-            newCell.IsDamageHead = true;
+            newCell.Info.HasDamageHead = true;
         }
+    }
+
+    public CellInfo CellInfoAt(Vector2Int coords) {
+        return CellAt(coords)?.Info;
     }
 
     private Cell CellAt(Vector2Int coords) {

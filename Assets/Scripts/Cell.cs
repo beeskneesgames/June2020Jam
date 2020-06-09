@@ -9,24 +9,11 @@ public class Cell : MonoBehaviour {
         Selected
     }
 
+    public CellInfo Info { get; set; } = new CellInfo();
     public MouseState CurrentMouseState { get; set; } = MouseState.None;
-    public Vector2Int Coords { get; set; }
 
     private new Renderer renderer;
     private Color originalColor;
-
-    public bool IsDamageHead { get; set; }
-
-    public bool isDamaged;
-    public bool IsDamaged {
-        get {
-            return isDamaged;
-        }
-        set {
-            isDamaged = value;
-            GameManager.Instance.CheckEndGame();
-        }
-    }
 
     private void Start() {
         renderer = GetComponent<Renderer>();
@@ -40,9 +27,9 @@ public class Cell : MonoBehaviour {
     private void UpdateAppearance() {
         switch(CurrentMouseState) {
             case MouseState.None:
-                if (IsDamageHead) {
+                if (Info.HasDamageHead) {
                     renderer.material.color = new Color(1.0f, 0.0f, 0.0f);
-                } else if (IsDamaged) {
+                } else if (Info.IsDamaged) {
                     renderer.material.color = new Color(1.0f, 0.5f, 0.5f);
                 } else {
                     renderer.material.color = originalColor;
