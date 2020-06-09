@@ -11,7 +11,6 @@ public class ActionMenu : MonoBehaviour {
     }
 
     public void OnMoveClicked() {
-        Debug.Log("In ActionMenu.OnMoveClicked");
         CloseMenu();
         Player.Instance.MoveTo(Grid.Instance.SelectedCoords);
         Grid.Instance.ClearSelectedCoords();

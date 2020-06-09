@@ -21,12 +21,13 @@ public class Player : MonoBehaviour {
     private Vector3 startPositionForMove;
     private Vector3 endPositionForMove;
     private float timeMoving = 0.0f;
-    private const float MaxTimeMoving = 1.0f;
+    private const float MaxTimeMoving = 0.25f;
 
     public int ActionPoints {
         get {
             return actionPoints;
         }
+
         set {
             actionPoints = value;
 
@@ -69,7 +70,6 @@ public class Player : MonoBehaviour {
     }
 
     public void MoveTo(Vector2Int coords, System.Action callback = null) {
-        Debug.Log("In Player.MoveTo");
         if (isMoving) {
             // Don't allow double-moving
             return;
@@ -80,7 +80,7 @@ public class Player : MonoBehaviour {
         targetCoords = coords;
 
         startPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(currentCoords));
-        endPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(currentCoords));
+        endPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(targetCoords));
 
         GameManager.Instance.CheckEndGame();
     }
