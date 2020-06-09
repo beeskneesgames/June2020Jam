@@ -13,7 +13,7 @@ public class Turn : MonoBehaviour {
             int oldTurnCount = turnCount;
             turnCount = value;
 
-            if (oldTurnCount > turnCount) {
+            if (oldTurnCount < turnCount) {
                 DamageManager.Instance.Spread();
             }
 
