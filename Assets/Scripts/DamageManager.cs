@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DamageManager : MonoBehaviour {
     private static DamageManager instance;
-    private List<Vector2Int> damageHeads;
+    private List<DamageHead> damageHeads;
 
     public static DamageManager Instance {
         get {
@@ -26,7 +26,7 @@ public class DamageManager : MonoBehaviour {
     }
 
     private void AddHead() {
-        Vector2Int damageHead = new Vector2Int(-1, -1);
+        DamageHead damageHead = new DamageHead();
 
         damageHeads.Add(damageHead);
     }
