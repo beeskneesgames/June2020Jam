@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public class CellInfo {
-    public Vector2Int Coords { get; set; }
+    public Vector2Int Coords { get; set; } = new Vector2Int(-1, -1);
 
     public bool isDamaged = false;
     public bool IsDamaged {
@@ -14,7 +14,5 @@ public class CellInfo {
         }
     }
 
-    public CellInfo() {
-        Coords = new Vector2Int(-1, -1);
-    }
+    public bool IsDamageHead { get; set; } = false;
 }

@@ -149,7 +149,7 @@ public class Grid : MonoBehaviour {
 
     public void SetDamageHeads(List<DamageHead> damageHeads) {
         foreach (var damageHeadCell in damageHeadCells) {
-            damageHeadCell.IsDamageHead = false;
+            damageHeadCell.Info.IsDamageHead = false;
         }
 
         damageHeadCells.Clear();
@@ -157,7 +157,7 @@ public class Grid : MonoBehaviour {
         foreach (var damageHead in damageHeads) {
             Cell newCell = CellAt(damageHead.Coords);
             damageHeadCells.Add(newCell);
-            newCell.IsDamageHead = true;
+            newCell.Info.IsDamageHead = true;
         }
     }
 
