@@ -3,6 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Cell : MonoBehaviour {
+    public enum MouseState {
+        None,
+        Hovered,
+        Selected
+    }
+
+    private MouseState currentMouseState = MouseState.None;
+    public MouseState CurrentMouseState {
+        get {
+            return currentMouseState;
+        }
+
+        set {
+            currentMouseState = value;
+            UpdateAppearance();
+        }
+    }
+
     public Vector2Int Coords { get; set; }
 
     private new Renderer renderer;
@@ -24,11 +42,17 @@ public class Cell : MonoBehaviour {
         originalColor = renderer.material.color;
     }
 
-    public void Highlight() {
-        renderer.material.color = new Color(1.0f, 1.0f, 0.5f);
-    }
-
-    public void ClearHighlight() {
-        renderer.material.color = originalColor;
+    private void UpdateAppearance() {
+        switch(CurrentMouseState) {
+            case MouseState.None:
+                renderer.material.color = originalColor;
+                break;
+            case MouseState.Hovered:
+                renderer.material.color = new Color(1.0f, 1.0f, 0.5f);
+                break;
+            case MouseState.Selected:
+                renderer.material.color = new Color(0.5f, 1.0f, 0.5f);
+                break;
+        }
     }
 }
