@@ -4,6 +4,8 @@ using UnityEngine;
 public class Grid : MonoBehaviour {
     private static Grid instance;
     private List<Cell> damageHeadCells = new List<Cell>();
+    private List<CellInfo> allCells = new List<CellInfo>();
+    private int cellCount;
 
     public static Grid Instance {
         get {
@@ -26,11 +28,25 @@ public class Grid : MonoBehaviour {
             return selectedCoords;
         }
     }
+
     public bool HasSelectedCoords {
         get {
             return SelectedCoords.x >= 0;
         }
     }
+
+    public bool HasDamage {
+        get {
+            foreach (var cell in allCells) {
+                if (cell.IsDamaged) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+
 
     private void Awake() {
         if (instance != null && instance != this) {
@@ -49,8 +65,23 @@ public class Grid : MonoBehaviour {
             for (int j = 0; j < row.cells.Length; j++) {
                 Cell cell = row.cells[j];
                 cell.Info.Coords = new Vector2Int(i, j);
+                cellCount++;
+
+                allCells.Add(cell.Info);
             }
         }
+    }
+
+    public float PercentDamaged() {
+        List<CellInfo> cellsWithDamage = new List<CellInfo>();
+
+        foreach (var cell in allCells) {
+            if (cell.IsDamaged) {
+                cellsWithDamage.Add(cell);
+            }
+        }
+
+        return (float)cellsWithDamage.Count / (float)cellCount;
     }
 
     public void SetHoveredCoords(Vector2Int coords) {

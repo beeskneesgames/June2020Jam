@@ -23,6 +23,12 @@ public class Player : MonoBehaviour {
     private float timeMoving = 0.0f;
     private const float MaxTimeMoving = 0.25f;
 
+    public CellInfo CurrentCell {
+        get {
+            return Grid.Instance.CellInfoAt(currentCoords);
+        }
+    }
+
     public int ActionPoints {
         get {
             return actionPoints;

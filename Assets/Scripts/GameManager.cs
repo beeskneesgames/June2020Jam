@@ -2,6 +2,7 @@
 
 public class GameManager : MonoBehaviour {
     private static GameManager instance;
+    private const float LossPercent = 0.75f;
 
     public static GameManager Instance {
         get {
@@ -20,20 +21,34 @@ public class GameManager : MonoBehaviour {
     }
 
     public void CheckEndGame() {
-        Debug.Log($"Check if we should end the game");
-
-        if (CheckForWin()) {
-            TriggerWin();
-        } else if (CheckForLoss()) {
+        if (CheckForLoss()) {
             TriggerLoss();
+        } else if (CheckForWin()) {
+            TriggerWin();
         }
     }
 
-    private bool CheckForWin() {
+    private bool CheckForLoss() {
+        if (Grid.Instance.PercentDamaged() >= LossPercent) {
+            return true;
+        }
+
+        if (Player.Instance.CurrentCell.IsDamaged) {
+            return true;
+        }
+
         return false;
     }
 
-    private bool CheckForLoss() {
+    private bool CheckForWin() {
+        if (Turn.Instance.TurnCount >= Turn.MaxTurnCount) {
+            return true;
+        }
+
+        if (!Grid.Instance.HasDamage) {
+            return true;
+        }
+
         return false;
     }
 
