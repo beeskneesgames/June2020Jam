@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private bool CheckForWin() {
-        if (Turn.Instance.TurnCount > Turn.MaxTurnCount) {
+        if (Turn.Instance.TurnCount >= Turn.MaxTurnCount) {
             return true;
         }
 
