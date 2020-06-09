@@ -27,7 +27,7 @@ public class Cell : MonoBehaviour {
     private void UpdateAppearance() {
         switch(CurrentMouseState) {
             case MouseState.None:
-                if (Info.IsDamageHead) {
+                if (Info.HasDamageHead) {
                     renderer.material.color = new Color(1.0f, 0.0f, 0.0f);
                 } else if (Info.IsDamaged) {
                     renderer.material.color = new Color(1.0f, 0.5f, 0.5f);
