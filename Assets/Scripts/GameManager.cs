@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private bool CheckForWin() {
-        return true;
+        return false;
     }
 
     private bool CheckForLoss() {

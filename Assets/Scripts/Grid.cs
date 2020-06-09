@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour {
     private static Grid instance;
+    private List<Cell> damageHeadCells = new List<Cell>();
 
     public static Grid Instance {
         get {
@@ -93,12 +94,86 @@ public class Grid : MonoBehaviour {
         selectedCoords = new Vector2Int(-1, -1);
     }
 
-    public Vector3 PositionForCoords(Vector2Int coords) {
-        return CellAt(coords).transform.position;
+    public Vector2Int ChooseDamageableCoord(Vector2Int currentCoords) {
+        Vector2Int newCoord = new Vector2Int(-1, -1);
+
+        List<int> possibleX = new List<int> {
+            currentCoords.x
+        };
+
+        if (currentCoords.x > 0) {
+            possibleX.Add(currentCoords.x - 1);
+        }
+
+        if (currentCoords.x < rows.Length - 1) {
+            possibleX.Add(currentCoords.x + 1);
+        }
+
+        List<int> possibleY = new List<int> {
+            currentCoords.y
+        };
+
+        if (currentCoords.y > 0) {
+            possibleY.Add(currentCoords.y - 1);
+        }
+
+        if (currentCoords.y < rows.Length - 1) {
+            possibleY.Add(currentCoords.y + 1);
+        }
+
+        List<Cell> possibleCells = new List<Cell>();
+
+        foreach (var x in possibleX) {
+            foreach (var y in possibleY) {
+                Cell cell = CellAt(new Vector2Int(x, y));
+                if (cell != null) {
+                    possibleCells.Add(cell);
+                }
+            }
+        }
+
+        if (possibleCells.Count > 0) {
+            newCoord = possibleCells[UnityEngine.Random.Range(0, possibleCells.Count)].Coords;
+        }
+
+        return newCoord;
+    }
+
+    public void DamageCell(Vector2Int coords) {
+        Cell cellToDamage = CellAt(coords);
+
+        if (cellToDamage != null) {
+            cellToDamage.IsDamaged = true;
+        }
+    }
+
+    public void SetDamageHeads(List<DamageHead> damageHeads) {
+        foreach (var damageHeadCell in damageHeadCells) {
+            damageHeadCell.IsDamageHead = false;
+        }
+
+        damageHeadCells.Clear();
+
+        foreach (var damageHead in damageHeads) {
+            Cell newCell = CellAt(damageHead.Coords);
+            damageHeadCells.Add(newCell);
+            newCell.IsDamageHead = true;
+        }
     }
 
     private Cell CellAt(Vector2Int coords) {
+        if (coords.x < 0 ||
+            coords.x > rows.Length ||
+            coords.y < 0 ||
+            coords.y > rows.Length) {
+            return null;
+        }
+
         return rows[coords.x].cells[coords.y];
+    }
+
+    public Vector3 PositionForCoords(Vector2Int coords) {
+        return CellAt(coords).transform.position;
     }
 
     private Cell HoveredCell {

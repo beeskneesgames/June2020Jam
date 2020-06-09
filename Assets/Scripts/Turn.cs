@@ -10,7 +10,13 @@ public class Turn : MonoBehaviour {
             return turnCount;
         }
         private set {
+            int oldTurnCount = turnCount;
             turnCount = value;
+
+            if (oldTurnCount < turnCount) {
+                DamageManager.Instance.Spread();
+            }
+
             GameManager.Instance.CheckEndGame();
         }
     }
