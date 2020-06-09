@@ -6,7 +6,15 @@ public class ActionMenu : MonoBehaviour {
     public GameObject panel;
 
     public void OnCloseClicked() {
+        Debug.Log("In ActionMenu.OnCloseClicked");
         CloseMenu();
+        Grid.Instance.ClearSelectedCoords();
+    }
+
+    public void OnMoveClicked() {
+        Debug.Log("In ActionMenu.OnMoveClicked");
+        CloseMenu();
+        Player.Instance.MoveTo(Grid.Instance.SelectedCoords);
         Grid.Instance.ClearSelectedCoords();
     }
 
