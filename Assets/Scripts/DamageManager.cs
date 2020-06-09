@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class DamageManager : MonoBehaviour {
@@ -22,7 +21,7 @@ public class DamageManager : MonoBehaviour {
     }
 
     private void Start() {
-        AddHead();
+        AddHead(new Vector2Int(0,0));
     }
 
     public void Spread() {
@@ -31,8 +30,9 @@ public class DamageManager : MonoBehaviour {
         }
     }
 
-    private void AddHead() {
+    private void AddHead(Vector2Int coords) {
         DamageHead damageHead = new DamageHead();
+        damageHead.coords = coords;
 
         damageHeads.Add(damageHead);
     }

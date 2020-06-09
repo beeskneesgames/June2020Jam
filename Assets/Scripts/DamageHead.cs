@@ -7,7 +7,7 @@ public class DamageHead {
         get {
             return coords;
         }
-        private set {
+        set {
             coords = value;
             GameManager.Instance.CheckEndGame();
         }

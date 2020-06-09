@@ -111,4 +111,11 @@ public class Grid : MonoBehaviour {
             }
         }
     }
+
+    private Vector2Int[] FindDamageableCoords(Vector2Int currentCoords) {
+        //TODO: Find damageable adjacent coordinates
+        List<Vector2Int> coords = new List<Vector2Int> { currentCoords };
+
+        return coords.ToArray();
+    }
 }
