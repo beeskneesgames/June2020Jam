@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
@@ -9,9 +9,6 @@ public class Player : MonoBehaviour {
             return instance;
         }
     }
-
-    private const int MaxPoints = 5;
-    private int actionPoints;
 
     // Movement
     private bool isMoving = false;
@@ -29,6 +26,10 @@ public class Player : MonoBehaviour {
         }
     }
 
+    // Action Points
+    public TextMeshProUGUI actionPointUI;
+    private const int MaxPoints = 3;
+    private int actionPoints;
     public int ActionPoints {
         get {
             return actionPoints;
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour {
 
         set {
             actionPoints = value;
+            actionPointUI.text = $"Action Points: {actionPoints}";
 
             if (actionPoints <= 0) {
                 EndTurn();
@@ -50,6 +52,7 @@ public class Player : MonoBehaviour {
         }
 
         instance = this;
+        ActionPoints = MaxPoints;
     }
 
     private void Update() {
@@ -88,7 +91,14 @@ public class Player : MonoBehaviour {
         startPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(currentCoords));
         endPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(targetCoords));
 
-        GameManager.Instance.CheckEndGame();
+        Player.Instance.UseActionPoints(1);
+    }
+
+    public void UseActionPoints(int points) {
+        if (points <= ActionPoints) {
+            ActionPoints -= points;
+            GameManager.Instance.CheckEndGame();
+        }
     }
 
     private void EndTurn() {
