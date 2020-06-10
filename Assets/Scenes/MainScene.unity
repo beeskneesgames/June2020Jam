@@ -965,7 +965,6 @@ GameObject:
   - component: {fileID: 190202936}
   - component: {fileID: 190202938}
   - component: {fileID: 190202937}
-  - component: {fileID: 190202939}
   m_Layer: 5
   m_Name: TurnInfo
   m_TagString: Untagged
@@ -1031,20 +1030,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 190202935}
   m_CullTransparentMesh: 0
---- !u!114 &190202939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 190202935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11e16a83e54db4648999947b3b8b3e9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionPointText: {fileID: 0}
-  turnText: {fileID: 0}
 --- !u!1 &252403157
 GameObject:
   m_ObjectHideFlags: 0
