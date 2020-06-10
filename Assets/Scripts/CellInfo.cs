@@ -21,6 +21,7 @@ public class CellInfo {
     }
 
     public void Fix() {
+        Player.Instance.UseActionPoints(1);
         IsDamaged = false;
 
         if (HasDamageHead) {

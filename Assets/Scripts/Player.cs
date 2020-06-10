@@ -10,9 +10,6 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private const int MaxPoints = 5;
-    private int actionPoints;
-
     // Movement
     private bool isMoving = false;
     private System.Action moveCallback;
@@ -29,6 +26,9 @@ public class Player : MonoBehaviour {
         }
     }
 
+    // Action Points
+    private const int MaxPoints = 5;
+    private int actionPoints;
     public int ActionPoints {
         get {
             return actionPoints;
@@ -50,6 +50,10 @@ public class Player : MonoBehaviour {
         }
 
         instance = this;
+    }
+
+    private void Start() {
+        ActionPoints = MaxPoints;
     }
 
     private void Update() {
@@ -88,7 +92,14 @@ public class Player : MonoBehaviour {
         startPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(currentCoords));
         endPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(targetCoords));
 
-        GameManager.Instance.CheckEndGame();
+        Player.Instance.UseActionPoints(1);
+    }
+
+    public void UseActionPoints(int points) {
+        if (points <= ActionPoints) {
+            ActionPoints -= points;
+            GameManager.Instance.CheckEndGame();
+        }
     }
 
     private void EndTurn() {
