@@ -18,7 +18,9 @@ public class CellSelector : MonoBehaviour {
     }
 
     private void Update() {
-        if (!EventSystem.current.IsPointerOverGameObject()) {
+        if (EventSystem.current.IsPointerOverGameObject()) {
+            ClearHover();
+        } else {
             UpdateCellMouseState();
         }
     }
@@ -49,14 +51,17 @@ public class CellSelector : MonoBehaviour {
                 Grid.Instance.SetHoveredCoords(hitCell.Info.Coords);
             }
         } else {
-            coordsText.text = "(?, ?)";
-            Grid.Instance.ClearHoveredCoords();
+            ClearHover();
 
             if (clicked) {
                 actionMenu.CloseMenu();
                 Grid.Instance.ClearSelectedCoords();
             }
         }
+    }
 
+    private void ClearHover() {
+        coordsText.text = "(?, ?)";
+        Grid.Instance.ClearHoveredCoords();
     }
 }
