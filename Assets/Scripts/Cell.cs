@@ -11,6 +11,7 @@ public class Cell : MonoBehaviour {
 
     public CellInfo Info { get; set; } = new CellInfo();
     public MouseState CurrentMouseState { get; set; } = MouseState.None;
+    public bool inPath = false;
 
     private new Renderer renderer;
     private Color originalColor;
@@ -27,7 +28,9 @@ public class Cell : MonoBehaviour {
     private void UpdateAppearance() {
         switch(CurrentMouseState) {
             case MouseState.None:
-                if (Info.HasDamageHead) {
+                if (inPath) {
+                    renderer.material.color = new Color(0.75f, 0.75f, 0.75f);
+                } else if (Info.HasDamageHead) {
                     renderer.material.color = new Color(1.0f, 0.0f, 0.0f);
                 } else if (Info.IsDamaged) {
                     renderer.material.color = new Color(1.0f, 0.5f, 0.5f);

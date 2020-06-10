@@ -18,7 +18,9 @@ public class CellSelector : MonoBehaviour {
     }
 
     private void Update() {
-        if (!EventSystem.current.IsPointerOverGameObject()) {
+        if (EventSystem.current.IsPointerOverGameObject()) {
+            ClearHover();
+        } else {
             UpdateCellMouseState();
         }
     }
@@ -37,26 +39,29 @@ public class CellSelector : MonoBehaviour {
             coordsText.text = $"({hitCell.Info.Coords.x}, {hitCell.Info.Coords.y})";
 
             if (clicked) {
+                Grid.Instance.SetSelectedCoords(hitCell.Info.Coords);
+
                 actionMenu.transform.position = new Vector3(
                     hitCell.transform.position.x + 1.5f,
                     hitCell.transform.position.y + 4.0f,
                     hitCell.transform.position.z + 3.5f
                 );
-
                 actionMenu.OpenMenu();
-                Grid.Instance.SetSelectedCoords(hitCell.Info.Coords);
             } else {
                 Grid.Instance.SetHoveredCoords(hitCell.Info.Coords);
             }
         } else {
-            coordsText.text = "(?, ?)";
-            Grid.Instance.ClearHoveredCoords();
+            ClearHover();
 
             if (clicked) {
                 actionMenu.CloseMenu();
                 Grid.Instance.ClearSelectedCoords();
             }
         }
+    }
 
+    private void ClearHover() {
+        coordsText.text = "(?, ?)";
+        Grid.Instance.ClearHoveredCoords();
     }
 }

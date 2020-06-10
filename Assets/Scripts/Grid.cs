@@ -81,7 +81,7 @@ public class Grid : MonoBehaviour {
             }
         }
 
-        return (float)cellsWithDamage.Count / (float)cellCount;
+        return cellsWithDamage.Count / (float)cellCount;
     }
 
     public void SetHoveredCoords(Vector2Int coords) {
@@ -99,7 +99,7 @@ public class Grid : MonoBehaviour {
     }
 
     public void ClearHoveredCoords() {
-        if (HasHoveredCoords) {
+        if (HasHoveredCoords && HoveredCell != SelectedCell) {
             HoveredCell.CurrentMouseState = Cell.MouseState.None;
         }
 
@@ -176,8 +176,93 @@ public class Grid : MonoBehaviour {
         }
     }
 
+    public static List<Vector2Int> PathBetween(Vector2Int start, Vector2Int end) {
+        List<Vector2Int> coords = new List<Vector2Int> { start };
+        Vector2Int current = start;
+        int xOffset;
+        int yOffset;
+
+        if (current.x < end.x) {
+            // The end cell is *above* the start cell on the X axis. This means
+            // we'll want to start out by moving *up* the X axis.
+            xOffset = 1;
+        } else if (current.x > end.x) {
+            // The end cell is *below* the start cell on the X axis. This means
+            // we'll want to start out by moving *down* the X axis.
+            xOffset = -1;
+        } else {
+            // The end cell is on the *same* X coord as the start cell.
+            // This means we'll always want to *stay still* on the X axis.
+            xOffset = 0;
+        }
+
+        if (current.y < end.y) {
+            // The end cell is *above* the start cell on the Y axis. This means
+            // we'll want to start out by moving *up* the Y axis.
+            yOffset = 1;
+        } else if (current.y > end.y) {
+            // The end cell is *below* the start cell on the Y axis. This means
+            // we'll want to start out by moving *down* the Y axis.
+            yOffset = -1;
+        } else {
+            // The end cell is on the *same* Y coord as the start cell.
+            // This means we'll always want to *stay still* on the Y axis.
+            yOffset = 0;
+        }
+
+        // First, if necessary, move diagonally until we're on either the same
+        // X or Y coord as the end cell.
+        while (current.x != end.x && current.y != end.y) {
+            current += new Vector2Int(xOffset, yOffset);
+            coords.Add(current);
+        }
+
+        // If we're on the same X coord as the end cell, stop moving on it and
+        // just move on the Y axis until we're at the end cell
+        if (current.x == end.x) {
+            xOffset = 0;
+        }
+
+        // If we're on the same Y coord as the end cell, stop moving on it and
+        // just move on the X axis until we're at the end cell
+        if (current.y == end.y) {
+            yOffset = 0;
+        }
+
+        // Now that we've updated the offsets to stop moving us diagonally,
+        // keep moving with them until we reach the end cell.
+        while (current != end) {
+            current += new Vector2Int(xOffset, yOffset);
+            coords.Add(current);
+        }
+
+        return coords;
+    }
+
+    public void ShowPath(List<Vector2Int> path) {
+        ClearPath();
+
+        foreach (Vector2Int coords in path) {
+            CellAt(coords).inPath = true;
+        }
+    }
+
+    public void ClearPath() {
+        foreach (Row row in rows) {
+            foreach (Cell cell in row.cells) {
+                cell.inPath = false;
+            }
+        }
+    }
+
     public CellInfo CellInfoAt(Vector2Int coords) {
-        return CellAt(coords)?.Info;
+        Cell cell = CellAt(coords);
+
+        if (cell == null) {
+            return null;
+        } else {
+            return cell.Info;
+        }
     }
 
     private Cell CellAt(Vector2Int coords) {
