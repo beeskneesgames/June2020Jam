@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class CellInfo {
     public Vector2Int Coords { get; set; } = new Vector2Int(-1, -1);
@@ -21,7 +22,10 @@ public class CellInfo {
     }
 
     public void Fix() {
-        Player.Instance.UseActionPoints(1);
+        List<Vector2Int> path = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Coords);
+
+        Player.Instance.UseActionPoints(path.Count - 1);
+
         IsDamaged = false;
 
         if (HasDamageHead) {
