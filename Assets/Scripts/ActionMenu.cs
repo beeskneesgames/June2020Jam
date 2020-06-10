@@ -1,11 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 
 public class ActionMenu : MonoBehaviour {
     public GameObject panel;
     public TextMeshProUGUI costText;
+    public Button moveBtn;
+    public Button fixBtn;
 
     public void OnCloseClicked() {
         CloseMenu();
@@ -36,6 +38,14 @@ public class ActionMenu : MonoBehaviour {
 
         if (Grid.Instance.HasSelectedCoords) {
             List<Vector2Int> path = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Grid.Instance.SelectedCoords);
+
+            if (path.Count <= Player.Instance.ActionPoints) {
+                moveBtn.interactable = true;
+                fixBtn.interactable = true;
+            } else {
+                moveBtn.interactable = false;
+                fixBtn.interactable = false;
+            }
 
             // -1 because path includes the player's square.
             costText.text = $"Cost: {path.Count - 1} AP";
