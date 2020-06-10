@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour {
     private bool isMoving = false;
     private System.Action moveCallback;
     private Vector2Int currentCoords = new Vector2Int(7, 7);
+    private List<Vector2Int> path = null;
     private Vector2Int targetCoords = new Vector2Int(-1, -1);
     private Vector3 startPositionForMove;
     private Vector3 endPositionForMove;
@@ -60,20 +62,36 @@ public class Player : MonoBehaviour {
             timeMoving += Time.deltaTime;
 
             if (timeMoving < MaxTimeMoving) {
+                // We're between the starting cell and the target cell, keep
+                // lerping between them.
                 transform.position = Vector3.Lerp(
                     startPositionForMove,
                     endPositionForMove,
                     timeMoving / MaxTimeMoving
                 );
             } else {
-                isMoving = false;
+                // We've made it to the target cell. Either:
+                //
+                // * Set up the next target cell (if there is one left in the
+                //   path), or
+                // * End the movement (if we're at the last cell in the path).
                 timeMoving = 0.0f;
                 transform.position = endPositionForMove;
                 currentCoords = targetCoords;
+                UseActionPoints(1);
 
-                moveCallback?.Invoke();
-
+                // TODO: Stop movement if game ended. Maybe here, maybe
+                // somewhere more global.
                 GameManager.Instance.CheckEndGame();
+
+                PopPathCoords();
+
+                if (targetCoords.x < 0) {
+                    // We've moved to the last cell in the path, end the
+                    // movement.
+                    isMoving = false;
+                    moveCallback?.Invoke();
+                }
             }
         }
     }
@@ -86,12 +104,8 @@ public class Player : MonoBehaviour {
 
         isMoving = true;
         moveCallback = callback;
-        targetCoords = coords;
-
-        startPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(currentCoords));
-        endPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(targetCoords));
-
-        Player.Instance.UseActionPoints(1);
+        path = Grid.PathBetween(currentCoords, coords);
+        PopPathCoords();
     }
 
     public void UseActionPoints(int points) {
@@ -112,5 +126,17 @@ public class Player : MonoBehaviour {
             transform.position.y,
             position.z
         );
+    }
+
+    private void PopPathCoords() {
+        if (path.Count > 0) {
+            targetCoords = path[0];
+            path.RemoveAt(0);
+
+            startPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(currentCoords));
+            endPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(targetCoords));
+        } else {
+            targetCoords = new Vector2Int(-1, -1);
+        }
     }
 }
