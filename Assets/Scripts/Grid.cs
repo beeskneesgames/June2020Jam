@@ -177,7 +177,13 @@ public class Grid : MonoBehaviour {
     }
 
     public CellInfo CellInfoAt(Vector2Int coords) {
-        return CellAt(coords)?.Info;
+        Cell cell = CellAt(coords);
+
+        if (cell == null) {
+            return null;
+        } else {
+            return cell.Info;
+        }
     }
 
     private Cell CellAt(Vector2Int coords) {
