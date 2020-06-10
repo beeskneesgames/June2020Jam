@@ -7,8 +7,6 @@ public class ActionMenu : MonoBehaviour {
     public GameObject panel;
     public TextMeshProUGUI costText;
 
-    private List<Vector2Int> currentPath = null;
-
     public void OnCloseClicked() {
         CloseMenu();
         Grid.Instance.ClearSelectedCoords();
@@ -18,14 +16,6 @@ public class ActionMenu : MonoBehaviour {
         CloseMenu();
         Player.Instance.MoveTo(Grid.Instance.SelectedCoords);
         Grid.Instance.ClearSelectedCoords();
-    }
-
-    public void OnMovePointerEntered() {
-        Grid.Instance.ShowPath(currentPath);
-    }
-
-    public void OnMovePointerExited() {
-        Grid.Instance.ClearPath();
     }
 
     public void OnFixClicked() {
@@ -38,8 +28,6 @@ public class ActionMenu : MonoBehaviour {
     }
 
     public void CloseMenu() {
-        currentPath = null;
-        Grid.Instance.ClearPath();
         panel.SetActive(false);
     }
 
@@ -47,10 +35,10 @@ public class ActionMenu : MonoBehaviour {
         panel.SetActive(true);
 
         if (Grid.Instance.HasSelectedCoords) {
-            currentPath = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Grid.Instance.SelectedCoords);
+            List<Vector2Int> path = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Grid.Instance.SelectedCoords);
 
             // -1 because path includes the player's square.
-            costText.text = $"Cost: {currentPath.Count - 1} AP";
+            costText.text = $"Cost: {path.Count - 1} AP";
         } else {
             costText.text = "";
         }

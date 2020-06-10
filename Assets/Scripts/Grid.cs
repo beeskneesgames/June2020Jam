@@ -85,6 +85,11 @@ public class Grid : MonoBehaviour {
     }
 
     public void SetHoveredCoords(Vector2Int coords) {
+        if (coords == hoveredCoords) {
+            // Skip if the hovered coords didn't change.
+            return;
+        }
+
         if (HasHoveredCoords && HoveredCell != SelectedCell) {
             HoveredCell.CurrentMouseState = Cell.MouseState.None;
         }
@@ -96,6 +101,8 @@ public class Grid : MonoBehaviour {
             // selected color.
             HoveredCell.CurrentMouseState = Cell.MouseState.Hovered;
         }
+
+        UpdateDisplayedPath();
     }
 
     public void ClearHoveredCoords() {
@@ -104,6 +111,8 @@ public class Grid : MonoBehaviour {
         }
 
         hoveredCoords = new Vector2Int(-1, -1);
+
+        UpdateDisplayedPath();
     }
 
     public void SetSelectedCoords(Vector2Int coords) {
@@ -113,6 +122,8 @@ public class Grid : MonoBehaviour {
 
         selectedCoords = coords;
         SelectedCell.CurrentMouseState = Cell.MouseState.Selected;
+
+        UpdateDisplayedPath();
     }
 
     public void ClearSelectedCoords() {
@@ -121,6 +132,8 @@ public class Grid : MonoBehaviour {
         }
 
         selectedCoords = new Vector2Int(-1, -1);
+
+        UpdateDisplayedPath();
     }
 
     public CellInfo[] AdjacentTo(Vector2Int coords) {
@@ -262,6 +275,24 @@ public class Grid : MonoBehaviour {
             return null;
         } else {
             return cell.Info;
+        }
+    }
+
+    private void UpdateDisplayedPath() {
+        Vector2Int endCoords;
+
+        if (HasSelectedCoords) {
+            endCoords = SelectedCoords;
+        } else if (HasHoveredCoords) {
+            endCoords = hoveredCoords;
+        } else {
+            endCoords = new Vector2Int(-1, -1);
+        }
+
+        if (endCoords.x >= 0) {
+            ShowPath(PathBetween(Player.Instance.CurrentCell.Coords, endCoords));
+        } else {
+            ClearPath();
         }
     }
 
