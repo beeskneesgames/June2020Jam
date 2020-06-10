@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ActionMenu : MonoBehaviour {
     public GameObject panel;
+    public TextMeshProUGUI costText;
+
+    private List<Vector2Int> currentPath = null;
 
     public void OnCloseClicked() {
         CloseMenu();
@@ -17,9 +21,7 @@ public class ActionMenu : MonoBehaviour {
     }
 
     public void OnMovePointerEntered() {
-        Grid.Instance.ShowPath(
-            Grid.PathBetween(Player.Instance.CurrentCell.Coords, Grid.Instance.SelectedCoords)
-        );
+        Grid.Instance.ShowPath(currentPath);
     }
 
     public void OnMovePointerExited() {
@@ -36,11 +38,21 @@ public class ActionMenu : MonoBehaviour {
     }
 
     public void CloseMenu() {
+        currentPath = null;
         Grid.Instance.ClearPath();
         panel.SetActive(false);
     }
 
     public void OpenMenu() {
         panel.SetActive(true);
+
+        if (Grid.Instance.HasSelectedCoords) {
+            currentPath = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Grid.Instance.SelectedCoords);
+
+            // -1 because path includes the player's square.
+            costText.text = $"Cost: {currentPath.Count - 1} AP";
+        } else {
+            costText.text = "";
+        }
     }
 }

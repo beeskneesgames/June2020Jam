@@ -37,14 +37,14 @@ public class CellSelector : MonoBehaviour {
             coordsText.text = $"({hitCell.Info.Coords.x}, {hitCell.Info.Coords.y})";
 
             if (clicked) {
+                Grid.Instance.SetSelectedCoords(hitCell.Info.Coords);
+
                 actionMenu.transform.position = new Vector3(
                     hitCell.transform.position.x + 1.5f,
                     hitCell.transform.position.y + 4.0f,
                     hitCell.transform.position.z + 3.5f
                 );
-
                 actionMenu.OpenMenu();
-                Grid.Instance.SetSelectedCoords(hitCell.Info.Coords);
             } else {
                 Grid.Instance.SetHoveredCoords(hitCell.Info.Coords);
             }
