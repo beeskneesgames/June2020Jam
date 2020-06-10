@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
@@ -27,6 +27,7 @@ public class Player : MonoBehaviour {
     }
 
     // Action Points
+    public TextMeshProUGUI actionPointUI;
     private const int MaxPoints = 5;
     private int actionPoints;
     public int ActionPoints {
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour {
 
         set {
             actionPoints = value;
+            actionPointUI.text = $"Action Points: {actionPoints}";
 
             if (actionPoints <= 0) {
                 EndTurn();
