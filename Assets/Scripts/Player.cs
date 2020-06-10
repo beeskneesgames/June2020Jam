@@ -12,7 +12,7 @@ public class Player : MonoBehaviour {
     }
 
     // Movement
-    public bool IsMoving { get; private set; }
+    public bool IsMoving { get; private set; } = false;
     private System.Action moveCallback;
     private Vector2Int currentCoords = new Vector2Int(7, 7);
     private List<Vector2Int> remainingMovementPath = null;
@@ -104,9 +104,14 @@ public class Player : MonoBehaviour {
         }
 
         IsMoving = true;
+        timeMoving = 0.0f;
         moveCallback = callback;
         MovementPath = Grid.PathBetween(currentCoords, coords);
         remainingMovementPath = new List<Vector2Int>(MovementPath);
+
+        // We're already at the first cell in the path, so remove it.
+        remainingMovementPath.RemoveAt(0);
+
         PopPathCoords();
     }
 

@@ -41,7 +41,6 @@ public class Grid : MonoBehaviour {
         }
     }
 
-
     private void Awake() {
         if (instance != null && instance != this) {
             Destroy(gameObject);
