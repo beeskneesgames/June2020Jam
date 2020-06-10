@@ -52,9 +52,6 @@ public class Player : MonoBehaviour {
         }
 
         instance = this;
-    }
-
-    private void Start() {
         ActionPoints = MaxPoints;
     }
 
