@@ -22,13 +22,7 @@ public class Grid : MonoBehaviour {
         }
     }
 
-    private Vector2Int selectedCoords = new Vector2Int(-1, -1);
-    public Vector2Int SelectedCoords {
-        get {
-            return selectedCoords;
-        }
-    }
-
+    public Vector2Int SelectedCoords { get; private set; } = new Vector2Int(-1, -1);
     public bool HasSelectedCoords {
         get {
             return SelectedCoords.x >= 0;
@@ -120,7 +114,7 @@ public class Grid : MonoBehaviour {
             SelectedCell.CurrentMouseState = Cell.MouseState.None;
         }
 
-        selectedCoords = coords;
+        SelectedCoords = coords;
         SelectedCell.CurrentMouseState = Cell.MouseState.Selected;
 
         UpdateDisplayedPath();
@@ -131,7 +125,7 @@ public class Grid : MonoBehaviour {
             SelectedCell.CurrentMouseState = Cell.MouseState.None;
         }
 
-        selectedCoords = new Vector2Int(-1, -1);
+        SelectedCoords = new Vector2Int(-1, -1);
 
         UpdateDisplayedPath();
     }
