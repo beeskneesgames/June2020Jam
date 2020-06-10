@@ -2,6 +2,8 @@
 using UnityEngine;
 
 public class Grid : MonoBehaviour {
+    public static readonly Vector2Int Size = new Vector2Int(16, 16);
+
     private static Grid instance;
     private List<Cell> damageHeadCells = new List<Cell>();
     private List<CellInfo> allCells = new List<CellInfo>();
@@ -138,7 +140,7 @@ public class Grid : MonoBehaviour {
             possibleX.Add(coords.x - 1);
         }
 
-        if (coords.x < rows.Length - 1) {
+        if (coords.x < Size.x - 1) {
             possibleX.Add(coords.x + 1);
         }
 
@@ -150,7 +152,7 @@ public class Grid : MonoBehaviour {
             possibleY.Add(coords.y - 1);
         }
 
-        if (coords.y < rows.Length - 1) {
+        if (coords.y < Size.y - 1) {
             possibleY.Add(coords.y + 1);
         }
 
@@ -296,10 +298,7 @@ public class Grid : MonoBehaviour {
     }
 
     private Cell CellAt(Vector2Int coords) {
-        if (coords.x < 0 ||
-            coords.x > rows.Length ||
-            coords.y < 0 ||
-            coords.y > rows.Length) {
+        if (!InBounds(coords)) {
             return null;
         }
 
@@ -328,5 +327,9 @@ public class Grid : MonoBehaviour {
                 return null;
             }
         }
+    }
+
+    private static bool InBounds(Vector2Int coords) {
+        return coords.x >= 0 && coords.x < Size.x && coords.y >= 0 && coords.y < Size.y;
     }
 }

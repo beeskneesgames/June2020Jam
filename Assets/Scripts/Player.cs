@@ -14,7 +14,7 @@ public class Player : MonoBehaviour {
     // Movement
     public bool IsMoving { get; private set; } = false;
     private System.Action moveCallback;
-    private Vector2Int currentCoords = new Vector2Int(7, 7);
+    private Vector2Int currentCoords = new Vector2Int(Grid.Size.x - 1, Grid.Size.y - 1);
     private List<Vector2Int> remainingMovementPath = null;
     public List<Vector2Int> MovementPath { get; private set; }
     private Vector2Int targetCoords = new Vector2Int(-1, -1);
