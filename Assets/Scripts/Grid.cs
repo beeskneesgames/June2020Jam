@@ -279,21 +279,27 @@ public class Grid : MonoBehaviour {
     }
 
     private void UpdateDisplayedPath() {
-        Vector2Int endCoords;
 
-        if (HasSelectedCoords) {
-            endCoords = SelectedCoords;
-        } else if (HasHoveredCoords) {
-            endCoords = hoveredCoords;
+        if (Player.Instance.IsMoving) {
+            ShowPath(Player.Instance.MovementPath);
         } else {
-            endCoords = new Vector2Int(-1, -1);
+            Vector2Int endCoords;
+
+            if (HasSelectedCoords) {
+                endCoords = SelectedCoords;
+            } else if (HasHoveredCoords) {
+                endCoords = hoveredCoords;
+            } else {
+                endCoords = new Vector2Int(-1, -1);
+            }
+
+            if (endCoords.x >= 0) {
+                ShowPath(PathBetween(Player.Instance.CurrentCell.Coords, endCoords));
+            } else {
+                ClearPath();
+            }
         }
 
-        if (endCoords.x >= 0) {
-            ShowPath(PathBetween(Player.Instance.CurrentCell.Coords, endCoords));
-        } else {
-            ClearPath();
-        }
     }
 
     private Cell CellAt(Vector2Int coords) {

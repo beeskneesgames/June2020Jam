@@ -12,10 +12,11 @@ public class Player : MonoBehaviour {
     }
 
     // Movement
-    private bool isMoving = false;
+    public bool IsMoving { get; private set; }
     private System.Action moveCallback;
     private Vector2Int currentCoords = new Vector2Int(7, 7);
-    private List<Vector2Int> path = null;
+    private List<Vector2Int> remainingMovementPath = null;
+    public List<Vector2Int> MovementPath { get; private set; }
     private Vector2Int targetCoords = new Vector2Int(-1, -1);
     private Vector3 startPositionForMove;
     private Vector3 endPositionForMove;
@@ -58,7 +59,7 @@ public class Player : MonoBehaviour {
     }
 
     private void Update() {
-        if (isMoving) {
+        if (IsMoving) {
             timeMoving += Time.deltaTime;
 
             if (timeMoving < MaxTimeMoving) {
@@ -89,7 +90,7 @@ public class Player : MonoBehaviour {
                 if (targetCoords.x < 0) {
                     // We've moved to the last cell in the path, end the
                     // movement.
-                    isMoving = false;
+                    IsMoving = false;
                     moveCallback?.Invoke();
                 }
             }
@@ -97,14 +98,15 @@ public class Player : MonoBehaviour {
     }
 
     public void MoveTo(Vector2Int coords, System.Action callback = null) {
-        if (isMoving) {
+        if (IsMoving) {
             // Don't allow double-moving
             return;
         }
 
-        isMoving = true;
+        IsMoving = true;
         moveCallback = callback;
-        path = Grid.PathBetween(currentCoords, coords);
+        MovementPath = Grid.PathBetween(currentCoords, coords);
+        remainingMovementPath = new List<Vector2Int>(MovementPath);
         PopPathCoords();
     }
 
@@ -129,9 +131,9 @@ public class Player : MonoBehaviour {
     }
 
     private void PopPathCoords() {
-        if (path.Count > 0) {
-            targetCoords = path[0];
-            path.RemoveAt(0);
+        if (remainingMovementPath.Count > 0) {
+            targetCoords = remainingMovementPath[0];
+            remainingMovementPath.RemoveAt(0);
 
             startPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(currentCoords));
             endPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(targetCoords));

@@ -38,7 +38,7 @@ public class CellSelector : MonoBehaviour {
         if (hitCell) {
             coordsText.text = $"({hitCell.Info.Coords.x}, {hitCell.Info.Coords.y})";
 
-            if (clicked) {
+            if (clicked && CanSelect) {
                 Grid.Instance.SetSelectedCoords(hitCell.Info.Coords);
 
                 actionMenu.transform.position = new Vector3(
@@ -63,5 +63,11 @@ public class CellSelector : MonoBehaviour {
     private void ClearHover() {
         coordsText.text = "(?, ?)";
         Grid.Instance.ClearHoveredCoords();
+    }
+
+    private bool CanSelect {
+        get {
+            return !Player.Instance.IsMoving;
+        }
     }
 }
