@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class Turn : MonoBehaviour {
     private static Turn instance;
     private int turnCount;
+
     public const int MaxTurnCount = 15;
+    public TextMeshProUGUI turnUI;
 
     public int TurnCount {
         get {
@@ -15,8 +18,8 @@ public class Turn : MonoBehaviour {
 
             if (oldTurnCount < turnCount) {
                 DamageManager.Instance.Spread();
+                turnUI.text = $"Turn: {turnCount + 1}";
             }
-
             GameManager.Instance.CheckEndGame();
         }
     }
