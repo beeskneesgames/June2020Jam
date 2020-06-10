@@ -1419,7 +1419,7 @@ GameObject:
   - component: {fileID: 482263213}
   - component: {fileID: 482263212}
   m_Layer: 5
-  m_Name: 'Action Points:'
+  m_Name: Action Points
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1463,7 +1463,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Action Points: 5'
+  m_text: 'Action Points: 3'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3877,6 +3877,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4301415714872216488, guid: c0797186f792c4823bb24f7d58fa7897,
+        type: 3}
+      propertyPath: actionPointUI
+      value: 
+      objectReference: {fileID: 482263212}
     - target: {fileID: 4665609941366269395, guid: c0797186f792c4823bb24f7d58fa7897,
         type: 3}
       propertyPath: m_Name
