@@ -16,6 +16,16 @@ public class ActionMenu : MonoBehaviour {
         Grid.Instance.ClearSelectedCoords();
     }
 
+    public void OnMovePointerEntered() {
+        Grid.Instance.ShowPath(
+            Grid.PathBetween(Player.Instance.CurrentCell.Coords, Grid.Instance.SelectedCoords)
+        );
+    }
+
+    public void OnMovePointerExited() {
+        Grid.Instance.ClearPath();
+    }
+
     public void OnFixClicked() {
         Grid grid = Grid.Instance;
         CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
@@ -26,6 +36,7 @@ public class ActionMenu : MonoBehaviour {
     }
 
     public void CloseMenu() {
+        Grid.Instance.ClearPath();
         panel.SetActive(false);
     }
 

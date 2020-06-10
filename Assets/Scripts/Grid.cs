@@ -176,8 +176,8 @@ public class Grid : MonoBehaviour {
         }
     }
 
-    public static Vector2Int[] CoordsBetween(Vector2Int start, Vector2Int end) {
-        List<Vector2Int> coords = new List<Vector2Int>();
+    public static List<Vector2Int> PathBetween(Vector2Int start, Vector2Int end) {
+        List<Vector2Int> coords = new List<Vector2Int> { start };
         Vector2Int current = start;
         int xOffset;
         int yOffset;
@@ -236,13 +236,23 @@ public class Grid : MonoBehaviour {
             coords.Add(current);
         }
 
-        // Remove the last cell, since it'll be the end cell and we only want
-        // the in-between ones.
-        if (coords.Count > 0) {
-            coords.RemoveAt(coords.Count - 1);
-        }
+        return coords;
+    }
 
-        return coords.ToArray();
+    public void ShowPath(List<Vector2Int> path) {
+        ClearPath();
+
+        foreach (Vector2Int coords in path) {
+            CellAt(coords).inPath = true;
+        }
+    }
+
+    public void ClearPath() {
+        foreach (Row row in rows) {
+            foreach (Cell cell in row.cells) {
+                cell.inPath = false;
+            }
+        }
     }
 
     public CellInfo CellInfoAt(Vector2Int coords) {
