@@ -176,6 +176,75 @@ public class Grid : MonoBehaviour {
         }
     }
 
+    public CellInfo[] CellsBetween(Vector2Int start, Vector2Int end) {
+        List<CellInfo> cells = new List<CellInfo>();
+        Vector2Int current = start;
+        int xOffset;
+        int yOffset;
+
+        if (current.x < end.x) {
+            // The end cell is *above* the start cell on the X axis. This means
+            // we'll want to start out by moving *up* the X axis.
+            xOffset = 1;
+        } else if (current.x > end.x) {
+            // The end cell is *below* the start cell on the X axis. This means
+            // we'll want to start out by moving *down* the X axis.
+            xOffset = -1;
+        } else {
+            // The end cell is on the *same* X coord as the start cell.
+            // This means we'll always want to *stay still* on the X axis.
+            xOffset = 0;
+        }
+
+        if (current.y < end.y) {
+            // The end cell is *above* the start cell on the Y axis. This means
+            // we'll want to start out by moving *up* the Y axis.
+            yOffset = 1;
+        } else if (current.y > end.y) {
+            // The end cell is *below* the start cell on the Y axis. This means
+            // we'll want to start out by moving *down* the Y axis.
+            yOffset = -1;
+        } else {
+            // The end cell is on the *same* Y coord as the start cell.
+            // This means we'll always want to *stay still* on the Y axis.
+            yOffset = 0;
+        }
+
+        // First, if necessary, move diagonally until we're on either the same
+        // X or Y coord as the end cell.
+        while (current.x != end.x && current.y != end.y) {
+            current += new Vector2Int(xOffset, yOffset);
+            cells.Add(CellInfoAt(current));
+        }
+
+        // If we're on the same X coord as the end cell, stop moving on it and
+        // just move on the Y axis until we're at the end cell
+        if (current.x == end.x) {
+            xOffset = 0;
+        }
+
+        // If we're on the same Y coord as the end cell, stop moving on it and
+        // just move on the X axis until we're at the end cell
+        if (current.y == end.y) {
+            yOffset = 0;
+        }
+
+        // Now that we've updated the offsets to stop moving us diagonally,
+        // keep moving with them until we reach the end cell.
+        while (current != end) {
+            current += new Vector2Int(xOffset, yOffset);
+            cells.Add(CellInfoAt(current));
+        }
+
+        // Remove the last cell, since it'll be the end cell and we only want
+        // the in-between ones.
+        if (cells.Count > 0) {
+            cells.RemoveAt(cells.Count - 1);
+        }
+
+        return cells.ToArray();
+    }
+
     public CellInfo CellInfoAt(Vector2Int coords) {
         Cell cell = CellAt(coords);
 
