@@ -22,17 +22,15 @@ public class CellInfo {
     }
 
     public void Fix() {
-        if (Grid.Instance.HasSelectedCoords) {
-            List<Vector2Int> path = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Grid.Instance.SelectedCoords);
+        List<Vector2Int> path = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Coords);
 
-            Player.Instance.UseActionPoints(path.Count - 1);
+        Player.Instance.UseActionPoints(path.Count - 1);
 
-            IsDamaged = false;
+        IsDamaged = false;
 
-            if (HasDamageHead) {
-                DamageManager.Instance.RemoveHeadsAt(Coords);
-                HasDamageHead = false;
-            }
+        if (HasDamageHead) {
+            DamageManager.Instance.RemoveHeadsAt(Coords);
+            HasDamageHead = false;
         }
     }
 }
