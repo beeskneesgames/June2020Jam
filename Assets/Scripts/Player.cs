@@ -13,9 +13,20 @@ public class Player : MonoBehaviour {
 
     // Movement
     private bool isMoving = false;
+    public bool IsMoving {
+        get {
+            return isMoving;
+        }
+    }
     private System.Action moveCallback;
     private Vector2Int currentCoords = new Vector2Int(7, 7);
-    private List<Vector2Int> path = null;
+    private List<Vector2Int> remainingMovementPath = null;
+    private List<Vector2Int> movementPath = null;
+    public List<Vector2Int> MovementPath {
+        get {
+            return movementPath;
+        }
+    }
     private Vector2Int targetCoords = new Vector2Int(-1, -1);
     private Vector3 startPositionForMove;
     private Vector3 endPositionForMove;
@@ -104,7 +115,8 @@ public class Player : MonoBehaviour {
 
         isMoving = true;
         moveCallback = callback;
-        path = Grid.PathBetween(currentCoords, coords);
+        movementPath = Grid.PathBetween(currentCoords, coords);
+        remainingMovementPath = new List<Vector2Int>(movementPath);
         PopPathCoords();
     }
 
@@ -129,9 +141,9 @@ public class Player : MonoBehaviour {
     }
 
     private void PopPathCoords() {
-        if (path.Count > 0) {
-            targetCoords = path[0];
-            path.RemoveAt(0);
+        if (remainingMovementPath.Count > 0) {
+            targetCoords = remainingMovementPath[0];
+            remainingMovementPath.RemoveAt(0);
 
             startPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(currentCoords));
             endPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(targetCoords));
