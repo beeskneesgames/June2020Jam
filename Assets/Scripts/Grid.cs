@@ -176,8 +176,8 @@ public class Grid : MonoBehaviour {
         }
     }
 
-    public CellInfo[] CellsBetween(Vector2Int start, Vector2Int end) {
-        List<CellInfo> cells = new List<CellInfo>();
+    public static Vector2Int[] CoordsBetween(Vector2Int start, Vector2Int end) {
+        List<Vector2Int> coords = new List<Vector2Int>();
         Vector2Int current = start;
         int xOffset;
         int yOffset;
@@ -214,7 +214,7 @@ public class Grid : MonoBehaviour {
         // X or Y coord as the end cell.
         while (current.x != end.x && current.y != end.y) {
             current += new Vector2Int(xOffset, yOffset);
-            cells.Add(CellInfoAt(current));
+            coords.Add(current);
         }
 
         // If we're on the same X coord as the end cell, stop moving on it and
@@ -233,16 +233,16 @@ public class Grid : MonoBehaviour {
         // keep moving with them until we reach the end cell.
         while (current != end) {
             current += new Vector2Int(xOffset, yOffset);
-            cells.Add(CellInfoAt(current));
+            coords.Add(current);
         }
 
         // Remove the last cell, since it'll be the end cell and we only want
         // the in-between ones.
-        if (cells.Count > 0) {
-            cells.RemoveAt(cells.Count - 1);
+        if (coords.Count > 0) {
+            coords.RemoveAt(coords.Count - 1);
         }
 
-        return cells.ToArray();
+        return coords.ToArray();
     }
 
     public CellInfo CellInfoAt(Vector2Int coords) {
