@@ -53,10 +53,10 @@ public class GameManager : MonoBehaviour {
     }
 
     private void TriggerWin() {
-        Debug.Log($"You Win!");
+        Debug.Log("You Win!");
     }
 
     private void TriggerLoss() {
-        Debug.Log($"You Lose :(");
+        Debug.Log("You Lose :(");
     }
 }

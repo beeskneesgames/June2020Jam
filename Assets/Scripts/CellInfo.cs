@@ -15,6 +15,12 @@ public class CellInfo {
         }
     }
 
+    public bool IsHealthy {
+        get {
+            return !IsDamaged;
+        }
+    }
+
     public bool HasDamageHead { get; set; } = false;
 
     public void Damage() {

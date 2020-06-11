@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class DamageHead {
     public static bool diagonalAllowed = false;
+    public static bool preferHealthyCells = true;
 
     public Vector2Int coords;
     private CellInfo CurrentCellInfo {
@@ -25,10 +27,24 @@ public class DamageHead {
     }
 
     public void Move() {
-        CellInfo[] possibleCells = Grid.Instance.AdjacentTo(coords, Globals.damageDiagonalAllowed);
+        List<CellInfo> possibleCells = new List<CellInfo>(Grid.Instance.AdjacentTo(coords, diagonalAllowed));
 
-        if (possibleCells.Length > 0) {
-            Vector2Int nextCoords = possibleCells[Random.Range(0, possibleCells.Length)].Coords;
+        if (preferHealthyCells) {
+            List<CellInfo> healthyCells = new List<CellInfo>();
+
+            foreach (var cell in possibleCells) {
+                if (cell.IsHealthy) {
+                    healthyCells.Add(cell);
+                }
+            }
+
+            if (healthyCells.Count > 0) {
+                possibleCells = healthyCells;
+            }
+        }
+
+        if (possibleCells.Count > 0) {
+            Vector2Int nextCoords = possibleCells[Random.Range(0, possibleCells.Count)].Coords;
 
             // If negative, the nextCoords is still set as its sentinel value,
             // which is effectively null here.
