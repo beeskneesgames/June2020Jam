@@ -122,9 +122,13 @@ public class Player : MonoBehaviour {
         }
     }
 
+    public void ResetAP() {
+        ActionPoints = MaxPoints;
+    }
+
     private void EndTurn() {
         Turn.Instance.EndTurn();
-        ActionPoints = MaxPoints;
+        ResetAP();
     }
 
     private Vector3 NormalizedPosition(Vector3 position) {
