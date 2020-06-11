@@ -22,6 +22,7 @@ public class CellInfo {
     }
 
     public bool HasDamageHead { get; set; } = false;
+    public bool HasObstacle { get; set; } = false;
 
     public void Damage() {
         IsDamaged = true;
