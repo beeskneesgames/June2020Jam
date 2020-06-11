@@ -15,11 +15,12 @@ public class Turn : MonoBehaviour {
         private set {
             int oldTurnCount = turnCount;
             turnCount = value;
+            turnUI.text = $"Turn: {turnCount + 1}";
 
             if (oldTurnCount < turnCount) {
                 DamageManager.Instance.Spread();
-                turnUI.text = $"Turn: {turnCount + 1}";
             }
+
             GameManager.Instance.CheckEndGame();
         }
     }
@@ -38,11 +39,18 @@ public class Turn : MonoBehaviour {
 
         instance = this;
         DontDestroyOnLoad(gameObject);
-        Debug.Log($"Turn Count: {Turn.Instance.TurnCount}");
+    }
+
+    private void Start() {
+        Reset();        
     }
 
     public void EndTurn() {
+        Player.Instance.ResetAP();
         Turn.Instance.TurnCount++;
-        Debug.Log($"Turn Count: {Turn.Instance.TurnCount}");
+    }
+
+    public void Reset() {
+        TurnCount = 0;
     }
 }
