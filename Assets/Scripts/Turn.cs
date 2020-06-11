@@ -52,6 +52,6 @@ public class Turn : MonoBehaviour {
 
     public void Reset() {
         TurnCount = 0;
-        turnUI.text = "Turn: 0";
+        turnUI.text = "Turn: 1";
     }
 }
