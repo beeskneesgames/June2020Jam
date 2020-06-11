@@ -131,39 +131,29 @@ public class Grid : MonoBehaviour {
         UpdateDisplayedPath();
     }
 
-    public CellInfo[] AdjacentTo(Vector2Int coords) {
-        List<int> possibleX = new List<int> {
-            coords.x
+    public CellInfo[] AdjacentTo(Vector2Int coords, bool includeDiagonal) {
+        // Add all the fully adjacent cells.
+        List<Cell> cells = new List<Cell> {
+            CellAt(coords + new Vector2Int( 1,  0)),
+            CellAt(coords + new Vector2Int(-1,  0)),
+            CellAt(coords + new Vector2Int( 0,  1)),
+            CellAt(coords + new Vector2Int( 0, -1))
         };
 
-        if (coords.x > 0) {
-            possibleX.Add(coords.x - 1);
-        }
-
-        if (coords.x < Size.x - 1) {
-            possibleX.Add(coords.x + 1);
-        }
-
-        List<int> possibleY = new List<int> {
-            coords.y
-        };
-
-        if (coords.y > 0) {
-            possibleY.Add(coords.y - 1);
-        }
-
-        if (coords.y < Size.y - 1) {
-            possibleY.Add(coords.y + 1);
+        // Add all the diagonally adjacent cells if requested.
+        if (includeDiagonal) {
+            cells.Add(CellAt(coords + new Vector2Int(1, 1)));
+            cells.Add(CellAt(coords + new Vector2Int(-1, 1)));
+            cells.Add(CellAt(coords + new Vector2Int(1, -1)));
+            cells.Add(CellAt(coords + new Vector2Int(-1, -1)));
         }
 
         List<CellInfo> cellInfos = new List<CellInfo>();
 
-        foreach (var x in possibleX) {
-            foreach (var y in possibleY) {
-                Cell cell = CellAt(new Vector2Int(x, y));
-                if (cell != null) {
-                    cellInfos.Add(cell.Info);
-                }
+        // Convert Cells to CellInfos and trim out nulls.
+        foreach (var cell in cells) {
+            if (cell != null) {
+                cellInfos.Add(cell.Info);
             }
         }
 

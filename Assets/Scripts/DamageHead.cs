@@ -23,7 +23,7 @@ public class DamageHead {
     }
 
     public void Move() {
-        CellInfo[] possibleCells = Grid.Instance.AdjacentTo(coords);
+        CellInfo[] possibleCells = Grid.Instance.AdjacentTo(coords, Globals.damageDiagonalAllowed);
 
         if (possibleCells.Length > 0) {
             Vector2Int nextCoords = possibleCells[Random.Range(0, possibleCells.Length)].Coords;
