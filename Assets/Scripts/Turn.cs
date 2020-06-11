@@ -15,10 +15,10 @@ public class Turn : MonoBehaviour {
         private set {
             int oldTurnCount = turnCount;
             turnCount = value;
+            turnUI.text = $"Turn: {turnCount + 1}";
 
             if (oldTurnCount < turnCount) {
                 DamageManager.Instance.Spread();
-                turnUI.text = $"Turn: {turnCount + 1}";
             }
 
             GameManager.Instance.CheckEndGame();
@@ -52,6 +52,5 @@ public class Turn : MonoBehaviour {
 
     public void Reset() {
         TurnCount = 0;
-        turnUI.text = "Turn: 1";
     }
 }
