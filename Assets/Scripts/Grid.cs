@@ -69,6 +69,13 @@ public class Grid : MonoBehaviour {
                 cell.Info.Coords = new Vector2Int(i, j);
                 cellCount++;
 
+                cell.Info.IsDamaged = false;
+
+                if (cell.Info.HasDamageHead) {
+                    DamageManager.Instance.RemoveHeadsAt(cell.Info.Coords);
+                    cell.Info.HasDamageHead = false;
+                }
+
                 allCells.Add(cell.Info);
             }
         }

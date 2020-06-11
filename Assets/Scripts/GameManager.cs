@@ -32,8 +32,8 @@ public class GameManager : MonoBehaviour {
     public void Reset() {
         Player.Instance.Reset();
         Turn.Instance.Reset();
-        DamageManager.Instance.Reset();
         Grid.Instance.Reset();
+        DamageManager.Instance.Reset();
     }
 
     private bool CheckForLoss() {
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour {
             return true;
         }
 
-        if (!Grid.Instance.HasDamage) {
+        if (!Grid.Instance.HasDamage && Turn.Instance.TurnCount > 1) {
             return true;
         }
 
