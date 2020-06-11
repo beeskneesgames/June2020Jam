@@ -30,9 +30,10 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Reset() {
-        Debug.Log("RESET BOARD");
         Player.Instance.Reset();
         Turn.Instance.Reset();
+        DamageManager.Instance.Reset();
+        Grid.Instance.Reset();
     }
 
     private bool CheckForLoss() {

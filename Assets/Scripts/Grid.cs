@@ -67,6 +67,15 @@ public class Grid : MonoBehaviour {
         }
     }
 
+    public void Reset() {
+        damageHeadCells = new List<Cell>();
+        foreach (var cell in allCells) {
+            if (cell.IsDamaged) {
+                cell.IsDamaged = false;
+            }
+        }
+    }
+
     public float PercentDamaged() {
         List<CellInfo> cellsWithDamage = new List<CellInfo>();
 

@@ -28,6 +28,10 @@ public class DamageManager : MonoBehaviour {
         Grid.Instance.SetDamageHeads(damageHeads);
     }
 
+    public void Reset() {
+        damageHeads = new List<DamageHead>();        
+    }
+
     public void Spread() {
         if ((Turn.Instance.TurnCount % SpreadRate) == 0) {
             if (damageHeads.Count > 0) {
