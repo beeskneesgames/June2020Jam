@@ -3,6 +3,7 @@
 public class GameManager : MonoBehaviour {
     private static GameManager instance;
     private const float LossPercent = 0.75f;
+    public WinLoseUI winLoseUI;
 
     public static GameManager Instance {
         get {
@@ -26,6 +27,10 @@ public class GameManager : MonoBehaviour {
         } else if (CheckForWin()) {
             TriggerWin();
         }
+    }
+
+    public void Reset() {
+        Debug.Log("RESET BOARD");
     }
 
     private bool CheckForLoss() {
@@ -53,10 +58,10 @@ public class GameManager : MonoBehaviour {
     }
 
     private void TriggerWin() {
-        Debug.Log($"You Win!");
+        winLoseUI.Show(true);
     }
 
     private void TriggerLoss() {
-        Debug.Log($"You Lose :(");
+        winLoseUI.Show(false);
     }
 }

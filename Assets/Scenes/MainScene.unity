@@ -692,6 +692,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3925421017620871706, guid: 767c2120a653e4d83bf19cfa8be6af87,
+        type: 3}
+      propertyPath: winLoseUI
+      value: 
+      objectReference: {fileID: 1794618328}
     - target: {fileID: 3925421017620871707, guid: 767c2120a653e4d83bf19cfa8be6af87,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2271,6 +2276,7 @@ GameObject:
   - component: {fileID: 863078802}
   - component: {fileID: 863078804}
   - component: {fileID: 863078803}
+  - component: {fileID: 863078805}
   m_Layer: 5
   m_Name: WinLoseText
   m_TagString: Untagged
@@ -2416,6 +2422,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 863078801}
   m_CullTransparentMesh: 0
+--- !u!114 &863078805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863078801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc4a2661030404c4994fbb5aca7eab34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 0}
+  winLoseText: {fileID: 0}
 --- !u!1 &903195211
 GameObject:
   m_ObjectHideFlags: 0
@@ -3471,7 +3491,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1539535491}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1794618328}
+        m_MethodName: ResetBoard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1539535491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3789,13 +3820,14 @@ GameObject:
   - component: {fileID: 1794618325}
   - component: {fileID: 1794618327}
   - component: {fileID: 1794618326}
+  - component: {fileID: 1794618328}
   m_Layer: 5
   m_Name: WinLosePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1794618325
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3854,6 +3886,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1794618324}
   m_CullTransparentMesh: 0
+--- !u!114 &1794618328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794618324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc4a2661030404c4994fbb5aca7eab34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 1794618324}
+  winLoseText: {fileID: 863078803}
 --- !u!4 &1845607198 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2417210679428620730, guid: 9bd6a6860191141d9b0f5d401ba75332,
