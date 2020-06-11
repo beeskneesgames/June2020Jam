@@ -145,39 +145,29 @@ public class Grid : MonoBehaviour {
         UpdateDisplayedPath();
     }
 
-    public CellInfo[] AdjacentTo(Vector2Int coords) {
-        List<int> possibleX = new List<int> {
-            coords.x
+    public CellInfo[] AdjacentTo(Vector2Int coords, bool includeDiagonal) {
+        // Add all the fully adjacent cells.
+        List<Cell> cells = new List<Cell> {
+            CellAt(coords + new Vector2Int( 1,  0)),
+            CellAt(coords + new Vector2Int(-1,  0)),
+            CellAt(coords + new Vector2Int( 0,  1)),
+            CellAt(coords + new Vector2Int( 0, -1))
         };
 
-        if (coords.x > 0) {
-            possibleX.Add(coords.x - 1);
-        }
-
-        if (coords.x < Size.x - 1) {
-            possibleX.Add(coords.x + 1);
-        }
-
-        List<int> possibleY = new List<int> {
-            coords.y
-        };
-
-        if (coords.y > 0) {
-            possibleY.Add(coords.y - 1);
-        }
-
-        if (coords.y < Size.y - 1) {
-            possibleY.Add(coords.y + 1);
+        // Add all the diagonally adjacent cells if requested.
+        if (includeDiagonal) {
+            cells.Add(CellAt(coords + new Vector2Int(1, 1)));
+            cells.Add(CellAt(coords + new Vector2Int(-1, 1)));
+            cells.Add(CellAt(coords + new Vector2Int(1, -1)));
+            cells.Add(CellAt(coords + new Vector2Int(-1, -1)));
         }
 
         List<CellInfo> cellInfos = new List<CellInfo>();
 
-        foreach (var x in possibleX) {
-            foreach (var y in possibleY) {
-                Cell cell = CellAt(new Vector2Int(x, y));
-                if (cell != null) {
-                    cellInfos.Add(cell.Info);
-                }
+        // Convert Cells to CellInfos and trim out nulls.
+        foreach (var cell in cells) {
+            if (cell != null) {
+                cellInfos.Add(cell.Info);
             }
         }
 
@@ -198,67 +188,12 @@ public class Grid : MonoBehaviour {
         }
     }
 
-    public static List<Vector2Int> PathBetween(Vector2Int start, Vector2Int end) {
-        List<Vector2Int> coords = new List<Vector2Int> { start };
-        Vector2Int current = start;
-        int xOffset;
-        int yOffset;
-
-        if (current.x < end.x) {
-            // The end cell is *above* the start cell on the X axis. This means
-            // we'll want to start out by moving *up* the X axis.
-            xOffset = 1;
-        } else if (current.x > end.x) {
-            // The end cell is *below* the start cell on the X axis. This means
-            // we'll want to start out by moving *down* the X axis.
-            xOffset = -1;
+    public static List<Vector2Int> PathBetween(Vector2Int start, Vector2Int end, bool diagonalAllowed) {
+        if (diagonalAllowed) {
+            return PathBetweenWithDiagonals(start, end);
         } else {
-            // The end cell is on the *same* X coord as the start cell.
-            // This means we'll always want to *stay still* on the X axis.
-            xOffset = 0;
+            return PathBetweenWithoutDiagonals(start, end);
         }
-
-        if (current.y < end.y) {
-            // The end cell is *above* the start cell on the Y axis. This means
-            // we'll want to start out by moving *up* the Y axis.
-            yOffset = 1;
-        } else if (current.y > end.y) {
-            // The end cell is *below* the start cell on the Y axis. This means
-            // we'll want to start out by moving *down* the Y axis.
-            yOffset = -1;
-        } else {
-            // The end cell is on the *same* Y coord as the start cell.
-            // This means we'll always want to *stay still* on the Y axis.
-            yOffset = 0;
-        }
-
-        // First, if necessary, move diagonally until we're on either the same
-        // X or Y coord as the end cell.
-        while (current.x != end.x && current.y != end.y) {
-            current += new Vector2Int(xOffset, yOffset);
-            coords.Add(current);
-        }
-
-        // If we're on the same X coord as the end cell, stop moving on it and
-        // just move on the Y axis until we're at the end cell
-        if (current.x == end.x) {
-            xOffset = 0;
-        }
-
-        // If we're on the same Y coord as the end cell, stop moving on it and
-        // just move on the X axis until we're at the end cell
-        if (current.y == end.y) {
-            yOffset = 0;
-        }
-
-        // Now that we've updated the offsets to stop moving us diagonally,
-        // keep moving with them until we reach the end cell.
-        while (current != end) {
-            current += new Vector2Int(xOffset, yOffset);
-            coords.Add(current);
-        }
-
-        return coords;
     }
 
     public void ShowPath(List<Vector2Int> path) {
@@ -288,7 +223,6 @@ public class Grid : MonoBehaviour {
     }
 
     private void UpdateDisplayedPath() {
-
         if (Player.Instance.IsMoving) {
             ShowPath(Player.Instance.MovementPath);
         } else {
@@ -303,7 +237,7 @@ public class Grid : MonoBehaviour {
             }
 
             if (endCoords.x >= 0) {
-                ShowPath(PathBetween(Player.Instance.CurrentCell.Coords, endCoords));
+                ShowPath(PathBetween(Player.Instance.CurrentCell.Coords, endCoords, Player.diagonalMoveAllowed));
             } else {
                 ClearPath();
             }
@@ -345,5 +279,76 @@ public class Grid : MonoBehaviour {
 
     private static bool InBounds(Vector2Int coords) {
         return coords.x >= 0 && coords.x < Size.x && coords.y >= 0 && coords.y < Size.y;
+    }
+
+    private static List<Vector2Int> PathBetweenWithDiagonals(Vector2Int start, Vector2Int end) {
+        List<Vector2Int> coords = new List<Vector2Int> { start };
+        Vector2Int current = start;
+        int xOffset;
+        int yOffset;
+
+        if (current.x < end.x) {
+            // The end cell is *above* the start cell on the X axis. This means
+            // we'll want to start out by moving *up* the X axis.
+            xOffset = 1;
+        } else if (current.x > end.x) {
+            // The end cell is *below* the start cell on the X axis. This means
+            // we'll want to start out by moving *down* the X axis.
+            xOffset = -1;
+        } else {
+            // The end cell is on the *same* X coord as the start cell.
+            // This means we'll always want to *stay still* on the X axis.
+            xOffset = 0;
+        }
+
+        if (current.y < end.y) {
+            // The end cell is *above* the start cell on the Y axis. This means
+            // we'll want to start out by moving *up* the Y axis.
+            yOffset = 1;
+        } else if (current.y > end.y) {
+            // The end cell is *below* the start cell on the Y axis. This means
+            // we'll want to start out by moving *down* the Y axis.
+            yOffset = -1;
+        } else {
+            // The end cell is on the *same* Y coord as the start cell.
+            // This means we'll always want to *stay still* on the Y axis.
+            yOffset = 0;
+        }
+
+        // First, if necessary, move diagonally until we're on either the same
+        // X or Y coord as the end cell.
+        while (current.x != end.x && current.y != end.y) {
+            current += new Vector2Int(xOffset, yOffset);
+            coords.Add(current);
+        }
+
+        // Now that we've finished diagonal traversal, traverse non-diagonally
+        // the rest of the way.
+        List<Vector2Int> remainingPath = PathBetweenWithoutDiagonals(current, end);
+        remainingPath.RemoveAt(0); // Remove the first coords, since we already added them.
+        coords.AddRange(remainingPath);
+
+        return coords;
+    }
+
+    private static List<Vector2Int> PathBetweenWithoutDiagonals(Vector2Int start, Vector2Int end) {
+        List<Vector2Int> coords = new List<Vector2Int> { start };
+        Vector2Int current = start;
+
+        // First, move along the X axis until we're on the same X coord as the
+        // end cell.
+        while (current.x != end.x) {
+            current += new Vector2Int(current.x < end.x ? 1 : -1, 0);
+            coords.Add(current);
+        }
+
+        // Then, move along the Y axis until we're on the same Y coord as the
+        // end cell.
+        while (current.y != end.y) {
+            current += new Vector2Int(0, current.y < end.y ? 1 : -1);
+            coords.Add(current);
+        }
+
+        return coords;
     }
 }

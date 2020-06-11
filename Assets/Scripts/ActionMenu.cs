@@ -37,7 +37,7 @@ public class ActionMenu : MonoBehaviour {
         panel.SetActive(true);
 
         if (Grid.Instance.HasSelectedCoords) {
-            List<Vector2Int> path = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Grid.Instance.SelectedCoords);
+            List<Vector2Int> path = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Grid.Instance.SelectedCoords, Player.diagonalMoveAllowed);
 
             if (Player.Instance.ActionPoints >= path.Count - 1) {
                 moveBtn.interactable = true;

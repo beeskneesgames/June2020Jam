@@ -3,8 +3,10 @@ using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
-    private static Player instance;
+    public static bool diagonalFixAllowed = true;
+    public static bool diagonalMoveAllowed = false;
 
+    private static Player instance;
     public static Player Instance {
         get {
             return instance;
@@ -109,7 +111,7 @@ public class Player : MonoBehaviour {
         IsMoving = true;
         timeMoving = 0.0f;
         moveCallback = callback;
-        MovementPath = Grid.PathBetween(currentCoords, coords);
+        MovementPath = Grid.PathBetween(currentCoords, coords, Player.diagonalMoveAllowed);
         remainingMovementPath = new List<Vector2Int>(MovementPath);
 
         // We're already at the first cell in the path, so remove it.

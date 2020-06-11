@@ -15,6 +15,12 @@ public class CellInfo {
         }
     }
 
+    public bool IsHealthy {
+        get {
+            return !IsDamaged;
+        }
+    }
+
     public bool HasDamageHead { get; set; } = false;
 
     public void Damage() {
@@ -22,7 +28,7 @@ public class CellInfo {
     }
 
     public void Fix() {
-        List<Vector2Int> path = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Coords);
+        List<Vector2Int> path = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Coords, Player.diagonalFixAllowed);
 
         Player.Instance.UseActionPoints(path.Count - 1);
 
