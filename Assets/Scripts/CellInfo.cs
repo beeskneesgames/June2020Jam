@@ -28,7 +28,7 @@ public class CellInfo {
     }
 
     public void Fix() {
-        List<Vector2Int> path = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Coords, Player.diagonalAllowed);
+        List<Vector2Int> path = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Coords, Player.diagonalMoveAllowed);
 
         Player.Instance.UseActionPoints(path.Count - 1);
 
