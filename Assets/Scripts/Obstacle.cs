@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour {
     public Vector2Int Coords { get; set; } = new Vector2Int(-1, -1);
+    private int count = 3;
 
     private void Start() {
         Generate();

@@ -29,12 +29,19 @@ public class Cell : MonoBehaviour {
         switch(CurrentMouseState) {
             case MouseState.None:
                 if (inPath) {
+                    //Light gray
                     renderer.material.color = new Color(0.75f, 0.75f, 0.75f);
+                } else if (Info.HasObstacle) {
+                    //Purple
+                    renderer.material.color = new Color(1.0f, 0.5f, 1.00f);
                 } else if (Info.HasDamageHead) {
+                    //Dark red
                     renderer.material.color = new Color(1.0f, 0.0f, 0.0f);
                 } else if (Info.IsDamaged) {
+                    //Light red
                     renderer.material.color = new Color(1.0f, 0.5f, 0.5f);
                 } else {
+                    //Dark red
                     renderer.material.color = originalColor;
                 }
                 break;
