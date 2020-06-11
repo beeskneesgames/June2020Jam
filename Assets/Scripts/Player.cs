@@ -14,7 +14,7 @@ public class Player : MonoBehaviour {
     // Movement
     public bool IsMoving { get; private set; } = false;
     private System.Action moveCallback;
-    private Vector2Int currentCoords = new Vector2Int(Grid.Size.x - 1, Grid.Size.y - 1);
+    private Vector2Int currentCoords;
     private List<Vector2Int> remainingMovementPath = null;
     public List<Vector2Int> MovementPath { get; private set; }
     private Vector2Int targetCoords = new Vector2Int(-1, -1);
@@ -56,6 +56,10 @@ public class Player : MonoBehaviour {
 
         instance = this;
         ActionPoints = MaxPoints;
+    }
+
+    private void Start() {
+        ResetCoords();    
     }
 
     private void Update() {
@@ -124,6 +128,15 @@ public class Player : MonoBehaviour {
 
     public void ResetAP() {
         ActionPoints = MaxPoints;
+    }
+
+    public void Reset() {
+        ResetAP();
+        ResetCoords();
+    }
+
+    private void ResetCoords() {
+        currentCoords = new Vector2Int(Grid.Size.x - 1, Grid.Size.y - 1);
     }
 
     private void EndTurn() {

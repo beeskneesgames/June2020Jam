@@ -5,7 +5,7 @@ public class Turn : MonoBehaviour {
     private static Turn instance;
     private int turnCount;
 
-    public const int MaxTurnCount = 15;
+    public const int MaxTurnCount = 2;
     public TextMeshProUGUI turnUI;
 
     public int TurnCount {
@@ -20,6 +20,7 @@ public class Turn : MonoBehaviour {
                 DamageManager.Instance.Spread();
                 turnUI.text = $"Turn: {turnCount + 1}";
             }
+
             GameManager.Instance.CheckEndGame();
         }
     }
@@ -43,5 +44,9 @@ public class Turn : MonoBehaviour {
     public void EndTurn() {
         Player.Instance.ResetAP();
         Turn.Instance.TurnCount++;
+    }
+
+    public void Reset() {
+        TurnCount = 0;        
     }
 }
