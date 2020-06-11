@@ -223,7 +223,7 @@ public class Grid : MonoBehaviour {
             }
 
             if (endCoords.x >= 0) {
-                ShowPath(PathBetween(Player.Instance.CurrentCell.Coords, endCoords, Globals.playerDiagonalAllowed));
+                ShowPath(PathBetween(Player.Instance.CurrentCell.Coords, endCoords, Player.diagonalAllowed));
             } else {
                 ClearPath();
             }

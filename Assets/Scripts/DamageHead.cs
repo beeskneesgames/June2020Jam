@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
 public class DamageHead {
+    public static bool diagonalAllowed = false;
+
     public Vector2Int coords;
     private CellInfo CurrentCellInfo {
         get {
