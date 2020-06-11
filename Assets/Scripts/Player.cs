@@ -106,7 +106,7 @@ public class Player : MonoBehaviour {
         IsMoving = true;
         timeMoving = 0.0f;
         moveCallback = callback;
-        MovementPath = Grid.PathBetween(currentCoords, coords);
+        MovementPath = Grid.PathBetween(currentCoords, coords, Globals.playerDiagonalAllowed);
         remainingMovementPath = new List<Vector2Int>(MovementPath);
 
         // We're already at the first cell in the path, so remove it.
