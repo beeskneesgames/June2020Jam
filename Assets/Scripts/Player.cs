@@ -59,7 +59,7 @@ public class Player : MonoBehaviour {
     }
 
     private void Start() {
-        ResetCoords();    
+        ResetCoords();
     }
 
     private void Update() {
@@ -136,6 +136,7 @@ public class Player : MonoBehaviour {
     }
 
     private void ResetCoords() {
+        MoveTo(new Vector2Int(0, 0));
         currentCoords = new Vector2Int(Grid.Size.x - 1, Grid.Size.y - 1);
     }
 
