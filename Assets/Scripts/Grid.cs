@@ -72,6 +72,7 @@ public class Grid : MonoBehaviour {
         foreach (var cell in allCells) {
             if (cell.IsDamaged) {
                 cell.IsDamaged = false;
+                cell.HasDamageHead = false;
             }
         }
     }
