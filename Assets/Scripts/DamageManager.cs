@@ -4,7 +4,7 @@ using UnityEngine;
 public class DamageManager : MonoBehaviour {
     private static DamageManager instance;
     private const int SpreadRate = 3;
-    private List<DamageHead> damageHeads = new List<DamageHead>();
+    private List<DamageHead> damageHeads;
     private Vector2Int DefaultHeadCoords = new Vector2Int(0, 0);
 
     public static DamageManager Instance {
@@ -23,13 +23,15 @@ public class DamageManager : MonoBehaviour {
     }
 
     private void Start() {
-        AddHead(DefaultHeadCoords);
-
-        Grid.Instance.SetDamageHeads(damageHeads);
+        Reset();
     }
 
     public void Reset() {
-        damageHeads = new List<DamageHead>();        
+        damageHeads = new List<DamageHead>();
+
+        AddHead(DefaultHeadCoords);
+
+        Grid.Instance.SetDamageHeads(damageHeads);
     }
 
     public void Spread() {

@@ -41,6 +41,10 @@ public class Turn : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start() {
+        Reset();        
+    }
+
     public void EndTurn() {
         Player.Instance.ResetAP();
         Turn.Instance.TurnCount++;
