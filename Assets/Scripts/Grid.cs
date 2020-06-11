@@ -6,7 +6,7 @@ public class Grid : MonoBehaviour {
 
     private static Grid instance;
     private List<Cell> damageHeadCells = new List<Cell>();
-    private List<CellInfo> allCells = new List<CellInfo>();
+    private List<CellInfo> allCells;
     private int cellCount;
 
     public static Grid Instance {
@@ -53,6 +53,13 @@ public class Grid : MonoBehaviour {
     }
 
     private void Start() {
+        Reset();
+    }
+
+    public void Reset() {
+        damageHeadCells = new List<Cell>();
+        allCells = new List<CellInfo>();
+
         for (int i = 0; i < rows.Length; i++) {
             Row row = rows[i]; // your boat
             row.Index = i;
@@ -63,16 +70,6 @@ public class Grid : MonoBehaviour {
                 cellCount++;
 
                 allCells.Add(cell.Info);
-            }
-        }
-    }
-
-    public void Reset() {
-        damageHeadCells = new List<Cell>();
-        foreach (var cell in allCells) {
-            if (cell.IsDamaged) {
-                cell.IsDamaged = false;
-                cell.HasDamageHead = false;
             }
         }
     }
