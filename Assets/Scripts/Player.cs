@@ -15,13 +15,13 @@ public class Player : MonoBehaviour {
     // Movement
     public bool IsMoving { get; private set; } = false;
     private System.Action moveCallback;
-    private Vector2Int currentCoords = new Vector2Int(Grid.Size.x - 1, Grid.Size.y - 1);
+    private Vector2Int currentCoords;
     private List<Vector2Int> remainingMovementPath = null;
     public List<Vector2Int> MovementPath { get; private set; }
     private Vector2Int targetCoords = new Vector2Int(-1, -1);
     private Vector3 startPositionForMove;
     private Vector3 endPositionForMove;
-    private float timeMoving = 0.0f;
+    private float timeMoving;
     private const float MaxTimeMoving = 0.25f;
 
     public CellInfo CurrentCell {
@@ -59,6 +59,10 @@ public class Player : MonoBehaviour {
         ActionPoints = MaxPoints;
     }
 
+    private void Start() {
+        Reset();
+    }
+
     private void Update() {
         if (IsMoving) {
             timeMoving += Time.deltaTime;
@@ -78,8 +82,7 @@ public class Player : MonoBehaviour {
                 //   path), or
                 // * End the movement (if we're at the last cell in the path).
                 timeMoving = 0.0f;
-                transform.position = endPositionForMove;
-                currentCoords = targetCoords;
+                MoveToImmediate(targetCoords);
                 UseActionPoints(1);
 
                 // TODO: Stop movement if game ended. Maybe here, maybe
@@ -123,9 +126,24 @@ public class Player : MonoBehaviour {
         }
     }
 
+    public void ResetAP() {
+        ActionPoints = MaxPoints;
+    }
+
+    public void Reset() {
+        ResetAP();
+        ResetCoords();
+
+        timeMoving = 0.0f;
+    }
+
+    private void ResetCoords() {
+        MoveToImmediate(new Vector2Int(Grid.Size.x - 1, Grid.Size.y - 1));
+    }
+
     private void EndTurn() {
         Turn.Instance.EndTurn();
-        ActionPoints = MaxPoints;
+        ResetAP();
     }
 
     private Vector3 NormalizedPosition(Vector3 position) {
@@ -146,5 +164,10 @@ public class Player : MonoBehaviour {
         } else {
             targetCoords = new Vector2Int(-1, -1);
         }
+    }
+
+    private void MoveToImmediate(Vector2Int coords) {
+        transform.position = NormalizedPosition(Grid.Instance.PositionForCoords(coords));
+        currentCoords = coords;
     }
 }

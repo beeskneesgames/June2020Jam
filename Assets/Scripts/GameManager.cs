@@ -3,6 +3,7 @@
 public class GameManager : MonoBehaviour {
     private static GameManager instance;
     private const float LossPercent = 0.75f;
+    public WinLoseUI winLoseUI;
 
     public static GameManager Instance {
         get {
@@ -28,6 +29,13 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void Reset() {
+        Player.Instance.Reset();
+        Turn.Instance.Reset();
+        Grid.Instance.Reset();
+        DamageManager.Instance.Reset();
+    }
+
     private bool CheckForLoss() {
         if (Grid.Instance.PercentDamaged() >= LossPercent) {
             return true;
@@ -45,7 +53,7 @@ public class GameManager : MonoBehaviour {
             return true;
         }
 
-        if (!Grid.Instance.HasDamage) {
+        if (!Grid.Instance.HasDamage && Turn.Instance.TurnCount > 1) {
             return true;
         }
 
@@ -53,10 +61,10 @@ public class GameManager : MonoBehaviour {
     }
 
     private void TriggerWin() {
-        Debug.Log("You Win!");
+        winLoseUI.Show(true);
     }
 
     private void TriggerLoss() {
-        Debug.Log("You Lose :(");
+        winLoseUI.Show(false);
     }
 }

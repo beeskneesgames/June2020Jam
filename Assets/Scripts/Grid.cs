@@ -6,7 +6,7 @@ public class Grid : MonoBehaviour {
 
     private static Grid instance;
     private List<Cell> damageHeadCells = new List<Cell>();
-    private List<CellInfo> allCells = new List<CellInfo>();
+    private List<CellInfo> allCells;
     private int cellCount;
 
     public static Grid Instance {
@@ -53,6 +53,13 @@ public class Grid : MonoBehaviour {
     }
 
     private void Start() {
+        Reset();
+    }
+
+    public void Reset() {
+        damageHeadCells = new List<Cell>();
+        allCells = new List<CellInfo>();
+
         for (int i = 0; i < rows.Length; i++) {
             Row row = rows[i]; // your boat
             row.Index = i;
@@ -61,6 +68,13 @@ public class Grid : MonoBehaviour {
                 Cell cell = row.cells[j];
                 cell.Info.Coords = new Vector2Int(i, j);
                 cellCount++;
+
+                cell.Info.IsDamaged = false;
+
+                if (cell.Info.HasDamageHead) {
+                    DamageManager.Instance.RemoveHeadsAt(cell.Info.Coords);
+                    cell.Info.HasDamageHead = false;
+                }
 
                 allCells.Add(cell.Info);
             }
