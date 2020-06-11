@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
+    public static bool diagonalFixAllowed = true;
     public static bool diagonalMoveAllowed = false;
 
     private static Player instance;
