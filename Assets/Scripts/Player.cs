@@ -20,7 +20,7 @@ public class Player : MonoBehaviour {
     private Vector2Int targetCoords = new Vector2Int(-1, -1);
     private Vector3 startPositionForMove;
     private Vector3 endPositionForMove;
-    private float timeMoving = 0.0f;
+    private float timeMoving;
     private const float MaxTimeMoving = 0.25f;
 
     public CellInfo CurrentCell {
@@ -59,7 +59,7 @@ public class Player : MonoBehaviour {
     }
 
     private void Start() {
-        ResetCoords();
+        Reset();
     }
 
     private void Update() {
@@ -81,8 +81,7 @@ public class Player : MonoBehaviour {
                 //   path), or
                 // * End the movement (if we're at the last cell in the path).
                 timeMoving = 0.0f;
-                transform.position = endPositionForMove;
-                currentCoords = targetCoords;
+                MoveToImmediate(targetCoords);
                 UseActionPoints(1);
 
                 // TODO: Stop movement if game ended. Maybe here, maybe
@@ -133,11 +132,12 @@ public class Player : MonoBehaviour {
     public void Reset() {
         ResetAP();
         ResetCoords();
+
+        timeMoving = 0.0f;
     }
 
     private void ResetCoords() {
-        currentCoords = new Vector2Int(Grid.Size.x - 1, Grid.Size.y - 1);
-        MoveTo(currentCoords);
+        MoveToImmediate(new Vector2Int(Grid.Size.x - 1, Grid.Size.y - 1));
     }
 
     private void EndTurn() {
@@ -163,5 +163,10 @@ public class Player : MonoBehaviour {
         } else {
             targetCoords = new Vector2Int(-1, -1);
         }
+    }
+
+    private void MoveToImmediate(Vector2Int coords) {
+        transform.position = NormalizedPosition(Grid.Instance.PositionForCoords(coords));
+        currentCoords = coords;
     }
 }
