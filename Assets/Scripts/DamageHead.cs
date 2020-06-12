@@ -32,7 +32,7 @@ public class DamageHead {
         List<CellInfo> availableCells = possibleCells.ToList();
 
         foreach (var cell in possibleCells) {
-            if (cell.HasObstacle || Player.Instance.CurrentCoords == coords) {
+            if (cell.HasObstacle || cell.HasPlayer) {
                 availableCells.Remove(cell);
             }
         }

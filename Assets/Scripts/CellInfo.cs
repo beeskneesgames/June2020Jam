@@ -25,13 +25,9 @@ public class CellInfo {
     public bool HasObstacle { get; private set; } = false;
     public bool HasPlayer {
         get {
-            Player.Instance.currentCoords == Coords;
-            return false;
+            return Player.Instance.CurrentCoords == Coords;
         }
-        private set {
-            isDamaged = value;
-        }
-    };
+    }
 
     public void Damage() {
         IsDamaged = true;
