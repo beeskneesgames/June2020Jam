@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class ObstacleManager : MonoBehaviour {
     public Vector2Int Coords { get; set; } = new Vector2Int(-1, -1);
@@ -34,23 +35,28 @@ public class ObstacleManager : MonoBehaviour {
         }
 
         // Generate tower
-        CellInfo towerCell1;
-        CellInfo[] towerCells;
+        CellInfo[] towerCells = new CellInfo[4];
+        bool overlap;
+
         do {
-            towerCell1 = Grid.Instance.RetrieveRandomCell(2);
-            towerCells = Grid.Instance.AdjacentTo(towerCell1.Coords, true);
-        } while (towerCells.Length < 3);
+            towerCells[0] = Grid.Instance.RetrieveRandomCell(1);
+            towerCells[1] = Grid.Instance.CellInfoAt(towerCells[0].Coords + new Vector2Int(1, 0));
+            towerCells[2] = Grid.Instance.CellInfoAt(towerCells[0].Coords + new Vector2Int(0, 1));
+            towerCells[3] = Grid.Instance.CellInfoAt(towerCells[0].Coords + new Vector2Int(1, 1));
 
-        towerCell1 = Grid.Instance.RetrieveRandomCell(2);
-        towerCells = Grid.Instance.AdjacentTo(towerCell1.Coords, true);
+            overlap = false;
 
-        CellInfo towerCell2 = towerCells[0];
-        CellInfo towerCell3 = towerCells[1];
-        CellInfo towerCell4 = towerCells[2];
+            // Make sure the tower doesn't overlap any of the other obstacles.
+            foreach (var towerCell in towerCells) {
+                if (towerCell.HasObstacle) {
+                    overlap = true;
+                    break;
+                }
+            }
+        } while (overlap);
 
-        towerCell1.AddObstacle();
-        towerCell2.AddObstacle();
-        towerCell3.AddObstacle();
-        towerCell4.AddObstacle();
+        foreach (var towerCell in towerCells) {
+            towerCell.AddObstacle();
+        }
     }
 }
