@@ -23,6 +23,15 @@ public class CellInfo {
 
     public bool HasDamageHead { get; set; } = false;
     public bool HasObstacle { get; private set; } = false;
+    public bool HasPlayer {
+        get {
+            Player.Instance.currentCoords == Coords;
+            return false;
+        }
+        private set {
+            isDamaged = value;
+        }
+    };
 
     public void Damage() {
         IsDamaged = true;
