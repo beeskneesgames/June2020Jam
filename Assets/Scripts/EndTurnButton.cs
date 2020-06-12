@@ -1,9 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EndTurnButton : MonoBehaviour {
+    public ActionMenu actionMenu;
+
     public void EndTurn() {
+        actionMenu.CloseMenu();
+        Grid.Instance.ClearSelectedCoords();
         Turn.Instance.EndTurn();
     }
 }
