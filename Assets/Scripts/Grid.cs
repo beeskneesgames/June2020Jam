@@ -6,11 +6,11 @@ public class Grid : MonoBehaviour {
     public GameObject rowPrefab;
     public Vector2Int Size = new Vector2Int(12, 12);
 
-    private static Grid instance;
     private List<Cell> damageHeadCells = new List<Cell>();
     private List<CellInfo> allCells;
     private int cellCount;
 
+    private static Grid instance;
     public static Grid Instance {
         get {
             return instance;
@@ -253,7 +253,6 @@ public class Grid : MonoBehaviour {
                 0,
                 zOffset + i
             );
-            Debug.Log($"Row position: {rows[i].transform.localPosition}");
         }
     }
 

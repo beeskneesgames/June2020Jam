@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour {
         Turn.Instance.Reset();
         Grid.Instance.Reset();
         DamageManager.Instance.Reset();
+        ObstacleManager.Instance.Reset();
     }
 
     private bool CheckForLoss() {

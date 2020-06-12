@@ -6,8 +6,24 @@ public class ObstacleManager : MonoBehaviour {
     private readonly int smallCount = 2;
     private readonly int bigCount = 1;
 
+    private static ObstacleManager instance;
+    public static ObstacleManager Instance {
+        get {
+            return instance;
+        }
+    }
+
+    private void Awake() {
+        if (instance != null && instance != this) {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+    }
+
     private void Start() {
-        Generate();
+        Reset();
     }
 
     private void Generate() {
@@ -50,6 +66,10 @@ public class ObstacleManager : MonoBehaviour {
         foreach (var towerCell in towerCells) {
             towerCell.AddObstacle();
         }
+    }
+
+    public void Reset() {
+        Generate();
     }
 
     private static bool IsValidForObstacles(CellInfo cell) {
