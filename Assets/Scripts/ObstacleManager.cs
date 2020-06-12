@@ -13,7 +13,10 @@ public class ObstacleManager : MonoBehaviour {
     private void Generate() {
         // Generate small obstacles
         for (int count = 0; count < smallCount; count++) {
-            CellInfo cell = Grid.Instance.RetrieveRandomCell();
+            CellInfo cell;
+            do {
+                cell = Grid.Instance.RetrieveRandomCell();
+            } while (!IsValidForObstacles(cell));
 
             cell.AddObstacle();
         }
@@ -47,6 +50,10 @@ public class ObstacleManager : MonoBehaviour {
         foreach (var towerCell in towerCells) {
             towerCell.AddObstacle();
         }
+    }
+
+    private static bool IsValidForObstacles(CellInfo cell) {
+        return IsValidForObstacles(new CellInfo[] { cell });
     }
 
     private static bool IsValidForObstacles(IEnumerable<CellInfo> cells) {

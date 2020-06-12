@@ -223,18 +223,10 @@ public class Grid : MonoBehaviour {
     }
 
     public CellInfo RetrieveRandomCell(int buffer = 0) {
-        Vector2Int playerCell = new Vector2Int(Size.x - 1, Size.y - 1);
-        Vector2Int damageHeadCell = new Vector2Int(0, 0);
-        Vector2Int coords = new Vector2Int(0, 0);
+        int randomX = Random.Range(0, Size.x - buffer);
+        int randomY = Random.Range(0, Size.y - buffer);
 
-        while (coords == playerCell || coords == damageHeadCell) {
-            int randomX = Random.Range(0, Size.x - buffer);
-            int randomY = Random.Range(0, Size.y - buffer);
-
-            coords = new Vector2Int(randomX, randomY);
-        }
-
-        return CellInfoAt(coords);
+        return CellInfoAt(new Vector2Int(randomX, randomY));
     }
 
     private void UpdateDisplayedPath() {
