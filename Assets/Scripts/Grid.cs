@@ -2,7 +2,9 @@
 using UnityEngine;
 
 public class Grid : MonoBehaviour {
-    public static readonly Vector2Int Size = new Vector2Int(12, 12);
+    public GameObject cellPrefab;
+    public GameObject rowPrefab;
+    public Vector2Int Size = new Vector2Int(12, 12);
 
     private static Grid instance;
     private List<Cell> damageHeadCells = new List<Cell>();
@@ -229,6 +231,31 @@ public class Grid : MonoBehaviour {
         return CellInfoAt(new Vector2Int(randomX, randomY));
     }
 
+    public void Resize(int newSize) {
+        foreach (var row in rows) {
+            foreach (var cell in row.cells) {
+                Destroy(cell);
+            }
+
+            Destroy(row);
+        }
+
+        Size = new Vector2Int(newSize, newSize);
+        rows = new Row[Size.x];
+        float zOffset = (Size.x - 1) * -0.5f;
+
+        for (int i = 0; i < Size.x; i++) {
+            rows[i] = Instantiate(rowPrefab, Vector3.zero, Quaternion.identity).GetComponent<Row>();
+            rows[i].Resize(Size.y);
+            rows[i].Index = i;
+            rows[i].transform.localPosition = new Vector3(
+                0,
+                0,
+                zOffset + i
+            );
+        }
+    }
+
     private void UpdateDisplayedPath() {
         if (Player.Instance.IsMoving) {
             ShowPath(Player.Instance.MovementPath);
@@ -284,8 +311,12 @@ public class Grid : MonoBehaviour {
         }
     }
 
-    private static bool InBounds(Vector2Int coords) {
-        return coords.x >= 0 && coords.x < Size.x && coords.y >= 0 && coords.y < Size.y;
+    private bool InBounds(Vector2Int coords) {
+        return
+            coords.x >= 0 &&
+            coords.x < Size.x &&
+            coords.y >= 0 &&
+            coords.y < Size.y;
     }
 
     private static List<Vector2Int> PathBetweenWithDiagonals(Vector2Int start, Vector2Int end) {

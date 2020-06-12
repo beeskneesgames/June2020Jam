@@ -139,7 +139,7 @@ public class Player : MonoBehaviour {
     }
 
     private void ResetCoords() {
-        MoveToImmediate(new Vector2Int(Grid.Size.x - 1, Grid.Size.y - 1));
+        MoveToImmediate(new Vector2Int(Grid.Instance.Size.x - 1, Grid.Instance.Size.y - 1));
     }
 
     private void EndTurn() {
