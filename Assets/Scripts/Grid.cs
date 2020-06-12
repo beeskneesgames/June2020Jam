@@ -225,7 +225,7 @@ public class Grid : MonoBehaviour {
     public CellInfo RetrieveRandomCell() {
         // Exclude extremes
         int randomX = Random.Range(1, Size.x - 2);
-        int randomY = Random.Range(1, Size.x - 2);
+        int randomY = Random.Range(1, Size.y - 2);
 
         Vector2Int coords = new Vector2Int(randomX, randomY);
         return CellInfoAt(coords);
