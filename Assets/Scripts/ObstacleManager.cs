@@ -5,9 +5,26 @@ public class ObstacleManager : MonoBehaviour {
     public Vector2Int Coords { get; set; } = new Vector2Int(-1, -1);
     private readonly int smallCount = 2;
     private readonly int bigCount = 1;
+    private List<CellInfo> obstacleCells = new List<CellInfo>();
+
+    private static ObstacleManager instance;
+    public static ObstacleManager Instance {
+        get {
+            return instance;
+        }
+    }
+
+    private void Awake() {
+        if (instance != null && instance != this) {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+    }
 
     private void Start() {
-        Generate();
+        Reset();
     }
 
     private void Generate() {
@@ -19,6 +36,7 @@ public class ObstacleManager : MonoBehaviour {
             } while (!IsValidForObstacles(cell));
 
             cell.AddObstacle();
+            obstacleCells.Add(cell);
         }
 
         // Generate big obstacles
@@ -34,6 +52,7 @@ public class ObstacleManager : MonoBehaviour {
 
             foreach (var bigObstacleCell in bigObstacleCells) {
                 bigObstacleCell.AddObstacle();
+                obstacleCells.Add(bigObstacleCell);
             }
         }
 
@@ -49,7 +68,17 @@ public class ObstacleManager : MonoBehaviour {
 
         foreach (var towerCell in towerCells) {
             towerCell.AddObstacle();
+            obstacleCells.Add(towerCell);
         }
+    }
+
+    public void Reset() {
+        foreach (var cell in obstacleCells) {
+            cell.RemoveObstacle();
+        }
+        obstacleCells.Clear();
+
+        Generate();
     }
 
     private static bool IsValidForObstacles(CellInfo cell) {

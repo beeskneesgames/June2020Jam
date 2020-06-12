@@ -41,4 +41,9 @@ public class PauseMenu : MonoBehaviour {
     public void ExitGame() {
         SceneLoader.StartTitleScene();
     }
+
+    public void OnResetClicked() {
+        GameManager.Instance.Reset();
+        menuContainer.SetActive(false);
+    }
 }

@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 using TMPro;
 
 public class CellSelector : MonoBehaviour {
-    public TextMeshProUGUI coordsText;
     public ActionMenu actionMenu;
     private Camera mainCamera;
     private int cellLayerMask;
@@ -36,8 +35,6 @@ public class CellSelector : MonoBehaviour {
         }
 
         if (hitCell) {
-            coordsText.text = $"({hitCell.Info.Coords.x}, {hitCell.Info.Coords.y})";
-
             if (clicked && CanSelect) {
                 Grid.Instance.SetSelectedCoords(hitCell.Info.Coords);
 
@@ -61,7 +58,6 @@ public class CellSelector : MonoBehaviour {
     }
 
     private void ClearHover() {
-        coordsText.text = "(?, ?)";
         Grid.Instance.ClearHoveredCoords();
     }
 
