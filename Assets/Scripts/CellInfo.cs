@@ -22,6 +22,7 @@ public class CellInfo {
     }
 
     public bool HasDamageHead { get; set; } = false;
+    public bool HasObstacle { get; private set; } = false;
 
     public void Damage() {
         IsDamaged = true;
@@ -38,5 +39,9 @@ public class CellInfo {
             DamageManager.Instance.RemoveHeadsAt(Coords);
             HasDamageHead = false;
         }
+    }
+
+    public void AddObstacle() {
+        HasObstacle = true;
     }
 }
