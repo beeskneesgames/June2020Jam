@@ -34,7 +34,7 @@ public class Player : MonoBehaviour {
 
     // Action Points
     public TextMeshProUGUI actionPointUI;
-    private const int MaxPoints = 2;
+    private const int MaxPoints = 3;
     private int actionPoints;
     public int ActionPoints {
         get {
