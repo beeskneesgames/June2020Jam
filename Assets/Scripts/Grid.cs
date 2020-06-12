@@ -222,14 +222,14 @@ public class Grid : MonoBehaviour {
         }
     }
 
-    public CellInfo RetrieveRandomCell() {
+    public CellInfo RetrieveRandomCell(int buffer = 1) {
         Vector2Int playerCell = new Vector2Int(Size.x - 1, Size.y - 1);
         Vector2Int damageHeadCell = new Vector2Int(0, 0);
         Vector2Int coords = new Vector2Int(0, 0);
 
         while (coords == playerCell || coords == damageHeadCell) {
-            int randomX = Random.Range(0, Size.x - 1);
-            int randomY = Random.Range(0, Size.y - 1);
+            int randomX = Random.Range(0, Size.x - buffer);
+            int randomY = Random.Range(0, Size.y - buffer);
 
             coords = new Vector2Int(randomX, randomY);
         }
