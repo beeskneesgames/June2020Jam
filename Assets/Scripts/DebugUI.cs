@@ -43,6 +43,10 @@ public class DebugUI : MonoBehaviour {
         }
     }
 
+    public void OnResetClicked() {
+        GameManager.Instance.Reset();
+    }
+
     private void SyncConfig() {
         Player.diagonalMoveAllowed = playerDiagonalMoveToggle.isOn;
         Player.diagonalFixAllowed = playerDiagonalFixToggle.isOn;

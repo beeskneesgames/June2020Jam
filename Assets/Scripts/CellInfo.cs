@@ -44,4 +44,8 @@ public class CellInfo {
     public void AddObstacle() {
         HasObstacle = true;
     }
+
+    public void RemoveObstacle() {
+        HasObstacle = false;
+    }
 }
