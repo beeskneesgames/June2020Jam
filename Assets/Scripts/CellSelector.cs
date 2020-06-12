@@ -36,14 +36,20 @@ public class CellSelector : MonoBehaviour {
 
         if (hitCell) {
             if (clicked && CanSelect) {
-                Grid.Instance.SetSelectedCoords(hitCell.Info.Coords);
+                if (Grid.Instance.SelectedCoords == hitCell.Info.Coords) {
+                    // If a cell is already selected and is clicked again,
+                    // unselect it.
+                    ClearSelection();
+                } else {
+                    Grid.Instance.SetSelectedCoords(hitCell.Info.Coords);
 
-                actionMenu.transform.position = new Vector3(
-                    hitCell.transform.position.x + 1.5f,
-                    hitCell.transform.position.y + 4.0f,
-                    hitCell.transform.position.z + 3.5f
-                );
-                actionMenu.OpenMenu();
+                    actionMenu.transform.position = new Vector3(
+                        hitCell.transform.position.x + 1.5f,
+                        hitCell.transform.position.y + 4.0f,
+                        hitCell.transform.position.z + 3.5f
+                    );
+                    actionMenu.OpenMenu();
+                }
             } else {
                 Grid.Instance.SetHoveredCoords(hitCell.Info.Coords);
             }
@@ -51,8 +57,7 @@ public class CellSelector : MonoBehaviour {
             ClearHover();
 
             if (clicked) {
-                actionMenu.CloseMenu();
-                Grid.Instance.ClearSelectedCoords();
+                ClearSelection();
             }
         }
     }
@@ -65,5 +70,10 @@ public class CellSelector : MonoBehaviour {
         get {
             return !Player.Instance.IsMoving;
         }
+    }
+
+    private void ClearSelection() {
+        actionMenu.CloseMenu();
+        Grid.Instance.ClearSelectedCoords();
     }
 }
