@@ -13,7 +13,6 @@ public class ObstacleManager : MonoBehaviour {
         // Generate small obstacles
         for (int count = 0; count < smallCount; count++) {
             CellInfo cell = Grid.Instance.RetrieveRandomCell();
-            Debug.Log($"small cell coords: {cell.Coords}");
 
             cell.AddObstacle();
         }
@@ -32,8 +31,6 @@ public class ObstacleManager : MonoBehaviour {
 
             cell1.AddObstacle();
             cell2.AddObstacle();
-            Debug.Log($"cell1.Coords: {cell1.Coords}");
-            Debug.Log($"cell2.Coords: {cell2.Coords}");
         }
 
         // Generate tower
@@ -50,11 +47,6 @@ public class ObstacleManager : MonoBehaviour {
         CellInfo towerCell2 = towerCells[0];
         CellInfo towerCell3 = towerCells[1];
         CellInfo towerCell4 = towerCells[2];
-
-        Debug.Log($"towerCell1.Coords: {towerCell1.Coords}");
-        Debug.Log($"towerCell2.Coords: {towerCell1.Coords}");
-        Debug.Log($"towerCell3.Coords: {towerCell1.Coords}");
-        Debug.Log($"towerCell4.Coords: {towerCell1.Coords}");
 
         towerCell1.AddObstacle();
         towerCell2.AddObstacle();
