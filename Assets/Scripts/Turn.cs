@@ -5,7 +5,7 @@ public class Turn : MonoBehaviour {
     private static Turn instance;
     private int turnCount;
 
-    public const int MaxTurnCount = 15;
+    public const int MaxTurnCount = 50;
     public TextMeshProUGUI turnUI;
 
     public int TurnCount {
