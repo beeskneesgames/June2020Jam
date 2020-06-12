@@ -30,7 +30,7 @@ public class Cell : MonoBehaviour {
                     //Light gray
                     renderer.material.color = new Color(0.75f, 0.75f, 0.75f);
                 } else if (Info.HasObstacle) {
-                    //Purple
+                    //Pink
                     renderer.material.color = new Color(1.0f, 0.5f, 1.00f);
                 } else if (Info.HasDamageHead) {
                     //Dark red
