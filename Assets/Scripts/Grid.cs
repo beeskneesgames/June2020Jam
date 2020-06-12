@@ -2,7 +2,7 @@
 using UnityEngine;
 
 public class Grid : MonoBehaviour {
-    public static readonly Vector2Int Size = new Vector2Int(16, 16);
+    public static readonly Vector2Int Size = new Vector2Int(12, 12);
 
     private static Grid instance;
     private List<Cell> damageHeadCells = new List<Cell>();
