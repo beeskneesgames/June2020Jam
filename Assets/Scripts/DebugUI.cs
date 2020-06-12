@@ -33,7 +33,14 @@ public class DebugUI : MonoBehaviour {
     }
 
     public void OnGridSizeEndEdit() {
-        Debug.Log(gridSizeInput.text);
+        int newGridSize;
+
+        if (int.TryParse(gridSizeInput.text, out newGridSize)) {
+            Grid.Instance.Resize(newGridSize);
+            GameManager.Instance.Reset();
+        } else {
+            gridSizeInput.text = Grid.Instance.Size.x.ToString();
+        }
     }
 
     private void SyncConfig() {

@@ -234,10 +234,10 @@ public class Grid : MonoBehaviour {
     public void Resize(int newSize) {
         foreach (var row in rows) {
             foreach (var cell in row.cells) {
-                Destroy(cell);
+                Destroy(cell.gameObject);
             }
 
-            Destroy(row);
+            Destroy(row.gameObject);
         }
 
         Size = new Vector2Int(newSize, newSize);
@@ -245,7 +245,7 @@ public class Grid : MonoBehaviour {
         float zOffset = (Size.x - 1) * -0.5f;
 
         for (int i = 0; i < Size.x; i++) {
-            rows[i] = Instantiate(rowPrefab, Vector3.zero, Quaternion.identity).GetComponent<Row>();
+            rows[i] = Instantiate(rowPrefab, transform).GetComponent<Row>();
             rows[i].Resize(Size.y);
             rows[i].Index = i;
             rows[i].transform.localPosition = new Vector3(
@@ -253,6 +253,7 @@ public class Grid : MonoBehaviour {
                 0,
                 zOffset + i
             );
+            Debug.Log($"Row position: {rows[i].transform.localPosition}");
         }
     }
 

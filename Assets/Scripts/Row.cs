@@ -9,14 +9,14 @@ public class Row : MonoBehaviour {
 
     public void Resize(int newSize) {
         foreach (var cell in cells) {
-            Destroy(cell);
+            Destroy(cell.gameObject);
         }
 
         cells = new Cell[newSize];
         float xOffset = (newSize - 1) * 0.5f;
 
         for (int i = 0; i < newSize; i++) {
-            cells[i] = Instantiate(Grid.Instance.cellPrefab, Vector3.zero, Quaternion.identity).GetComponent<Cell>();
+            cells[i] = Instantiate(Grid.Instance.cellPrefab, transform).GetComponent<Cell>();
             cells[i].Info.Coords = new Vector2Int(Index, i);
             cells[i].transform.localPosition = new Vector3(
                 xOffset - i,
