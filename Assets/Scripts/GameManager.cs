@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour {
-    private static GameManager instance;
-    private const float LossPercent = 0.75f;
+    private const float LossPercent = 0.5f;
     public WinLoseUI winLoseUI;
 
+    private static GameManager instance;
     public static GameManager Instance {
         get {
             return instance;

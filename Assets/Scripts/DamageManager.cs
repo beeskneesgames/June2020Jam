@@ -37,7 +37,9 @@ public class DamageManager : MonoBehaviour {
     public void Spread() {
         if ((Turn.Instance.TurnCount % spreadRate) == 0) {
             if (damageHeads.Count > 0) {
-                AddHead(damageHeads[Random.Range(0, damageHeads.Count)].Coords);
+                foreach (var head in new List<DamageHead>(damageHeads)) {
+                    AddHead(head.Coords);
+                }
             } else {
                 AddHead(DefaultHeadCoords);
             }

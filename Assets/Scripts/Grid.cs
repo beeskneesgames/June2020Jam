@@ -4,11 +4,10 @@ using UnityEngine;
 public class Grid : MonoBehaviour {
     public GameObject cellPrefab;
     public GameObject rowPrefab;
-    public Vector2Int Size = new Vector2Int(12, 12);
+    public Vector2Int Size = new Vector2Int(16, 16);
 
     private List<Cell> damageHeadCells = new List<Cell>();
-    private List<CellInfo> allCells;
-    private int cellCount;
+    private List<CellInfo> allCells = new List<CellInfo>();
 
     private static Grid instance;
     public static Grid Instance {
@@ -59,8 +58,8 @@ public class Grid : MonoBehaviour {
     }
 
     public void Reset() {
-        damageHeadCells = new List<Cell>();
-        allCells = new List<CellInfo>();
+        damageHeadCells.Clear();
+        allCells.Clear();
 
         for (int i = 0; i < rows.Length; i++) {
             Row row = rows[i]; // your boat
@@ -69,7 +68,6 @@ public class Grid : MonoBehaviour {
             for (int j = 0; j < row.cells.Length; j++) {
                 Cell cell = row.cells[j];
                 cell.Info.Coords = new Vector2Int(i, j);
-                cellCount++;
 
                 cell.Info.IsDamaged = false;
 
@@ -84,15 +82,15 @@ public class Grid : MonoBehaviour {
     }
 
     public float PercentDamaged() {
-        List<CellInfo> cellsWithDamage = new List<CellInfo>();
+        int damagedCellCount = 0;
 
         foreach (var cell in allCells) {
             if (cell.IsDamaged) {
-                cellsWithDamage.Add(cell);
+                damagedCellCount++;
             }
         }
 
-        return cellsWithDamage.Count / (float)cellCount;
+        return damagedCellCount / (float)allCells.Count;
     }
 
     public void SetHoveredCoords(Vector2Int coords) {
