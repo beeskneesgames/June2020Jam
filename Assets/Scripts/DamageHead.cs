@@ -28,19 +28,18 @@ public class DamageHead {
     }
 
     public void Move() {
-        List<CellInfo> possibleCells = Grid.Instance.AdjacentTo(coords, diagonalAllowed);
-        List<CellInfo> availableCells = possibleCells.ToList();
+        List<CellInfo> possibleCells = new List<CellInfo>();
 
-        foreach (var cell in possibleCells) {
-            if (cell.HasObstacle || cell.HasPlayer) {
-                availableCells.Remove(cell);
+        foreach (var cell in Grid.Instance.AdjacentTo(coords, diagonalAllowed)) {
+            if (!cell.HasObstacle && !cell.HasPlayer) {
+                possibleCells.Add(cell);
             }
         }
 
         if (preferHealthyCells) {
             List<CellInfo> healthyCells = new List<CellInfo>();
 
-            foreach (var cell in availableCells) {
+            foreach (var cell in possibleCells) {
                 if (cell.IsHealthy) {
                     healthyCells.Add(cell);
                 }
@@ -51,8 +50,8 @@ public class DamageHead {
             }
         }
 
-        if (availableCells.Count > 0) {
-            Vector2Int nextCoords = availableCells[Random.Range(0, availableCells.Count)].Coords;
+        if (possibleCells.Count > 0) {
+            Vector2Int nextCoords = possibleCells[Random.Range(0, possibleCells.Count)].Coords;
 
             // If negative, the nextCoords is still set as its sentinel value,
             // which is effectively null here.
