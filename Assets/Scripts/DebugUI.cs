@@ -37,10 +37,10 @@ public class DebugUI : MonoBehaviour {
     public void OnSpreadEndEdit() {
         int newSpreadRate;
 
-        if (int.TryParse(gridSizeInput.text, out newSpreadRate)) {
+        if (int.TryParse(spreadInput.text, out newSpreadRate)) {
             DamageManager.Instance.spreadRate = newSpreadRate;
         } else {
-            gridSizeInput.text = DamageManager.Instance.spreadRate.ToString();
+            spreadInput.text = DamageManager.Instance.spreadRate.ToString();
         }
     }
 
