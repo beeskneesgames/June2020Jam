@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DamageManager : MonoBehaviour {
     private static DamageManager instance;
-    private const int SpreadRate = 2;
+    private const int SpreadRate = 1;
     private List<DamageHead> damageHeads;
     private Vector2Int DefaultHeadCoords = new Vector2Int(0, 0);
 

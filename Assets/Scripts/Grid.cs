@@ -4,7 +4,7 @@ using UnityEngine;
 public class Grid : MonoBehaviour {
     public GameObject cellPrefab;
     public GameObject rowPrefab;
-    public Vector2Int Size = new Vector2Int(10, 10);
+    public Vector2Int Size = new Vector2Int(12, 12);
 
     private List<Cell> damageHeadCells = new List<Cell>();
     private List<CellInfo> allCells;
