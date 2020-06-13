@@ -23,6 +23,7 @@ public class CellInfo {
 
     public bool HasDamageHead { get; set; } = false;
     public bool HasObstacle { get; private set; } = false;
+    public bool HasBomb { get; set; } = false;
     public bool HasPlayer {
         get {
             return Player.Instance.CurrentCoords == Coords;

@@ -128,6 +128,11 @@ public class Player : MonoBehaviour {
         }
     }
 
+    public void PlaceBomb() {
+        CellInfo cell = Grid.Instance.CellInfoAt(Grid.Instance.SelectedCoords);
+        cell.HasBomb = true;
+    }
+
     public void ResetAP() {
         ActionPoints = MaxPoints;
     }
