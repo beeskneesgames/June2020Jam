@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
-    public static bool diagonalFixAllowed = true;
+    public static bool diagonalFixAllowed = false;
     public static bool diagonalMoveAllowed = false;
 
     private static Player instance;
@@ -16,7 +16,6 @@ public class Player : MonoBehaviour {
     // Movement
     public bool IsMoving { get; private set; } = false;
     private System.Action moveCallback;
-    private Vector2Int currentCoords;
     private List<Vector2Int> remainingMovementPath = null;
     public List<Vector2Int> MovementPath { get; private set; }
     private Vector2Int targetCoords = new Vector2Int(-1, -1);
@@ -25,9 +24,11 @@ public class Player : MonoBehaviour {
     private float timeMoving;
     private const float MaxTimeMoving = 0.25f;
 
+    public Vector2Int CurrentCoords { get; private set; }
+
     public CellInfo CurrentCell {
         get {
-            return Grid.Instance.CellInfoAt(currentCoords);
+            return Grid.Instance.CellInfoAt(CurrentCoords);
         }
     }
 
@@ -111,7 +112,7 @@ public class Player : MonoBehaviour {
         IsMoving = true;
         timeMoving = 0.0f;
         moveCallback = callback;
-        MovementPath = Grid.PathBetween(currentCoords, coords, Player.diagonalMoveAllowed);
+        MovementPath = Grid.PathBetween(CurrentCoords, coords, Player.diagonalMoveAllowed);
         remainingMovementPath = new List<Vector2Int>(MovementPath);
 
         // We're already at the first cell in the path, so remove it.
@@ -160,7 +161,7 @@ public class Player : MonoBehaviour {
             targetCoords = remainingMovementPath[0];
             remainingMovementPath.RemoveAt(0);
 
-            startPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(currentCoords));
+            startPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(CurrentCoords));
             endPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(targetCoords));
         } else {
             targetCoords = new Vector2Int(-1, -1);
@@ -169,6 +170,6 @@ public class Player : MonoBehaviour {
 
     private void MoveToImmediate(Vector2Int coords) {
         transform.position = NormalizedPosition(Grid.Instance.PositionForCoords(coords));
-        currentCoords = coords;
+        CurrentCoords = coords;
     }
 }
