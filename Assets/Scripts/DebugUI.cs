@@ -9,10 +9,12 @@ public class DebugUI : MonoBehaviour {
     public Toggle playerDiagonalFixToggle;
     public Toggle damageDiagonalToggle;
     public Toggle damageHealthyCellsToggle;
+    public TMP_InputField spreadInput;
     public TMP_InputField gridSizeInput;
 
     private void Start() {
         SyncConfig();
+        spreadInput.text = DamageManager.Instance.spreadRate.ToString();
         gridSizeInput.text = Grid.Instance.Size.x.ToString();
     }
 
@@ -30,6 +32,16 @@ public class DebugUI : MonoBehaviour {
 
     public void OnDamageHealthyCellsToggled() {
         SyncConfig();
+    }
+
+    public void OnSpreadEndEdit() {
+        int newSpreadRate;
+
+        if (int.TryParse(gridSizeInput.text, out newSpreadRate)) {
+            DamageManager.Instance.spreadRate = newSpreadRate;
+        } else {
+            gridSizeInput.text = DamageManager.Instance.spreadRate.ToString();
+        }
     }
 
     public void OnGridSizeEndEdit() {
