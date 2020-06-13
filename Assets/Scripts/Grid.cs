@@ -147,7 +147,7 @@ public class Grid : MonoBehaviour {
         UpdateDisplayedPath();
     }
 
-    public CellInfo[] AdjacentTo(Vector2Int coords, bool includeDiagonal) {
+    public List<CellInfo> AdjacentTo(Vector2Int coords, bool includeDiagonal) {
         // Add all the fully adjacent cells.
         List<Cell> cells = new List<Cell> {
             CellAt(coords + new Vector2Int( 1,  0)),
@@ -173,7 +173,7 @@ public class Grid : MonoBehaviour {
             }
         }
 
-        return cellInfos.ToArray();
+        return cellInfos;
     }
 
     public void SetDamageHeads(List<DamageHead> damageHeads) {
