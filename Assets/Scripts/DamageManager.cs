@@ -30,7 +30,7 @@ public class DamageManager : MonoBehaviour {
 
     public void Reset() {
         DefaultHeadCoords1 = new Vector2Int(0, 0);
-        DefaultHeadCoords2 = new Vector2Int(0, Grid.Instance.Size.x - 1);
+        DefaultHeadCoords2 = new Vector2Int(0, Grid.Instance.Size.y - 1);
         DefaultHeadCoords3 = new Vector2Int(Grid.Instance.Size.x - 1, 0);
         damageHeads = new List<DamageHead>();
 
