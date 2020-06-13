@@ -28,7 +28,7 @@ public class DamageHead {
     }
 
     public void Move() {
-        List<CellInfo> possibleCells = new List<CellInfo>(Grid.Instance.AdjacentTo(coords, diagonalAllowed));
+        List<CellInfo> possibleCells = Grid.Instance.AdjacentTo(coords, diagonalAllowed);
         List<CellInfo> availableCells = possibleCells.ToList();
 
         foreach (var cell in possibleCells) {

@@ -46,7 +46,7 @@ public class ObstacleManager : MonoBehaviour {
             do {
                 bigObstacleCells[0] = Grid.Instance.RetrieveRandomCell();
 
-                CellInfo[] adjacentCells = Grid.Instance.AdjacentTo(bigObstacleCells[0].Coords, false);
+                List<CellInfo> adjacentCells = Grid.Instance.AdjacentTo(bigObstacleCells[0].Coords, false);
                 bigObstacleCells[1] = adjacentCells[Random.Range(0, bigObstacleCells.Length)];
             } while (!IsValidForObstacles(bigObstacleCells));
 
