@@ -2,7 +2,7 @@
 
 public class GameManager : MonoBehaviour {
     private static GameManager instance;
-    private const float LossPercent = 0.75f;
+    private const float LossPercent = 0.5f;
     public WinLoseUI winLoseUI;
 
     public static GameManager Instance {
