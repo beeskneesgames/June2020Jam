@@ -20,6 +20,8 @@ public class CellInfo {
         }
     }
 
+    public const int BombCost = 3;
+
     public bool IsHealthy {
         get {
             return !IsDamaged;
@@ -56,7 +58,7 @@ public class CellInfo {
         HasBomb = true;
         List<Vector2Int> path = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Coords, Player.diagonalFixAllowed);
 
-        Player.Instance.UseActionPoints(path.Count + 1);
+        Player.Instance.UseActionPoints(BombCost);
     }
 
     public void AddObstacle() {

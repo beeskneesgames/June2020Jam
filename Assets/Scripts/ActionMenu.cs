@@ -89,7 +89,7 @@ public class ActionMenu : MonoBehaviour {
 
             // -1 because path includes the player's square.
             moveCostText.text = $"Move/Fix cost: {path.Count - 1} AP";
-            bombCostText.text = $"Bomb cost: {path.Count + 1} AP";
+            bombCostText.text = $"Bomb cost: {CellInfo.BombCost} AP";
         } else {
             moveCostText.text = "";
             bombCostText.text = "";
