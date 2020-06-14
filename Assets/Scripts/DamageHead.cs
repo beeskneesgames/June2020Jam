@@ -7,7 +7,7 @@ public class DamageHead {
     public static bool preferHealthyCells = true;
 
     public Vector2Int coords;
-    private CellInfo CurrentCellInfo {
+    public CellInfo CurrentCellInfo {
         get {
             return Grid.Instance.CellInfoAt(coords);
         }

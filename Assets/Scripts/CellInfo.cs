@@ -11,23 +11,6 @@ public class CellInfo {
         }
         set {
             isDamaged = value;
-
-            if (isDamaged && HasBomb) {
-                // Remove damage on adjacent cells and remove bomb
-                List<CellInfo> cellsToFix = Grid.Instance.AdjacentTo(Coords, true);
-                cellsToFix.Add(Grid.Instance.CellInfoAt(Coords));
-
-                foreach (var cell in cellsToFix) {
-                    if (cell.HasDamageHead) {
-                        DamageManager.Instance.RemoveHeadsAt(cell.Coords);
-                        cell.HasDamageHead = false;
-                    }
-
-                    cell.IsDamaged = false;
-                    cell.HasBomb = false;
-                }
-            }
-
             GameManager.Instance.CheckEndGame();
         }
     }
