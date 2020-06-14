@@ -17,6 +17,8 @@ public class CellInfo {
 
     public const int BombCost = 3;
     public const int MeleeFixCost = 1;
+    public const int RangedFixCost = 1;
+    public const int RangedFixRange = 5;
 
     public bool IsHealthy {
         get {
@@ -39,15 +41,15 @@ public class CellInfo {
 
     public void MeleeFix() {
         foreach (var cell in Grid.Instance.AdjacentTo(Player.Instance.CurrentCell.Coords, true)) {
-            cell.isDamaged = false;
-
-            if (cell.HasDamageHead) {
-                DamageManager.Instance.RemoveHeadsAt(cell.Coords);
-                cell.HasDamageHead = false;
-            }
+            cell.Fix();
         }
 
         Player.Instance.UseActionPoints(MeleeFixCost);
+    }
+
+    public void RangedFix() {
+        Fix();
+        Player.Instance.UseActionPoints(RangedFixCost);
     }
 
     public void AddBomb() {
@@ -61,5 +63,14 @@ public class CellInfo {
 
     public void RemoveObstacle() {
         HasObstacle = false;
+    }
+
+    private void Fix() {
+        IsDamaged = false;
+
+        if (HasDamageHead) {
+            DamageManager.Instance.RemoveHeadsAt(Coords);
+            HasDamageHead = false;
+        }
     }
 }

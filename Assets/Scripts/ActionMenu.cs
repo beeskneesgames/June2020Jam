@@ -7,9 +7,11 @@ public class ActionMenu : MonoBehaviour {
     public GameObject panel;
     public TextMeshProUGUI moveCostText;
     public TextMeshProUGUI meleeCostText;
+    public TextMeshProUGUI rangedCostText;
     public TextMeshProUGUI bombCostText;
     public Button moveBtn;
     public Button meleeBtn;
+    public Button rangedBtn;
     public Button bombBtn;
 
     public void OnCloseClicked() {
@@ -23,13 +25,22 @@ public class ActionMenu : MonoBehaviour {
         Grid.Instance.ClearSelectedCoords();
     }
 
-    public void OnFixClicked() {
+    public void OnMeleeFixClicked() {
         Grid grid = Grid.Instance;
         CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
 
         CloseMenu();
         cell.MeleeFix();
-        Grid.Instance.ClearSelectedCoords();
+        grid.ClearSelectedCoords();
+    }
+
+    public void OnRangedFixClicked() {
+        Grid grid = Grid.Instance;
+        CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
+
+        CloseMenu();
+        cell.RangedFix();
+        grid.ClearSelectedCoords();
     }
 
     public void OnBombClicked() {
@@ -38,7 +49,7 @@ public class ActionMenu : MonoBehaviour {
 
         CloseMenu();
         cell.AddBomb();
-        Grid.Instance.ClearSelectedCoords();
+        grid.ClearSelectedCoords();
     }
 
     public void CloseMenu() {
@@ -51,17 +62,20 @@ public class ActionMenu : MonoBehaviour {
         if (Grid.Instance.HasSelectedCoords) {
             List<Vector2Int> path = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Grid.Instance.SelectedCoords, Player.diagonalMoveAllowed);
             CellInfo selectedCell = Grid.Instance.CellInfoAt(Grid.Instance.SelectedCoords);
-            bool bombInteractable = true;
+
             bool moveInteractable = true;
             bool meleeInteractable = true;
+            bool rangedInteractable = true;
+            bool bombInteractable = true;
 
             foreach (var coords in path) {
                 CellInfo cell = Grid.Instance.CellInfoAt(coords);
 
                 if (cell.HasObstacle) {
-                    bombInteractable = false;
                     moveInteractable = false;
                     meleeInteractable = false;
+                    rangedInteractable = false;
+                    bombInteractable = false;
                 }
             }
 
@@ -89,6 +103,14 @@ public class ActionMenu : MonoBehaviour {
                 bombInteractable = false;
             }
 
+            if (!selectedCell.IsDamaged) {
+                rangedInteractable = false;
+            }
+
+            if ((path.Count - 1) > CellInfo.RangedFixRange || (path.Count - 1) < 2) {
+                rangedInteractable = false;
+            }
+
             if (Player.Instance.ActionPoints < path.Count - 1) {
                 moveInteractable = false;
                 meleeInteractable = false;
@@ -98,17 +120,20 @@ public class ActionMenu : MonoBehaviour {
                 bombInteractable = false;
             }
 
-            bombBtn.interactable = bombInteractable;
             moveBtn.interactable = moveInteractable;
             meleeBtn.interactable = meleeInteractable;
+            rangedBtn.interactable = rangedInteractable;
+            bombBtn.interactable = bombInteractable;
 
             // -1 because path includes the player's square.
             moveCostText.text = $"Move cost: {path.Count - 1} AP";
             meleeCostText.text = $"Melee cost: {CellInfo.MeleeFixCost} AP";
+            rangedCostText.text = $"Ranged cost: {CellInfo.RangedFixCost} AP";
             bombCostText.text = $"Bomb cost: {CellInfo.BombCost} AP";
         } else {
             moveCostText.text = "";
             meleeCostText.text = "";
+            rangedCostText.text = "";
             bombCostText.text = "";
         }
     }
