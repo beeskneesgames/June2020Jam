@@ -41,14 +41,14 @@ public class CellInfo {
 
     public void MeleeFix() {
         foreach (var cell in Grid.Instance.AdjacentTo(Player.Instance.CurrentCell.Coords, true)) {
-            Fix(cell);
+            cell.Fix();
         }
 
         Player.Instance.UseActionPoints(MeleeFixCost);
     }
 
     public void RangedFix() {
-        Fix(this);
+        Fix();
         Player.Instance.UseActionPoints(RangedFixCost);
     }
 
@@ -65,12 +65,12 @@ public class CellInfo {
         HasObstacle = false;
     }
 
-    private void Fix(CellInfo cell) {
-        cell.isDamaged = false;
+    private void Fix() {
+        IsDamaged = false;
 
-        if (cell.HasDamageHead) {
-            DamageManager.Instance.RemoveHeadsAt(cell.Coords);
-            cell.HasDamageHead = false;
+        if (HasDamageHead) {
+            DamageManager.Instance.RemoveHeadsAt(Coords);
+            HasDamageHead = false;
         }
     }
 }
