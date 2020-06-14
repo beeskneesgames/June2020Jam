@@ -2,7 +2,7 @@
 using UnityEngine;
 
 public class DamageManager : MonoBehaviour {
-    public int spreadRate = 3;
+    public int spreadRate = 2;
     private List<DamageHead> damageHeads;
     private Vector2Int DefaultHeadCoords1;
     private Vector2Int DefaultHeadCoords2;
@@ -49,6 +49,8 @@ public class DamageManager : MonoBehaviour {
                 foreach (var head in new List<DamageHead>(damageHeads)) {
                     AddHead(head.Coords);
                 }
+            } else {
+                Reset();
             }
 
             // Add random new heads
