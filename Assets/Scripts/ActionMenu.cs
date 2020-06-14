@@ -103,6 +103,10 @@ public class ActionMenu : MonoBehaviour {
                 bombInteractable = false;
             }
 
+            if ((path.Count - 1) > CellInfo.RangedFixRange || (path.Count - 1) < 2) {
+                rangedInteractable = false;
+            }
+
             if (Player.Instance.ActionPoints < path.Count - 1) {
                 moveInteractable = false;
                 meleeInteractable = false;
