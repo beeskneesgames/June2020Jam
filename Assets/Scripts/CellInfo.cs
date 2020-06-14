@@ -36,17 +36,19 @@ public class CellInfo {
         IsDamaged = true;
     }
 
-    public void Fix() {
-        List<Vector2Int> path = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Coords, Player.diagonalFixAllowed);
+    private const int MeleeFixCost = 1;
 
-        Player.Instance.UseActionPoints(path.Count - 1);
+    public void MeleeFix() {
+        foreach (var cell in Grid.Instance.AdjacentTo(Player.Instance.CurrentCell.Coords, true)) {
+            cell.isDamaged = false;
 
-        if (HasDamageHead) {
-            DamageManager.Instance.RemoveHeadsAt(Coords);
-            HasDamageHead = false;
+            if (HasDamageHead) {
+                DamageManager.Instance.RemoveHeadsAt(cell.Coords);
+                HasDamageHead = false;
+            }
         }
 
-        IsDamaged = false;
+        Player.Instance.UseActionPoints(MeleeFixCost);
     }
 
     public void AddBomb() {

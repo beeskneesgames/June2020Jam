@@ -27,7 +27,7 @@ public class ActionMenu : MonoBehaviour {
         CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
 
         CloseMenu();
-        cell.Fix();
+        cell.MeleeFix();
         Grid.Instance.ClearSelectedCoords();
     }
 
@@ -66,11 +66,11 @@ public class ActionMenu : MonoBehaviour {
 
             if (Player.Instance.CurrentCoords == Grid.Instance.SelectedCoords) {
                 moveInteractable = false;
-                fixInteractable = false;
             }
 
             if (!(Player.Instance.CurrentCoords == Grid.Instance.SelectedCoords) && !Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true).Contains(selectedCell)) {
                 bombInteractable = false;
+                fixInteractable = false;
             }
 
             if (selectedCell.IsDamaged) {
