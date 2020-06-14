@@ -70,10 +70,6 @@ public class GameManager : MonoBehaviour {
     }
 
     private bool CheckForWin() {
-        if (Turn.Instance.TurnCount > 2) {
-            Debug.Log("hi");
-        }
-
         if (Turn.Instance.TurnCount >= Turn.MaxTurnCount) {
             return true;
         }
