@@ -8,6 +8,19 @@ public class Grid : MonoBehaviour {
 
     private List<Cell> damageHeadCells = new List<Cell>();
     public List<CellInfo> AllCells { get; private set; } = new List<CellInfo>();
+    public List<CellInfo> DamagedCells {
+        get {
+            List<CellInfo> damagedCells = new List<CellInfo> { };
+
+            foreach (var cell in Grid.Instance.AllCells) {
+                if (cell.IsDamaged) {
+                    damagedCells.Add(cell);
+                }
+            }
+
+            return damagedCells;
+        }
+    }
 
     private static Grid instance;
     public static Grid Instance {

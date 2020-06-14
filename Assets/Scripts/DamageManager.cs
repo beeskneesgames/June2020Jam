@@ -52,14 +52,14 @@ public class DamageManager : MonoBehaviour {
             }
 
             // Add random new heads
-            List<CellInfo> damagedCells = new List<CellInfo> { };
-            foreach (var cell in Grid.Instance.AllCells) {
-                if (cell.IsDamaged && !cell.HasDamageHead) {
-                    damagedCells.Add(cell);
+            List<CellInfo> cells = new List<CellInfo> { };
+            foreach (var cell in Grid.Instance.DamagedCells) {
+                if (!cell.HasDamageHead) {
+                    cells.Add(cell);
                 }
             }
             for (int i = 0; i < RandomDamageHeadRate; i++) {
-                AddHead(damagedCells[Random.Range(0, damagedCells.Count)].Coords);
+                AddHead(cells[Random.Range(0, cells.Count)].Coords);
             }
         }
 
