@@ -29,6 +29,9 @@ public class Cell : MonoBehaviour {
                 if (inPath) {
                     // Light gray
                     renderer.material.color = new Color(0.75f, 0.75f, 0.75f);
+                } else if (Info.HasBomb) {
+                    // Black
+                    renderer.material.color = new Color(0.0f, 0.0f, 0.0f);
                 } else if (Info.HasObstacle) {
                     // Pink
                     renderer.material.color = new Color(1.0f, 0.5f, 1.00f);

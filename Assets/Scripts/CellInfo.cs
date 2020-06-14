@@ -15,6 +15,8 @@ public class CellInfo {
         }
     }
 
+    public const int BombCost = 3;
+
     public bool IsHealthy {
         get {
             return !IsDamaged;
@@ -23,6 +25,7 @@ public class CellInfo {
 
     public bool HasDamageHead { get; set; } = false;
     public bool HasObstacle { get; private set; } = false;
+    public bool HasBomb { get; set; } = false;
     public bool HasPlayer {
         get {
             return Player.Instance.CurrentCoords == Coords;
@@ -44,6 +47,11 @@ public class CellInfo {
             DamageManager.Instance.RemoveHeadsAt(Coords);
             HasDamageHead = false;
         }
+    }
+
+    public void AddBomb() {
+        HasBomb = true;
+        Player.Instance.UseActionPoints(BombCost);
     }
 
     public void AddObstacle() {

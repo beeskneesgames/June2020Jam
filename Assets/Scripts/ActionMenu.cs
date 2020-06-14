@@ -5,9 +5,11 @@ using TMPro;
 
 public class ActionMenu : MonoBehaviour {
     public GameObject panel;
-    public TextMeshProUGUI costText;
+    public TextMeshProUGUI moveCostText;
+    public TextMeshProUGUI bombCostText;
     public Button moveBtn;
     public Button fixBtn;
+    public Button bombBtn;
 
     public void OnCloseClicked() {
         CloseMenu();
@@ -29,6 +31,15 @@ public class ActionMenu : MonoBehaviour {
         Grid.Instance.ClearSelectedCoords();
     }
 
+    public void OnBombClicked() {
+        Grid grid = Grid.Instance;
+        CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
+
+        CloseMenu();
+        cell.AddBomb();
+        Grid.Instance.ClearSelectedCoords();
+    }
+
     public void CloseMenu() {
         panel.SetActive(false);
     }
@@ -38,25 +49,53 @@ public class ActionMenu : MonoBehaviour {
 
         if (Grid.Instance.HasSelectedCoords) {
             List<Vector2Int> path = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Grid.Instance.SelectedCoords, Player.diagonalMoveAllowed);
-            bool interactable = true;
+            CellInfo selectedCell = Grid.Instance.CellInfoAt(Grid.Instance.SelectedCoords);
+            bool bombInteractable = true;
+            bool moveInteractable = true;
+            bool fixInteractable = true;
 
             foreach (var coords in path) {
-                if (Grid.Instance.CellInfoAt(coords).HasObstacle) {
-                    interactable = false;
+                CellInfo cell = Grid.Instance.CellInfoAt(coords);
+
+                if (cell.HasObstacle) {
+                    bombInteractable = false;
+                    moveInteractable = false;
+                    fixInteractable = false;
                 }
             }
 
-            if (Player.Instance.ActionPoints < path.Count - 1) {
-                interactable = false;
+            if (Player.Instance.CurrentCoords == Grid.Instance.SelectedCoords) {
+                moveInteractable = false;
+                fixInteractable = false;
             }
 
-            moveBtn.interactable = interactable;
-            fixBtn.interactable = interactable;
+            if (!(Player.Instance.CurrentCoords == Grid.Instance.SelectedCoords) && !Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true).Contains(selectedCell)) {
+                bombInteractable = false;
+            }
+
+            if (selectedCell.IsDamaged) {
+                bombInteractable = false;
+            }
+
+            if (Player.Instance.ActionPoints < path.Count - 1) {
+                moveInteractable = false;
+                fixInteractable = false;
+            }
+
+            if (Player.Instance.ActionPoints < CellInfo.BombCost) {
+                bombInteractable = false;
+            }
+
+            bombBtn.interactable = bombInteractable;
+            moveBtn.interactable = moveInteractable;
+            fixBtn.interactable = fixInteractable;
 
             // -1 because path includes the player's square.
-            costText.text = $"Cost: {path.Count - 1} AP";
+            moveCostText.text = $"Move/Fix cost: {path.Count - 1} AP";
+            bombCostText.text = $"Bomb cost: {CellInfo.BombCost} AP";
         } else {
-            costText.text = "";
+            moveCostText.text = "";
+            bombCostText.text = "";
         }
     }
 }
