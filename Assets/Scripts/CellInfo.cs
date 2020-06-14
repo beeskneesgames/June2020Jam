@@ -11,7 +11,7 @@ public class CellInfo {
         }
         set {
             isDamaged = value;
-            GameManager.Instance.CheckEndGame();
+            GameManager.Instance.StateChanged();
         }
     }
 
@@ -41,12 +41,12 @@ public class CellInfo {
 
         Player.Instance.UseActionPoints(path.Count - 1);
 
-        IsDamaged = false;
-
         if (HasDamageHead) {
             DamageManager.Instance.RemoveHeadsAt(Coords);
             HasDamageHead = false;
         }
+
+        IsDamaged = false;
     }
 
     public void AddBomb() {

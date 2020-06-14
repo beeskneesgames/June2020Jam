@@ -21,7 +21,7 @@ public class Turn : MonoBehaviour {
                 DamageManager.Instance.Spread();
             }
 
-            GameManager.Instance.CheckEndGame();
+            GameManager.Instance.StateChanged();
         }
     }
 
@@ -45,9 +45,10 @@ public class Turn : MonoBehaviour {
         Reset();        
     }
 
-    public void EndTurn() {
+    // This should only be called by GameManager in LateUpdate.
+    public void End() {
         Player.Instance.ResetAP();
-        Turn.Instance.TurnCount++;
+        TurnCount++;
     }
 
     public void Reset() {

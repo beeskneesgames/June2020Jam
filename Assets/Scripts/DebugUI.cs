@@ -9,11 +9,13 @@ public class DebugUI : MonoBehaviour {
     public Toggle playerDiagonalFixToggle;
     public Toggle damageDiagonalToggle;
     public Toggle damageHealthyCellsToggle;
+    public TMP_InputField actionPointsInput;
     public TMP_InputField spreadInput;
     public TMP_InputField gridSizeInput;
 
     private void Start() {
         SyncConfig();
+        actionPointsInput.text = Player.Instance.maxPoints.ToString();
         spreadInput.text = DamageManager.Instance.spreadRate.ToString();
         gridSizeInput.text = Grid.Instance.Size.x.ToString();
     }
@@ -32,6 +34,17 @@ public class DebugUI : MonoBehaviour {
 
     public void OnDamageHealthyCellsToggled() {
         SyncConfig();
+    }
+
+    public void OnActionPointsEndEdit() {
+        int newActionPoints;
+
+        if (int.TryParse(actionPointsInput.text, out newActionPoints)) {
+            Player.Instance.maxPoints = newActionPoints;
+            Player.Instance.ActionPoints = newActionPoints;
+        } else {
+            actionPointsInput.text = Player.Instance.maxPoints.ToString();
+        }
     }
 
     public void OnSpreadEndEdit() {

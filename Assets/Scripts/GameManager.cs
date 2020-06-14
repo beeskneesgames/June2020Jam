@@ -3,6 +3,7 @@
 public class GameManager : MonoBehaviour {
     private const float LossPercent = 0.5f;
     public WinLoseUI winLoseUI;
+    private bool stateChanged = false;
 
     private static GameManager instance;
     public static GameManager Instance {
@@ -21,11 +22,18 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    public void CheckEndGame() {
-        if (CheckForLoss()) {
-            TriggerLoss();
-        } else if (CheckForWin()) {
-            TriggerWin();
+    private void LateUpdate() {
+        if (stateChanged) {
+            if (Turn.Instance.TurnCount > 0) {
+                CheckEndGame();
+            }
+
+            if (Player.Instance.ActionPoints < 1) {
+                Turn.Instance.End();
+                CheckEndGame();
+            }
+
+            stateChanged = false;
         }
     }
 
@@ -35,6 +43,18 @@ public class GameManager : MonoBehaviour {
         Grid.Instance.Reset();
         DamageManager.Instance.Reset();
         ObstacleManager.Instance.Reset();
+    }
+
+    public void StateChanged() {
+        stateChanged = true;
+    }
+
+    private void CheckEndGame() {
+        if (CheckForLoss()) {
+            TriggerLoss();
+        } else if (CheckForWin()) {
+            TriggerWin();
+        }
     }
 
     private bool CheckForLoss() {
