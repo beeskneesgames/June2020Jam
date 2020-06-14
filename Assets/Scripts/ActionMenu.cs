@@ -48,6 +48,7 @@ public class ActionMenu : MonoBehaviour {
 
         if (Grid.Instance.HasSelectedCoords) {
             List<Vector2Int> path = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Grid.Instance.SelectedCoords, Player.diagonalMoveAllowed);
+            CellInfo selectedCell = Grid.Instance.CellInfoAt(Grid.Instance.SelectedCoords);
             bool bombInteractable = true;
             bool moveInteractable = true;
             bool fixInteractable = true;
@@ -60,10 +61,14 @@ public class ActionMenu : MonoBehaviour {
                     moveInteractable = false;
                     fixInteractable = false;
                 }
+            }
 
-                if (cell.IsDamaged) {
-                    bombInteractable = false;
-                }
+            if (!Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true).Contains(selectedCell)) {
+                bombInteractable = false;
+            }
+
+            if (selectedCell.IsDamaged) {
+                bombInteractable = false;
             }
 
             if (Player.Instance.ActionPoints < path.Count - 1) {
