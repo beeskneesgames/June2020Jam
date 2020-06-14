@@ -4546,6 +4546,7 @@ MonoBehaviour:
   costText: {fileID: 419878308}
   moveBtn: {fileID: 793767455}
   fixBtn: {fileID: 1091015331}
+  bombBtn: {fileID: 121149273}
 --- !u!1 &1048988942
 GameObject:
   m_ObjectHideFlags: 0
