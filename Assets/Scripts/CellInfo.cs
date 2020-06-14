@@ -41,9 +41,9 @@ public class CellInfo {
         foreach (var cell in Grid.Instance.AdjacentTo(Player.Instance.CurrentCell.Coords, true)) {
             cell.isDamaged = false;
 
-            if (HasDamageHead) {
+            if (cell.HasDamageHead) {
                 DamageManager.Instance.RemoveHeadsAt(cell.Coords);
-                HasDamageHead = false;
+                cell.HasDamageHead = false;
             }
         }
 
