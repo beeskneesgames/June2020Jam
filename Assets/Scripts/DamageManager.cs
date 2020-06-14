@@ -56,6 +56,21 @@ public class DamageManager : MonoBehaviour {
             damageHead.Move();
         }
 
+        ExplodeBombs();
+
+        Grid.Instance.SetDamageHeads(damageHeads);
+    }
+
+    public void RemoveHeadsAt(Vector2Int coords) {
+        damageHeads.RemoveAll(head => head.Coords == coords);
+    }
+
+    private void AddHead(Vector2Int coords) {
+        damageHeads.Add(new DamageHead(coords));
+    }
+
+    // TODO: Move this logic into some sort of Bomb or BombManager class.
+    private void ExplodeBombs() {
         for (int i = 0; i < Grid.Instance.Size.x; i++) {
             for (int j = 0; j < Grid.Instance.Size.y; j++) {
                 CellInfo cell = Grid.Instance.CellInfoAt(new Vector2Int(i, j));
@@ -86,15 +101,5 @@ public class DamageManager : MonoBehaviour {
                 }
             }
         }
-
-        Grid.Instance.SetDamageHeads(damageHeads);
-    }
-
-    public void RemoveHeadsAt(Vector2Int coords) {
-        damageHeads.RemoveAll(head => head.Coords == coords);
-    }
-
-    private void AddHead(Vector2Int coords) {
-        damageHeads.Add(new DamageHead(coords));
     }
 }
