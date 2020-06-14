@@ -11,7 +11,7 @@ public class CellInfo {
         }
         set {
             isDamaged = value;
-            GameManager.Instance.CheckEndGame();
+            GameManager.Instance.StateChanged();
         }
     }
 

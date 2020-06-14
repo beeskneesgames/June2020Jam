@@ -6,6 +6,6 @@ public class EndTurnButton : MonoBehaviour {
     public void EndTurn() {
         actionMenu.CloseMenu();
         Grid.Instance.ClearSelectedCoords();
-        Turn.Instance.EndTurn();
+        Player.Instance.UseActionPoints(Player.Instance.ActionPoints);
     }
 }

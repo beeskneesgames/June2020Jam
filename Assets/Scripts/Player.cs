@@ -45,9 +45,7 @@ public class Player : MonoBehaviour {
             actionPoints = value;
             actionPointUI.text = $"Action Points: {actionPoints}";
 
-            if (actionPoints <= 0) {
-                EndTurn();
-            }
+            GameManager.Instance.StateChanged();
         }
     }
 
@@ -58,7 +56,6 @@ public class Player : MonoBehaviour {
         }
 
         instance = this;
-        ActionPoints = maxPoints;
     }
 
     private void Start() {
@@ -89,7 +86,7 @@ public class Player : MonoBehaviour {
 
                 // TODO: Stop movement if game ended. Maybe here, maybe
                 // somewhere more global.
-                GameManager.Instance.CheckEndGame();
+                GameManager.Instance.StateChanged();
 
                 PopPathCoords();
 
@@ -124,7 +121,6 @@ public class Player : MonoBehaviour {
     public void UseActionPoints(int points) {
         if (points <= ActionPoints) {
             ActionPoints -= points;
-            GameManager.Instance.CheckEndGame();
         }
     }
 
@@ -141,11 +137,6 @@ public class Player : MonoBehaviour {
 
     private void ResetCoords() {
         MoveToImmediate(new Vector2Int(Grid.Instance.Size.x - 1, Grid.Instance.Size.y - 1));
-    }
-
-    private void EndTurn() {
-        Turn.Instance.EndTurn();
-        ResetAP();
     }
 
     private Vector3 NormalizedPosition(Vector3 position) {
