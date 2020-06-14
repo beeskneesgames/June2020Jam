@@ -83,6 +83,7 @@ public class Grid : MonoBehaviour {
                 cell.Info.Coords = new Vector2Int(i, j);
 
                 cell.Info.IsDamaged = false;
+                cell.Info.HasBomb = false;
 
                 if (cell.Info.HasDamageHead) {
                     DamageManager.Instance.RemoveHeadsAt(cell.Info.Coords);
