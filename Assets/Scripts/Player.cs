@@ -42,10 +42,10 @@ public class Player : MonoBehaviour {
     }
 
     // Spinnin, spinnin, spinnin while my hands up
-    public Direction CurrentDirection { get; private set; } = Direction.West;
-    private Direction targetDirection = Direction.West;
-    private float startYRotationForSpin;
-    private float endYRotationForSpin;
+    public Direction CurrentDirection { get; private set; }
+    private Direction targetDirection;
+    private Vector3 startEulerAnglesForSpin;
+    private Vector3 endEulerAnglesForSpin;
 
     // Action Points
     public TextMeshProUGUI actionPointUI;
@@ -84,74 +84,87 @@ public class Player : MonoBehaviour {
             if (CurrentDirection == targetDirection) {
                 TickMove();
             } else {
-                TickRotate();
-            }
-            if (timeMoving < MaxTimeMoving) {
-                // We're between the starting cell and the target cell, keep
-                // lerping between them.
-                transform.position = Vector3.Lerp(
-                    startPositionForMove,
-                    endPositionForMove,
-                    timeMoving / MaxTimeMoving
-                );
-            } else {
-                // We've made it to the target cell. Either:
-                //
-                // * Set up the next target cell (if there is one left in the
-                //   path), or
-                // * End the movement (if we're at the last cell in the path).
-                timeMoving = 0.0f;
-                MoveToImmediate(targetCoords);
-                UseActionPoints(1);
-
-                // TODO: Stop movement if game ended. Maybe here, maybe
-                // somewhere more global.
-                GameManager.Instance.StateChanged();
-
-                PopPathCoords();
-
-                if (targetCoords.x < 0) {
-                    // We've moved to the last cell in the path, end the
-                    // movement.
-                    IsMoving = false;
-                    moveCallback?.Invoke();
-                } else {
-                    // Figure out if we need to do a spin animation before moving.
-                    Direction newDirection = DirectionBetween(CurrentCoords, targetCoords);
-
-                    if (newDirection != CurrentDirection) {
-                        targetDirection = newDirection;
-                        startYRotationForSpin = transform.localEulerAngles.y;
-
-                        switch (targetDirection) {
-                            case Direction.North:
-                                endYRotationForSpin = 180.0f;
-                                break;
-                            case Direction.South:
-                                endYRotationForSpin = 0.0f;
-                                break;
-                            case Direction.East:
-                                endYRotationForSpin = -90.0f;
-                                break;
-                            case Direction.West:
-                                endYRotationForSpin = 90.0f;
-                                break;
-                            case Direction.None:
-                                endYRotationForSpin = startYRotationForSpin;
-                                break;
-                        }
-                    }
-                }
+                TickSpin();
             }
         }
     }
 
-    private void TickRotate() {
-        throw new NotImplementedException();
+    private void TickSpin() {
+        if (timeMoving < MaxTimeMoving) {
+            // We're between the starting direction and the target direction,
+            // keep lerping between them.
+            transform.localEulerAngles = Vector3.Lerp(
+                startEulerAnglesForSpin,
+                endEulerAnglesForSpin,
+                timeMoving / MaxTimeMoving
+            );
+        } else {
+            // We're now facing the correct direction. The next target cell
+            // should've already been set up by TickMove().
+            timeMoving = 0.0f;
+            CurrentDirection = targetDirection;
+        }
     }
 
     private void TickMove() {
-        throw new NotImplementedException();
+        if (timeMoving < MaxTimeMoving) {
+            // We're between the starting cell and the target cell, keep
+            // lerping between them.
+            transform.position = Vector3.Lerp(
+                startPositionForMove,
+                endPositionForMove,
+                timeMoving / MaxTimeMoving
+            );
+        } else {
+            // We've made it to the target cell. Do one of these two things:
+            //
+            // * Set up the next target cell (if there is one left in the
+            //   path). This may require a spin before moving.
+            // * End the movement (if we're at the last cell in the path).
+            timeMoving = 0.0f;
+            MoveToImmediate(targetCoords);
+            UseActionPoints(1);
+
+            // TODO: Stop movement if game ended. Maybe here, maybe
+            // somewhere more global.
+            GameManager.Instance.StateChanged();
+
+            PopPathCoords();
+
+            if (targetCoords.x < 0) {
+                // We've moved to the last cell in the path, end the
+                // movement.
+                IsMoving = false;
+                moveCallback?.Invoke();
+            } else {
+                // Figure out if we need to do a spin animation before moving.
+                Direction newDirection = DirectionBetween(CurrentCoords, targetCoords);
+                Debug.Log(newDirection);
+
+                if (newDirection != CurrentDirection) {
+                    targetDirection = newDirection;
+                    startEulerAnglesForSpin = transform.localEulerAngles;
+
+                    switch (targetDirection) {
+                        case Direction.North:
+                            endEulerAnglesForSpin = new Vector3(0.0f, 270.0f, 0.0f);
+                            break;
+                        case Direction.South:
+                            endEulerAnglesForSpin = new Vector3(0.0f, 90.0f, 0.0f);
+                            break;
+                        case Direction.East:
+                            endEulerAnglesForSpin = Vector3.zero;
+                            break;
+                        case Direction.West:
+                            endEulerAnglesForSpin = new Vector3(0.0f, 180.0f, 0.0f);
+                            break;
+                        case Direction.None:
+                            endEulerAnglesForSpin = startEulerAnglesForSpin;
+                            break;
+                    }
+                }
+            }
+        }
     }
 
     public void MoveTo(Vector2Int coords, System.Action callback = null) {
@@ -186,8 +199,8 @@ public class Player : MonoBehaviour {
         ResetAP();
         ResetCoords();
 
-        CurrentDirection = Direction.West;
-        targetDirection = Direction.West;
+        CurrentDirection = Direction.South;
+        targetDirection = Direction.South;
         transform.localEulerAngles = new Vector3(0, 90.0f, 0);
 
         timeMoving = 0.0f;
@@ -223,6 +236,7 @@ public class Player : MonoBehaviour {
     }
 
     private static Direction DirectionBetween(Vector2Int startCoords, Vector2Int endCoords) {
+        Debug.Log($"Direction between {startCoords} and {endCoords}");
         if (startCoords == endCoords) {
             // If the start and end coords are the same, there's no direction
             // between them.
