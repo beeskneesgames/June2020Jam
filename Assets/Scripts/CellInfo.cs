@@ -14,6 +14,14 @@ public class CellInfo {
 
             if (isDamaged && HasBomb) {
                 // Remove damage on adjacent cells and remove bomb
+                List<CellInfo> cellsToFix = Grid.Instance.AdjacentTo(Coords, true);
+                cellsToFix.Add(Grid.Instance.CellInfoAt(Coords));
+
+                foreach (var cell in cellsToFix) {
+                    cell.IsDamaged = false;
+                    cell.HasDamageHead = false;
+                    cell.HasBomb = false;
+                }
             }
 
             GameManager.Instance.CheckEndGame();

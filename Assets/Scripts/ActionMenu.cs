@@ -78,12 +78,15 @@ public class ActionMenu : MonoBehaviour {
             }
 
             if (Player.Instance.ActionPoints < path.Count - 1) {
-                bombInteractable = false;
                 moveInteractable = false;
                 fixInteractable = false;
             }
 
-            bombBtn.interactable = bombInteractable;
+            if (Player.Instance.ActionPoints < CellInfo.BombCost) {
+                bombInteractable = false;
+            }
+
+                bombBtn.interactable = bombInteractable;
             moveBtn.interactable = moveInteractable;
             fixBtn.interactable = fixInteractable;
 
