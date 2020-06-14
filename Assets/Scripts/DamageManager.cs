@@ -52,7 +52,7 @@ public class DamageManager : MonoBehaviour {
             }
 
             // Add random new heads
-            List<CellInfo> cells = new List<CellInfo> { };
+            List<CellInfo> cells = new List<CellInfo>();
             foreach (var cell in Grid.Instance.DamagedCells) {
                 if (!cell.HasDamageHead) {
                     cells.Add(cell);
