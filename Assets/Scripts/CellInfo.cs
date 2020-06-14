@@ -18,6 +18,7 @@ public class CellInfo {
     public const int BombCost = 3;
     public const int MeleeFixCost = 1;
     public const int RangedFixCost = 1;
+    public const int RangedFixRange = 5;
 
     public bool IsHealthy {
         get {
@@ -49,6 +50,11 @@ public class CellInfo {
         }
 
         Player.Instance.UseActionPoints(MeleeFixCost);
+    }
+
+    public void RangedFix() {
+        // TODO
+        Player.Instance.UseActionPoints(RangedFixCost);
     }
 
     public void AddBomb() {

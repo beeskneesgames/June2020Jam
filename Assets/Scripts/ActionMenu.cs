@@ -31,7 +31,7 @@ public class ActionMenu : MonoBehaviour {
 
         CloseMenu();
         cell.MeleeFix();
-        Grid.Instance.ClearSelectedCoords();
+        grid.ClearSelectedCoords();
     }
 
     public void OnRangedFixClicked() {
@@ -39,8 +39,8 @@ public class ActionMenu : MonoBehaviour {
         CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
 
         CloseMenu();
-        cell.MeleeFix();
-        Grid.Instance.ClearSelectedCoords();
+        cell.RangedFix();
+        grid.ClearSelectedCoords();
     }
 
     public void OnBombClicked() {
@@ -49,7 +49,7 @@ public class ActionMenu : MonoBehaviour {
 
         CloseMenu();
         cell.AddBomb();
-        Grid.Instance.ClearSelectedCoords();
+        grid.ClearSelectedCoords();
     }
 
     public void CloseMenu() {
@@ -62,7 +62,7 @@ public class ActionMenu : MonoBehaviour {
         if (Grid.Instance.HasSelectedCoords) {
             List<Vector2Int> path = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Grid.Instance.SelectedCoords, Player.diagonalMoveAllowed);
             CellInfo selectedCell = Grid.Instance.CellInfoAt(Grid.Instance.SelectedCoords);
-            
+
             bool moveInteractable = true;
             bool meleeInteractable = true;
             bool rangedInteractable = true;
