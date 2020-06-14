@@ -60,7 +60,7 @@ public class DamageManager : MonoBehaviour {
             }
             for (int i = 0; i < RandomDamageHeadRate; i++) {
                 AddHead(damagedCells[Random.Range(0, damagedCells.Count)].Coords);
-           }
+            }
         }
 
         foreach (DamageHead damageHead in damageHeads) {
@@ -82,34 +82,30 @@ public class DamageManager : MonoBehaviour {
 
     // TODO: Move this logic into some sort of Bomb or BombManager class.
     private void ExplodeBombs() {
-        for (int i = 0; i < Grid.Instance.Size.x; i++) {
-            for (int j = 0; j < Grid.Instance.Size.y; j++) {
-                CellInfo cell = Grid.Instance.CellInfoAt(new Vector2Int(i, j));
+        foreach (var cell in Grid.Instance.AllCells) {
+            if (cell.IsDamaged && cell.HasBomb) {
+                // Remove damage on adjacent cells and remove bomb
+                List<DamageHead> newDamageHeads = new List<DamageHead>();
+                List<CellInfo> cellsToFix = Grid.Instance.AdjacentTo(cell.Coords, true);
+                cellsToFix.Add(Grid.Instance.CellInfoAt(cell.Coords));
 
-                if (cell.IsDamaged && cell.HasBomb) {
-                    // Remove damage on adjacent cells and remove bomb
-                    List<DamageHead> newDamageHeads = new List<DamageHead>();
-                    List<CellInfo> cellsToFix = Grid.Instance.AdjacentTo(cell.Coords, true);
-                    cellsToFix.Add(Grid.Instance.CellInfoAt(cell.Coords));
-
-                    foreach (var cellToFix in cellsToFix) {
-                        if (cellToFix.HasDamageHead) {
-                            RemoveHeadsAt(cellToFix.Coords);
-                            cellToFix.HasDamageHead = false;
-                        }
-
-                        cellToFix.IsDamaged = false;
-                        cellToFix.HasBomb = false;
+                foreach (var cellToFix in cellsToFix) {
+                    if (cellToFix.HasDamageHead) {
+                        RemoveHeadsAt(cellToFix.Coords);
+                        cellToFix.HasDamageHead = false;
                     }
 
-                    foreach (var damageHead in damageHeads) {
-                        if (!cellsToFix.Contains(damageHead.CurrentCellInfo)) {
-                            newDamageHeads.Add(damageHead);
-                        }
-                    }
-
-                    damageHeads = newDamageHeads;
+                    cellToFix.IsDamaged = false;
+                    cellToFix.HasBomb = false;
                 }
+
+                foreach (var damageHead in damageHeads) {
+                    if (!cellsToFix.Contains(damageHead.CurrentCellInfo)) {
+                        newDamageHeads.Add(damageHead);
+                    }
+                }
+
+                damageHeads = newDamageHeads;
             }
         }
     }
