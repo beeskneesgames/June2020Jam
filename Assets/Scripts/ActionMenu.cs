@@ -5,7 +5,8 @@ using TMPro;
 
 public class ActionMenu : MonoBehaviour {
     public GameObject panel;
-    public TextMeshProUGUI costText;
+    public TextMeshProUGUI moveCostText;
+    public TextMeshProUGUI bombCostText;
     public Button moveBtn;
     public Button fixBtn;
     public Button bombBtn;
@@ -87,9 +88,11 @@ public class ActionMenu : MonoBehaviour {
             fixBtn.interactable = fixInteractable;
 
             // -1 because path includes the player's square.
-            costText.text = $"Cost: {path.Count - 1} AP";
+            moveCostText.text = $"Move/Fix cost: {path.Count - 1} AP";
+            bombCostText.text = $"Bomb cost: {path.Count + 1} AP";
         } else {
-            costText.text = "";
+            moveCostText.text = "";
+            bombCostText.text = "";
         }
     }
 }
