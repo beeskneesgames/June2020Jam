@@ -16,6 +16,7 @@ public class CellInfo {
     }
 
     public const int BombCost = 3;
+    public const int MeleeFixCost = 1;
 
     public bool IsHealthy {
         get {
@@ -35,8 +36,6 @@ public class CellInfo {
     public void Damage() {
         IsDamaged = true;
     }
-
-    private const int MeleeFixCost = 1;
 
     public void MeleeFix() {
         foreach (var cell in Grid.Instance.AdjacentTo(Player.Instance.CurrentCell.Coords, true)) {
