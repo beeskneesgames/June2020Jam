@@ -103,6 +103,10 @@ public class ActionMenu : MonoBehaviour {
                 bombInteractable = false;
             }
 
+            if (!selectedCell.IsDamaged) {
+                rangedInteractable = false;
+            }
+
             if ((path.Count - 1) > CellInfo.RangedFixRange || (path.Count - 1) < 2) {
                 rangedInteractable = false;
             }
