@@ -11,6 +11,11 @@ public class CellInfo {
         }
         set {
             isDamaged = value;
+
+            if (isDamaged && HasBomb) {
+                // Remove damage on adjacent cells and remove bomb
+            }
+
             GameManager.Instance.CheckEndGame();
         }
     }
@@ -45,6 +50,10 @@ public class CellInfo {
             DamageManager.Instance.RemoveHeadsAt(Coords);
             HasDamageHead = false;
         }
+    }
+
+    public void AddBomb() {
+        HasBomb = true;
     }
 
     public void AddObstacle() {

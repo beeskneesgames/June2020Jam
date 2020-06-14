@@ -29,6 +29,15 @@ public class ActionMenu : MonoBehaviour {
         Grid.Instance.ClearSelectedCoords();
     }
 
+    public void OnBombClicked() {
+        Grid grid = Grid.Instance;
+        CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
+
+        CloseMenu();
+        cell.AddBomb();
+        Grid.Instance.ClearSelectedCoords();
+    }
+
     public void CloseMenu() {
         panel.SetActive(false);
     }
