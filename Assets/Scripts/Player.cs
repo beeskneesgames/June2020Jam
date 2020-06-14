@@ -130,39 +130,41 @@ public class Player : MonoBehaviour {
             GameManager.Instance.StateChanged();
 
             PopPathCoords();
+            SyncDirection();
 
             if (targetCoords.x < 0) {
                 // We've moved to the last cell in the path, end the
                 // movement.
                 IsMoving = false;
                 moveCallback?.Invoke();
-            } else {
-                // Figure out if we need to do a spin animation before moving.
-                Direction newDirection = DirectionBetween(CurrentCoords, targetCoords);
-                Debug.Log(newDirection);
+            }
+        }
+    }
 
-                if (newDirection != CurrentDirection) {
-                    targetDirection = newDirection;
-                    startEulerAnglesForSpin = transform.localEulerAngles;
+    private void SyncDirection() {
+        // Figure out if we need to do a spin animation before moving.
+        Direction newDirection = DirectionBetween(CurrentCoords, targetCoords);
 
-                    switch (targetDirection) {
-                        case Direction.North:
-                            endEulerAnglesForSpin = new Vector3(0.0f, 270.0f, 0.0f);
-                            break;
-                        case Direction.South:
-                            endEulerAnglesForSpin = new Vector3(0.0f, 90.0f, 0.0f);
-                            break;
-                        case Direction.East:
-                            endEulerAnglesForSpin = Vector3.zero;
-                            break;
-                        case Direction.West:
-                            endEulerAnglesForSpin = new Vector3(0.0f, 180.0f, 0.0f);
-                            break;
-                        case Direction.None:
-                            endEulerAnglesForSpin = startEulerAnglesForSpin;
-                            break;
-                    }
-                }
+        if (newDirection != CurrentDirection) {
+            targetDirection = newDirection;
+            startEulerAnglesForSpin = transform.localEulerAngles;
+
+            switch (targetDirection) {
+                case Direction.North:
+                    endEulerAnglesForSpin = new Vector3(0.0f, -90.0f, 0.0f);
+                    break;
+                case Direction.South:
+                    endEulerAnglesForSpin = new Vector3(0.0f, 90.0f, 0.0f);
+                    break;
+                case Direction.East:
+                    endEulerAnglesForSpin = Vector3.zero;
+                    break;
+                case Direction.West:
+                    endEulerAnglesForSpin = new Vector3(0.0f, 180.0f, 0.0f);
+                    break;
+                case Direction.None:
+                    endEulerAnglesForSpin = startEulerAnglesForSpin;
+                    break;
             }
         }
     }
@@ -183,6 +185,7 @@ public class Player : MonoBehaviour {
         remainingMovementPath.RemoveAt(0);
 
         PopPathCoords();
+        SyncDirection();
     }
 
     public void UseActionPoints(int points) {
@@ -236,7 +239,6 @@ public class Player : MonoBehaviour {
     }
 
     private static Direction DirectionBetween(Vector2Int startCoords, Vector2Int endCoords) {
-        Debug.Log($"Direction between {startCoords} and {endCoords}");
         if (startCoords == endCoords) {
             // If the start and end coords are the same, there's no direction
             // between them.
