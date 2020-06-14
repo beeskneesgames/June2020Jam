@@ -6,9 +6,10 @@ using TMPro;
 public class ActionMenu : MonoBehaviour {
     public GameObject panel;
     public TextMeshProUGUI moveCostText;
+    public TextMeshProUGUI meleeCostText;
     public TextMeshProUGUI bombCostText;
     public Button moveBtn;
-    public Button fixBtn;
+    public Button meleeBtn;
     public Button bombBtn;
 
     public void OnCloseClicked() {
@@ -27,7 +28,7 @@ public class ActionMenu : MonoBehaviour {
         CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
 
         CloseMenu();
-        cell.Fix();
+        cell.MeleeFix();
         Grid.Instance.ClearSelectedCoords();
     }
 
@@ -52,7 +53,7 @@ public class ActionMenu : MonoBehaviour {
             CellInfo selectedCell = Grid.Instance.CellInfoAt(Grid.Instance.SelectedCoords);
             bool bombInteractable = true;
             bool moveInteractable = true;
-            bool fixInteractable = true;
+            bool meleeInteractable = true;
 
             foreach (var coords in path) {
                 CellInfo cell = Grid.Instance.CellInfoAt(coords);
@@ -60,17 +61,28 @@ public class ActionMenu : MonoBehaviour {
                 if (cell.HasObstacle) {
                     bombInteractable = false;
                     moveInteractable = false;
-                    fixInteractable = false;
+                    meleeInteractable = false;
                 }
             }
 
             if (Player.Instance.CurrentCoords == Grid.Instance.SelectedCoords) {
                 moveInteractable = false;
-                fixInteractable = false;
             }
 
             if (!(Player.Instance.CurrentCoords == Grid.Instance.SelectedCoords) && !Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true).Contains(selectedCell)) {
                 bombInteractable = false;
+                meleeInteractable = false;
+            }
+
+            List<CellInfo> damagedCoords = new List<CellInfo>();
+            foreach (var cell in Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true)) {
+                if (cell.isDamaged) {
+                    damagedCoords.Add(cell);
+                }
+            }
+
+            if (damagedCoords.Count <= 0) {
+                meleeInteractable = false;
             }
 
             if (selectedCell.IsDamaged) {
@@ -79,7 +91,7 @@ public class ActionMenu : MonoBehaviour {
 
             if (Player.Instance.ActionPoints < path.Count - 1) {
                 moveInteractable = false;
-                fixInteractable = false;
+                meleeInteractable = false;
             }
 
             if (Player.Instance.ActionPoints < CellInfo.BombCost) {
@@ -88,13 +100,15 @@ public class ActionMenu : MonoBehaviour {
 
             bombBtn.interactable = bombInteractable;
             moveBtn.interactable = moveInteractable;
-            fixBtn.interactable = fixInteractable;
+            meleeBtn.interactable = meleeInteractable;
 
             // -1 because path includes the player's square.
-            moveCostText.text = $"Move/Fix cost: {path.Count - 1} AP";
+            moveCostText.text = $"Move cost: {path.Count - 1} AP";
+            meleeCostText.text = $"Melee cost: {CellInfo.MeleeFixCost} AP";
             bombCostText.text = $"Bomb cost: {CellInfo.BombCost} AP";
         } else {
             moveCostText.text = "";
+            meleeCostText.text = "";
             bombCostText.text = "";
         }
     }

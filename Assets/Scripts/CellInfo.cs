@@ -16,6 +16,7 @@ public class CellInfo {
     }
 
     public const int BombCost = 3;
+    public const int MeleeFixCost = 1;
 
     public bool IsHealthy {
         get {
@@ -36,17 +37,17 @@ public class CellInfo {
         IsDamaged = true;
     }
 
-    public void Fix() {
-        List<Vector2Int> path = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Coords, Player.diagonalFixAllowed);
+    public void MeleeFix() {
+        foreach (var cell in Grid.Instance.AdjacentTo(Player.Instance.CurrentCell.Coords, true)) {
+            cell.isDamaged = false;
 
-        Player.Instance.UseActionPoints(path.Count - 1);
-
-        if (HasDamageHead) {
-            DamageManager.Instance.RemoveHeadsAt(Coords);
-            HasDamageHead = false;
+            if (cell.HasDamageHead) {
+                DamageManager.Instance.RemoveHeadsAt(cell.Coords);
+                cell.HasDamageHead = false;
+            }
         }
 
-        IsDamaged = false;
+        Player.Instance.UseActionPoints(MeleeFixCost);
     }
 
     public void AddBomb() {
