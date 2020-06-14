@@ -63,7 +63,12 @@ public class ActionMenu : MonoBehaviour {
                 }
             }
 
-            if (!Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true).Contains(selectedCell)) {
+            if (Player.Instance.CurrentCoords == Grid.Instance.SelectedCoords) {
+                moveInteractable = false;
+                fixInteractable = false;
+            }
+
+            if (!(Player.Instance.CurrentCoords == Grid.Instance.SelectedCoords) && !Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true).Contains(selectedCell)) {
                 bombInteractable = false;
             }
 
