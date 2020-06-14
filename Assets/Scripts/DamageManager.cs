@@ -7,6 +7,7 @@ public class DamageManager : MonoBehaviour {
     private Vector2Int DefaultHeadCoords1;
     private Vector2Int DefaultHeadCoords2;
     private Vector2Int DefaultHeadCoords3;
+    private const int RandomDamageHeadRate = 1;
 
     private static DamageManager instance;
     public static DamageManager Instance {
@@ -43,13 +44,23 @@ public class DamageManager : MonoBehaviour {
 
     public void Spread() {
         if ((Turn.Instance.TurnCount % spreadRate) == 0) {
+            // Divide current heads
             if (damageHeads.Count > 0) {
                 foreach (var head in new List<DamageHead>(damageHeads)) {
                     AddHead(head.Coords);
                 }
-            } else {
-                AddHead(DefaultHeadCoords1);
             }
+
+            // Add random new heads
+            List<CellInfo> damagedCells = new List<CellInfo> { };
+            foreach (var cell in Grid.Instance.AllCells) {
+                if (cell.IsDamaged && !cell.HasDamageHead) {
+                    damagedCells.Add(cell);
+                }
+            }
+            for (int i = 0; i < RandomDamageHeadRate; i++) {
+                AddHead(damagedCells[Random.Range(0, damagedCells.Count)].Coords);
+           }
         }
 
         foreach (DamageHead damageHead in damageHeads) {

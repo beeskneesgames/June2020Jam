@@ -7,7 +7,7 @@ public class Grid : MonoBehaviour {
     public Vector2Int Size = new Vector2Int(16, 16);
 
     private List<Cell> damageHeadCells = new List<Cell>();
-    private List<CellInfo> allCells = new List<CellInfo>();
+    public List<CellInfo> AllCells { get; private set; } = new List<CellInfo>();
 
     private static Grid instance;
     public static Grid Instance {
@@ -34,7 +34,7 @@ public class Grid : MonoBehaviour {
 
     public bool HasDamage {
         get {
-            foreach (var cell in allCells) {
+            foreach (var cell in AllCells) {
                 if (cell.IsDamaged) {
                     return true;
                 }
@@ -59,7 +59,7 @@ public class Grid : MonoBehaviour {
 
     public void Reset() {
         damageHeadCells.Clear();
-        allCells.Clear();
+        AllCells.Clear();
 
         for (int i = 0; i < rows.Length; i++) {
             Row row = rows[i]; // your boat
@@ -76,7 +76,7 @@ public class Grid : MonoBehaviour {
                     cell.Info.HasDamageHead = false;
                 }
 
-                allCells.Add(cell.Info);
+                AllCells.Add(cell.Info);
             }
         }
     }
@@ -84,13 +84,13 @@ public class Grid : MonoBehaviour {
     public float PercentDamaged() {
         int damagedCellCount = 0;
 
-        foreach (var cell in allCells) {
+        foreach (var cell in AllCells) {
             if (cell.IsDamaged) {
                 damagedCellCount++;
             }
         }
 
-        return damagedCellCount / (float)allCells.Count;
+        return damagedCellCount / (float)AllCells.Count;
     }
 
     public void SetHoveredCoords(Vector2Int coords) {
