@@ -68,8 +68,6 @@ public class CellInfo {
 
     public void AddBomb() {
         HasBomb = true;
-        List<Vector2Int> path = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Coords, Player.diagonalFixAllowed);
-
         Player.Instance.UseActionPoints(BombCost);
     }
 
