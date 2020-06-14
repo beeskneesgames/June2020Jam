@@ -18,8 +18,12 @@ public class CellInfo {
                 cellsToFix.Add(Grid.Instance.CellInfoAt(Coords));
 
                 foreach (var cell in cellsToFix) {
+                    if (cell.HasDamageHead) {
+                        DamageManager.Instance.RemoveHeadsAt(cell.Coords);
+                        cell.HasDamageHead = false;
+                    }
+
                     cell.IsDamaged = false;
-                    cell.HasDamageHead = false;
                     cell.HasBomb = false;
                 }
             }

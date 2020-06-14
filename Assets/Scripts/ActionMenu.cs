@@ -86,7 +86,7 @@ public class ActionMenu : MonoBehaviour {
                 bombInteractable = false;
             }
 
-                bombBtn.interactable = bombInteractable;
+            bombBtn.interactable = bombInteractable;
             moveBtn.interactable = moveInteractable;
             fixBtn.interactable = fixInteractable;
 
