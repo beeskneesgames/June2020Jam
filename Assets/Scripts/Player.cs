@@ -1,8 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
+    public enum Direction {
+        None,
+        North, // Moving up the Y axis
+        South, // Moving down the Y axis
+        East,  // Moving right along the X axis
+        West   // Moving left along the X axis
+    }
+
     public static bool diagonalFixAllowed = false;
     public static bool diagonalMoveAllowed = false;
 
@@ -31,6 +40,12 @@ public class Player : MonoBehaviour {
             return Grid.Instance.CellInfoAt(CurrentCoords);
         }
     }
+
+    // Spinnin, spinnin, spinnin while my hands up
+    public Direction CurrentDirection { get; private set; } = Direction.West;
+    private Direction targetDirection = Direction.West;
+    private float startYRotationForSpin;
+    private float endYRotationForSpin;
 
     // Action Points
     public TextMeshProUGUI actionPointUI;
@@ -66,6 +81,11 @@ public class Player : MonoBehaviour {
         if (IsMoving) {
             timeMoving += Time.deltaTime;
 
+            if (CurrentDirection == targetDirection) {
+                TickMove();
+            } else {
+                TickRotate();
+            }
             if (timeMoving < MaxTimeMoving) {
                 // We're between the starting cell and the target cell, keep
                 // lerping between them.
@@ -95,9 +115,43 @@ public class Player : MonoBehaviour {
                     // movement.
                     IsMoving = false;
                     moveCallback?.Invoke();
+                } else {
+                    // Figure out if we need to do a spin animation before moving.
+                    Direction newDirection = DirectionBetween(CurrentCoords, targetCoords);
+
+                    if (newDirection != CurrentDirection) {
+                        targetDirection = newDirection;
+                        startYRotationForSpin = transform.localEulerAngles.y;
+
+                        switch (targetDirection) {
+                            case Direction.North:
+                                endYRotationForSpin = 180.0f;
+                                break;
+                            case Direction.South:
+                                endYRotationForSpin = 0.0f;
+                                break;
+                            case Direction.East:
+                                endYRotationForSpin = -90.0f;
+                                break;
+                            case Direction.West:
+                                endYRotationForSpin = 90.0f;
+                                break;
+                            case Direction.None:
+                                endYRotationForSpin = startYRotationForSpin;
+                                break;
+                        }
+                    }
                 }
             }
         }
+    }
+
+    private void TickRotate() {
+        throw new NotImplementedException();
+    }
+
+    private void TickMove() {
+        throw new NotImplementedException();
     }
 
     public void MoveTo(Vector2Int coords, System.Action callback = null) {
@@ -132,6 +186,10 @@ public class Player : MonoBehaviour {
         ResetAP();
         ResetCoords();
 
+        CurrentDirection = Direction.West;
+        targetDirection = Direction.West;
+        transform.localEulerAngles = new Vector3(0, 90.0f, 0);
+
         timeMoving = 0.0f;
     }
 
@@ -162,5 +220,34 @@ public class Player : MonoBehaviour {
     private void MoveToImmediate(Vector2Int coords) {
         transform.position = NormalizedPosition(Grid.Instance.PositionForCoords(coords));
         CurrentCoords = coords;
+    }
+
+    private static Direction DirectionBetween(Vector2Int startCoords, Vector2Int endCoords) {
+        if (startCoords == endCoords) {
+            // If the start and end coords are the same, there's no direction
+            // between them.
+            return Direction.None;
+        } else if (startCoords.x == endCoords.x) {
+            // If the start and end have the same X coords, we're moving north
+            // or south.
+            if (startCoords.y < endCoords.y) {
+                return Direction.North;
+            } else {
+                return Direction.South;
+            }
+        } else if (startCoords.y == endCoords.y) {
+            // If the start and end have the same Y coords, we're moving east or
+            // west.
+            if (startCoords.x < endCoords.x) {
+                return Direction.East;
+            } else {
+                return Direction.West;
+            }
+        } else {
+            // If the start and end coords are on a different row AND column,
+            // we'd have to be facing somewhere other than one of the 4 cardinal
+            // directions, which we don't support.
+            return Direction.None;
+        }
     }
 }
