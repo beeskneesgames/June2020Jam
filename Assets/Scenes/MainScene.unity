@@ -5172,7 +5172,7 @@ MonoBehaviour:
   meleeCostText: {fileID: 597537185}
   bombCostText: {fileID: 335497226}
   moveBtn: {fileID: 793767455}
-  fixBtn: {fileID: 1091015331}
+  meleeBtn: {fileID: 1091015331}
   bombBtn: {fileID: 121149273}
 --- !u!1 &1048988942
 GameObject:
