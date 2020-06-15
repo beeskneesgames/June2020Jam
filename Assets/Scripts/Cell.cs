@@ -16,7 +16,7 @@ public class Cell : MonoBehaviour {
 
     private void Start() {
         renderer = GetComponent<Renderer>();
-        originalColor = renderer.material.color;
+        originalColor = renderer.material.GetColor("_BaseColor");
     }
 
     private void Update() {
@@ -28,29 +28,29 @@ public class Cell : MonoBehaviour {
             case MouseState.None:
                 if (inPath) {
                     // Light gray
-                    renderer.material.color = new Color(0.75f, 0.75f, 0.75f);
+                    renderer.material.SetColor("_BaseColor", new Color(0.75f, 0.75f, 0.75f));
                 } else if (Info.HasBomb) {
                     // Black
-                    renderer.material.color = new Color(0.0f, 0.0f, 0.0f);
+                    renderer.material.SetColor("_BaseColor", Color.black);
                 } else if (Info.HasObstacle) {
                     // Pink
-                    renderer.material.color = new Color(1.0f, 0.5f, 1.00f);
+                    renderer.material.SetColor("_BaseColor", new Color(1.0f, 0.5f, 1.00f));
                 } else if (Info.HasDamageHead) {
                     // Dark red
-                    renderer.material.color = new Color(1.0f, 0.0f, 0.0f);
+                    renderer.material.SetColor("_BaseColor", new Color(1.0f, 0.0f, 0.0f));
                 } else if (Info.IsDamaged) {
                     // Light red
-                    renderer.material.color = new Color(1.0f, 0.5f, 0.5f);
+                    renderer.material.SetColor("_BaseColor", new Color(1.0f, 0.5f, 0.5f));
                 } else {
-                    // Dark gray
-                    renderer.material.color = originalColor;
+                    // White
+                    renderer.material.SetColor("_BaseColor", originalColor);
                 }
                 break;
             case MouseState.Hovered:
-                renderer.material.color = new Color(1.0f, 1.0f, 0.5f);
+                renderer.material.SetColor("_BaseColor", new Color(1.0f, 1.0f, 0.5f));
                 break;
             case MouseState.Selected:
-                renderer.material.color = new Color(0.5f, 1.0f, 0.5f);
+                renderer.material.SetColor("_BaseColor", new Color(0.5f, 1.0f, 0.5f));
                 break;
         }
     }
