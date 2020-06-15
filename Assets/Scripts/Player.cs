@@ -122,7 +122,7 @@ public class Player : MonoBehaviour {
                 percentComplete
             );
 
-            // If we're halfway between the second to last cell and the last
+            // If we're partway between the second to last cell and the last
             // cell, begin the stop-running animation so we skid while moving.
             if (shouldSkid && remainingMovementPath.Count < 1 && percentComplete >= 0.1f && !isSkidding) {
                 isSkidding = true;
