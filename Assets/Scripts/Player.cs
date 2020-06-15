@@ -27,6 +27,7 @@ public class Player : MonoBehaviour {
     // Movement
     public bool IsMoving { get; private set; } = false;
     private bool isSkidding = false;
+    private bool shouldSkid = false;
     private System.Action moveCallback;
     private List<Vector2Int> remainingMovementPath = null;
     public List<Vector2Int> MovementPath { get; private set; }
@@ -123,9 +124,9 @@ public class Player : MonoBehaviour {
 
             // If we're halfway between the second to last cell and the last
             // cell, begin the stop-running animation so we skid while moving.
-            if (remainingMovementPath.Count < 1 && percentComplete >= 0.1f && !isSkidding) {
+            if (shouldSkid && remainingMovementPath.Count < 1 && percentComplete >= 0.1f && !isSkidding) {
                 isSkidding = true;
-                playerAnimator.SetTrigger("StopMove");
+                playerAnimator.SetTrigger("StartSkid");
             }
         } else {
             // We've made it to the target cell. Do one of these two things:
@@ -147,6 +148,7 @@ public class Player : MonoBehaviour {
             if (targetCoords.x < 0) {
                 // We've moved to the last cell in the path, end the
                 // movement.
+                playerAnimator.SetTrigger("StopMove");
                 IsMoving = false;
                 isSkidding = false;
                 moveCallback?.Invoke();
@@ -171,7 +173,6 @@ public class Player : MonoBehaviour {
             return;
         }
 
-        playerAnimator.ResetTrigger("StopMove");
         playerAnimator.SetTrigger("StartMove");
         IsMoving = true;
         timeMoving = 0.0f;
@@ -181,6 +182,9 @@ public class Player : MonoBehaviour {
 
         // We're already at the first cell in the path, so remove it.
         remainingMovementPath.RemoveAt(0);
+
+        // The player shouldn't skid if they're moving just 1 cell.
+        shouldSkid = remainingMovementPath.Count > 1;
 
         PopPathCoords();
         SyncDirection();
@@ -207,6 +211,7 @@ public class Player : MonoBehaviour {
         timeMoving = 0.0f;
         IsMoving = false;
         isSkidding = false;
+        shouldSkid = false;
     }
 
     private void ResetCoords() {
