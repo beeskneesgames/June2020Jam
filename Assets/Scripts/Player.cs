@@ -22,8 +22,20 @@ public class Player : MonoBehaviour {
         }
     }
 
+    public Animator playerAnimator;
+
     // Movement
-    public bool IsMoving { get; private set; } = false;
+    private bool isMoving = false;
+    public bool IsMoving {
+        get {
+            return isMoving;
+        }
+
+        private set {
+            isMoving = value;
+            playerAnimator.SetBool("IsMoving", isMoving);
+        }
+    }
     private System.Action moveCallback;
     private List<Vector2Int> remainingMovementPath = null;
     public List<Vector2Int> MovementPath { get; private set; }
