@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3539,6 +3539,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: environment Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3582076720058643968, guid: 8fc6ebade6c7f4f17a0c13638a71a56a,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: -2100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3582076720058643968, guid: 8fc6ebade6c7f4f17a0c13638a71a56a,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: -2100
       objectReference: {fileID: 0}
     - target: {fileID: 6894159243534096668, guid: 8fc6ebade6c7f4f17a0c13638a71a56a,
         type: 3}
@@ -10333,26 +10343,6 @@ PrefabInstance:
       propertyPath: actionPointUI
       value: 
       objectReference: {fileID: 482263212}
-    - target: {fileID: 4962653060345769433, guid: c0797186f792c4823bb24f7d58fa7897,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4962653060345769433, guid: c0797186f792c4823bb24f7d58fa7897,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 175
-      objectReference: {fileID: 0}
-    - target: {fileID: 4962653060345769433, guid: c0797186f792c4823bb24f7d58fa7897,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 175
-      objectReference: {fileID: 0}
-    - target: {fileID: 4962653060345769433, guid: c0797186f792c4823bb24f7d58fa7897,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 175
-      objectReference: {fileID: 0}
     - target: {fileID: 5374618815941972122, guid: c0797186f792c4823bb24f7d58fa7897,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10407,11 +10397,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5459892924117907053, guid: c0797186f792c4823bb24f7d58fa7897,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.25
       objectReference: {fileID: 0}
     - target: {fileID: 5647474269614531294, guid: c0797186f792c4823bb24f7d58fa7897,
         type: 3}
