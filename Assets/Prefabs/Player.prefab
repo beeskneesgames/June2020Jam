@@ -58,6 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74bb466532dcf4f78bd84cfa6bd65961, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAnimator: {fileID: 2100158998019484695}
   actionPointUI: {fileID: 0}
   maxPoints: 5
 --- !u!1001 &5498849870477922694
@@ -157,6 +158,12 @@ PrefabInstance:
 --- !u!4 &5459892924117907053 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d92d33db90d9a422d8b1a796d8fbacc3,
+    type: 3}
+  m_PrefabInstance: {fileID: 5498849870477922694}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2100158998019484695 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: d92d33db90d9a422d8b1a796d8fbacc3,
     type: 3}
   m_PrefabInstance: {fileID: 5498849870477922694}
   m_PrefabAsset: {fileID: 0}

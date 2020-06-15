@@ -22,8 +22,12 @@ public class Player : MonoBehaviour {
         }
     }
 
+    public Animator playerAnimator;
+
     // Movement
     public bool IsMoving { get; private set; } = false;
+    private bool isSkidding = false;
+    private bool shouldSkid = false;
     private System.Action moveCallback;
     private List<Vector2Int> remainingMovementPath = null;
     public List<Vector2Int> MovementPath { get; private set; }
@@ -111,11 +115,19 @@ public class Player : MonoBehaviour {
         if (timeMoving < MaxTimeMoving) {
             // We're between the starting cell and the target cell, keep
             // lerping between them.
+            float percentComplete = timeMoving / MaxTimeMoving;
             transform.position = Vector3.Lerp(
                 startPositionForMove,
                 endPositionForMove,
-                timeMoving / MaxTimeMoving
+                percentComplete
             );
+
+            // If we're partway between the second to last cell and the last
+            // cell, begin the stop-running animation so we skid while moving.
+            if (shouldSkid && remainingMovementPath.Count < 1 && percentComplete >= 0.1f && !isSkidding) {
+                isSkidding = true;
+                playerAnimator.SetTrigger("StartSkid");
+            }
         } else {
             // We've made it to the target cell. Do one of these two things:
             //
@@ -136,7 +148,9 @@ public class Player : MonoBehaviour {
             if (targetCoords.x < 0) {
                 // We've moved to the last cell in the path, end the
                 // movement.
+                playerAnimator.SetTrigger("StopMove");
                 IsMoving = false;
+                isSkidding = false;
                 moveCallback?.Invoke();
             }
         }
@@ -159,6 +173,7 @@ public class Player : MonoBehaviour {
             return;
         }
 
+        playerAnimator.SetTrigger("StartMove");
         IsMoving = true;
         timeMoving = 0.0f;
         moveCallback = callback;
@@ -167,6 +182,9 @@ public class Player : MonoBehaviour {
 
         // We're already at the first cell in the path, so remove it.
         remainingMovementPath.RemoveAt(0);
+
+        // The player shouldn't skid if they're moving just 1 cell.
+        shouldSkid = remainingMovementPath.Count > 1;
 
         PopPathCoords();
         SyncDirection();
@@ -191,6 +209,9 @@ public class Player : MonoBehaviour {
         transform.localEulerAngles = new Vector3(0, 90.0f, 0);
 
         timeMoving = 0.0f;
+        IsMoving = false;
+        isSkidding = false;
+        shouldSkid = false;
     }
 
     private void ResetCoords() {
