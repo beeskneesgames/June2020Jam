@@ -102,8 +102,7 @@ public class Player : MonoBehaviour {
             // We're now facing the correct direction. The next target cell
             // should've already been set up by TickMove().
             timeMoving = 0.0f;
-            //transform.localEulerAngles = NormalizedEulerAnglesFor(targetDirection);
-            transform.localEulerAngles = endEulerAnglesForSpin;
+            transform.localEulerAngles = NormalizedEulerAnglesFor(targetDirection);
             CurrentDirection = targetDirection;
         }
     }
@@ -259,19 +258,19 @@ public class Player : MonoBehaviour {
     private static Vector3 EulerAnglesFor(Direction startDirection, Direction endDirection) {
         switch (endDirection) {
             case Direction.North:
-                //if (startDirection == Direction.East) {
-                    //return new Vector3(0.0f, -90.0f, 0.0f);
-                //} else {
+                if (startDirection == Direction.East) {
+                    return new Vector3(0.0f, -90.0f, 0.0f);
+                } else {
                     return new Vector3(0.0f, 270.0f, 0.0f);
-                //}
+                }
             case Direction.South:
                 return new Vector3(0.0f, 90.0f, 0.0f);
             case Direction.East:
-                //if (startDirection == Direction.North) {
-                    //return new Vector3(0.0f, 360.0f, 0.0f);
-                //} else {
+                if (startDirection == Direction.North) {
+                    return new Vector3(0.0f, 360.0f, 0.0f);
+                } else {
                     return Vector3.zero;
-                //}
+                }
             case Direction.West:
                 return new Vector3(0.0f, 180.0f, 0.0f);
             default:
