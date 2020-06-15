@@ -26,6 +26,7 @@ public class Player : MonoBehaviour {
 
     // Movement
     public bool IsMoving { get; private set; } = false;
+    private bool isSkidding = false;
     private System.Action moveCallback;
     private List<Vector2Int> remainingMovementPath = null;
     public List<Vector2Int> MovementPath { get; private set; }
@@ -113,11 +114,19 @@ public class Player : MonoBehaviour {
         if (timeMoving < MaxTimeMoving) {
             // We're between the starting cell and the target cell, keep
             // lerping between them.
+            float percentComplete = timeMoving / MaxTimeMoving;
             transform.position = Vector3.Lerp(
                 startPositionForMove,
                 endPositionForMove,
-                timeMoving / MaxTimeMoving
+                percentComplete
             );
+
+            // If we're halfway between the second to last cell and the last
+            // cell, begin the stop-running animation so we skid while moving.
+            if (remainingMovementPath.Count < 1 && percentComplete >= 0.1f && !isSkidding) {
+                isSkidding = true;
+                playerAnimator.SetTrigger("StopMove");
+            }
         } else {
             // We've made it to the target cell. Do one of these two things:
             //
@@ -140,6 +149,7 @@ public class Player : MonoBehaviour {
                 // movement.
                 playerAnimator.SetTrigger("StopMove");
                 IsMoving = false;
+                isSkidding = false;
                 moveCallback?.Invoke();
             }
         }
@@ -162,6 +172,7 @@ public class Player : MonoBehaviour {
             return;
         }
 
+        playerAnimator.ResetTrigger("StopMove");
         playerAnimator.SetTrigger("StartMove");
         IsMoving = true;
         timeMoving = 0.0f;
@@ -195,6 +206,8 @@ public class Player : MonoBehaviour {
         transform.localEulerAngles = new Vector3(0, 90.0f, 0);
 
         timeMoving = 0.0f;
+        IsMoving = false;
+        isSkidding = false;
     }
 
     private void ResetCoords() {
