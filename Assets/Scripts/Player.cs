@@ -25,17 +25,7 @@ public class Player : MonoBehaviour {
     public Animator playerAnimator;
 
     // Movement
-    private bool isMoving = false;
-    public bool IsMoving {
-        get {
-            return isMoving;
-        }
-
-        private set {
-            isMoving = value;
-            playerAnimator.SetBool("IsMoving", isMoving);
-        }
-    }
+    public bool IsMoving { get; private set; } = false;
     private System.Action moveCallback;
     private List<Vector2Int> remainingMovementPath = null;
     public List<Vector2Int> MovementPath { get; private set; }
@@ -148,6 +138,7 @@ public class Player : MonoBehaviour {
             if (targetCoords.x < 0) {
                 // We've moved to the last cell in the path, end the
                 // movement.
+                playerAnimator.SetTrigger("StopMove");
                 IsMoving = false;
                 moveCallback?.Invoke();
             }
@@ -171,6 +162,7 @@ public class Player : MonoBehaviour {
             return;
         }
 
+        playerAnimator.SetTrigger("StartMove");
         IsMoving = true;
         timeMoving = 0.0f;
         moveCallback = callback;
