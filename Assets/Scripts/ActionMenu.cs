@@ -26,6 +26,8 @@ public class ActionMenu : MonoBehaviour {
     }
 
     public void OnMeleeFixClicked() {
+        Player.Instance.playerAnimator.SetTrigger("Fix");
+
         Grid grid = Grid.Instance;
         CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
 
@@ -35,6 +37,8 @@ public class ActionMenu : MonoBehaviour {
     }
 
     public void OnRangedFixClicked() {
+        Player.Instance.playerAnimator.SetTrigger("Fix");
+
         Grid grid = Grid.Instance;
         CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
 
@@ -44,6 +48,8 @@ public class ActionMenu : MonoBehaviour {
     }
 
     public void OnBombClicked() {
+        Player.Instance.playerAnimator.SetTrigger("Fix");
+
         Grid grid = Grid.Instance;
         CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
 
