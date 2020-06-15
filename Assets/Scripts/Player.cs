@@ -148,9 +148,13 @@ public class Player : MonoBehaviour {
             if (targetCoords.x < 0) {
                 // We've moved to the last cell in the path, end the
                 // movement.
-                playerAnimator.SetTrigger("StopMove");
+                if (isSkidding) {
+                    isSkidding = false;
+                } else {
+                    playerAnimator.SetTrigger("StopMove");
+                }
+
                 IsMoving = false;
-                isSkidding = false;
                 moveCallback?.Invoke();
             }
         }
