@@ -6,6 +6,7 @@ public class Grid : MonoBehaviour {
     public GameObject rowPrefab;
     public Vector2Int Size = new Vector2Int(16, 16);
 
+    private List<Vector2Int> actionHighlightCoords = new List<Vector2Int>();
     private List<Cell> damageHeadCells = new List<Cell>();
     public List<CellInfo> AllCells { get; private set; } = new List<CellInfo>();
     public List<CellInfo> DamagedCells {
@@ -108,12 +109,17 @@ public class Grid : MonoBehaviour {
     }
 
     public void SetActionHighlightCoords(List<Vector2Int> coordsList) {
+        actionHighlightCoords = coordsList;
+
         foreach (var coords in coordsList) {
             CellAt(coords).inActionPath = true;
         }
     }
 
     public void ClearActionHighlightCoords() {
+        foreach (var coords in actionHighlightCoords) {
+            CellAt(coords).inActionPath = false;
+        }
     }
 
     public void SetHoveredCoords(Vector2Int coords) {

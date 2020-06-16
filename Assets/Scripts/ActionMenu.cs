@@ -25,9 +25,7 @@ public class ActionMenu : MonoBehaviour {
 
         private set {
             currentAction = value;
-            if (currentAction != Action.None) {
-                CellSelector.HighlightPossibleCells();
-            }
+            CellSelector.HighlightPossibleCells();
         }
     }
 

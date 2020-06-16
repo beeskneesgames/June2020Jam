@@ -33,7 +33,7 @@ public class CellSelector : MonoBehaviour {
             case ActionMenu.Action.Bomb:
                 Grid.Instance.SetActionHighlightCoords(ActionMenu.Instance.AvailableBombCoords());
                 break;
-            default:
+            case ActionMenu.Action.None:
                 Grid.Instance.ClearActionHighlightCoords();
                 break;
         }
