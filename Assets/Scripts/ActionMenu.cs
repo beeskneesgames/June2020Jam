@@ -5,10 +5,6 @@ using TMPro;
 
 public class ActionMenu : MonoBehaviour {
     public GameObject panel;
-    public TextMeshProUGUI moveCostText;
-    public TextMeshProUGUI meleeCostText;
-    public TextMeshProUGUI rangedCostText;
-    public TextMeshProUGUI bombCostText;
     public Button moveBtn;
     public Button meleeBtn;
     public Button rangedBtn;
