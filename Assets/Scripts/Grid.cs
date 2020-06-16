@@ -262,7 +262,7 @@ public class Grid : MonoBehaviour {
             //endCoords = SelectedCoords;
             //} else if (HasHoveredCoords) {
             if (HasHoveredCoords) {
-                if (ActionMenu.Instance.CurrentAction == ActionMenu.Action.None) {
+                if (ActionManager.Instance.CurrentAction == ActionManager.Action.None) {
                     endCoords = hoveredCoords;
                 } else {
                     // TODO: Show hover only within action range
@@ -270,7 +270,7 @@ public class Grid : MonoBehaviour {
             }
 
             if (endCoords.x >= 0) {
-                if (ActionMenu.Instance.CurrentAction == ActionMenu.Action.None) {
+                if (ActionManager.Instance.CurrentAction == ActionManager.Action.None) {
                     ShowPath(PathBetween(Player.Instance.CurrentCell.Coords, endCoords, Player.diagonalMoveAllowed));
                 } else {
                     // TODO: Show path only within action range

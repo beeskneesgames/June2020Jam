@@ -20,20 +20,20 @@ public class CellSelector : MonoBehaviour {
     }
 
     public static void HighlightPossibleCells() {
-        switch (ActionMenu.Instance.CurrentAction) {
-            case ActionMenu.Action.Move:
-                Grid.Instance.SetActionHighlightCoords(ActionMenu.Instance.AvailableMoveCoords());
+        switch (ActionManager.Instance.CurrentAction) {
+            case ActionManager.Action.Move:
+                Grid.Instance.SetActionHighlightCoords(ActionManager.Instance.AvailableMoveCoords());
                 break;
-            case ActionMenu.Action.Melee:
-                Grid.Instance.SetActionHighlightCoords(ActionMenu.Instance.AvailableMeleeCoords());
+            case ActionManager.Action.Melee:
+                Grid.Instance.SetActionHighlightCoords(ActionManager.Instance.AvailableMeleeCoords());
                 break;
-            case ActionMenu.Action.Range:
-                Grid.Instance.SetActionHighlightCoords(ActionMenu.Instance.AvailableRangeCoords());
+            case ActionManager.Action.Range:
+                Grid.Instance.SetActionHighlightCoords(ActionManager.Instance.AvailableRangeCoords());
                 break;
-            case ActionMenu.Action.Bomb:
-                Grid.Instance.SetActionHighlightCoords(ActionMenu.Instance.AvailableBombCoords());
+            case ActionManager.Action.Bomb:
+                Grid.Instance.SetActionHighlightCoords(ActionManager.Instance.AvailableBombCoords());
                 break;
-            case ActionMenu.Action.None:
+            case ActionManager.Action.None:
                 Grid.Instance.ClearActionHighlightCoords();
                 break;
         }
@@ -49,7 +49,7 @@ public class CellSelector : MonoBehaviour {
             hitCell = hit.transform.GetComponent<Cell>();
         }
 
-        if (hitCell && ActionMenu.Instance.CurrentAction != ActionMenu.Action.None) {
+        if (hitCell && ActionManager.Instance.CurrentAction != ActionManager.Action.None) {
             if (clicked && CanSelect) {
                 Debug.Log("Do action");
                 // TODO: Check if we are within bounds
