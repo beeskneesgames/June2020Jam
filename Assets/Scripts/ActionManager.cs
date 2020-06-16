@@ -46,65 +46,6 @@ public class ActionManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    public void OnMoveClicked() {
-        if (CurrentAction == Action.Move) {
-            CurrentAction = Action.None;
-        } else {
-            CurrentAction = Action.Move;
-        }
-
-        //Player.Instance.MoveTo(Grid.Instance.SelectedCoords);
-        //Grid.Instance.ClearSelectedCoords();
-    }
-
-    public void OnMeleeFixClicked() {
-        if (CurrentAction == Action.Melee) {
-            CurrentAction = Action.None;
-        } else {
-            CurrentAction = Action.Melee;
-        }
-
-        //Player.Instance.playerAnimator.SetTrigger("Fix");
-
-        //Grid grid = Grid.Instance;
-        //CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
-
-        //cell.MeleeFix();
-        //grid.ClearSelectedCoords();
-    }
-
-    public void OnRangedFixClicked() {
-        if (CurrentAction == Action.Range) {
-            CurrentAction = Action.None;
-        } else {
-            CurrentAction = Action.Range;
-        }
-
-        //Player.Instance.playerAnimator.SetTrigger("Fix");
-
-        //Grid grid = Grid.Instance;
-        //CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
-
-        //cell.RangedFix();
-        //grid.ClearSelectedCoords();
-    }
-
-    public void OnBombClicked() {
-        if (CurrentAction == Action.Bomb) {
-            CurrentAction = Action.None;
-        } else {
-            CurrentAction = Action.Bomb;
-        }
-
-        //Player.Instance.playerAnimator.SetTrigger("Fix");
-
-        //Grid grid = Grid.Instance;
-        //CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
-
-        //cell.AddBomb();
-        //grid.ClearSelectedCoords();
-    }
-
     public List<Vector2Int> AvailableMoveCoords() {
         List<Vector2Int> coords = new List<Vector2Int>();
 
