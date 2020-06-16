@@ -54,23 +54,11 @@ public class CellSelector : MonoBehaviour {
                 Debug.Log("Do action");
                 // TODO: Check if we are within bounds
                 //       If so, do action
-
-                //if (Grid.Instance.SelectedCoords == hitCell.Info.Coords) {
-                    // If a cell is already selected and is clicked again,
-                    // unselect it.
-                    //ClearSelection();
-                //} else {
-                    //Grid.Instance.SetSelectedCoords(hitCell.Info.Coords);
-                //}
             } else {
                 Grid.Instance.SetHoveredCoords(hitCell.Info.Coords);
             }
         } else {
             ClearHover();
-
-            if (clicked) {
-                //ClearSelection();
-            }
         }
     }
 
@@ -82,9 +70,5 @@ public class CellSelector : MonoBehaviour {
         get {
             return !Player.Instance.IsMoving;
         }
-    }
-
-    private void ClearSelection() {
-        //Grid.Instance.ClearSelectedCoords();
     }
 }

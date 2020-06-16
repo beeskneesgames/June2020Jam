@@ -39,13 +39,6 @@ public class Grid : MonoBehaviour {
         }
     }
 
-    //public Vector2Int SelectedCoords { get; private set; } = new Vector2Int(-1, -1);
-    //public bool HasSelectedCoords {
-    //    get {
-    //        return SelectedCoords.x >= 0;
-    //    }
-    //}
-
     public bool HasDamage {
         get {
             foreach (var cell in AllCells) {
@@ -149,27 +142,6 @@ public class Grid : MonoBehaviour {
 
         UpdateDisplayedPath();
     }
-
-    //public void SetSelectedCoords(Vector2Int coords) {
-    //    if (HasSelectedCoords) {
-    //        SelectedCell.CurrentMouseState = Cell.MouseState.None;
-    //    }
-
-    //    SelectedCoords = coords;
-    //    SelectedCell.CurrentMouseState = Cell.MouseState.Selected;
-
-    //    UpdateDisplayedPath();
-    //}
-
-    //public void ClearSelectedCoords() {
-    //    if (HasSelectedCoords) {
-    //        SelectedCell.CurrentMouseState = Cell.MouseState.None;
-    //    }
-
-    //    SelectedCoords = new Vector2Int(-1, -1);
-
-    //    UpdateDisplayedPath();
-    //}
 
     public List<CellInfo> AdjacentTo(Vector2Int coords, bool includeDiagonal) {
         // Add all the fully adjacent cells.
@@ -331,16 +303,6 @@ public class Grid : MonoBehaviour {
             }
         }
     }
-
-    //private Cell SelectedCell {
-    //    get {
-    //        if (HasSelectedCoords) {
-    //            return CellAt(SelectedCoords);
-    //        } else {
-    //            return null;
-    //        }
-    //    }
-    //}
 
     private bool InBounds(Vector2Int coords) {
         return
