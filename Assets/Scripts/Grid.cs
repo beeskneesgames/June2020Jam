@@ -287,14 +287,16 @@ public class Grid : MonoBehaviour {
         if (Player.Instance.IsMoving) {
             ShowPath(Player.Instance.MovementPath);
         } else {
-            Vector2Int endCoords;
+            Vector2Int endCoords = new Vector2Int(-1, -1);
 
             if (HasSelectedCoords) {
                 endCoords = SelectedCoords;
             } else if (HasHoveredCoords) {
-                endCoords = hoveredCoords;
-            } else {
-                endCoords = new Vector2Int(-1, -1);
+                if (ActionMenu.Instance.CurrentAction == ActionMenu.Action.None) {
+                    endCoords = hoveredCoords;
+                } else {
+                    // TODO: Show hover only within action range
+                }
             }
 
             if (endCoords.x >= 0) {
