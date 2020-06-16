@@ -131,7 +131,7 @@ public class ActionMenu : MonoBehaviour {
         return coords;
     }
 
-    public List<Vector2Int> AvailableRangedCoords() {
+    public List<Vector2Int> AvailableRangeCoords() {
         // TODO: Remove if cell.isDamaged is false
         // TODO: Check for path count
         //       if ((path.Count - 1) > CellInfo.RangedFixRange || (path.Count - 1) < 2) {

@@ -31,14 +31,14 @@ public class Cell : MonoBehaviour {
                     // Light gray
                     renderer.material.SetColor("_BaseColor", new Color(0.75f, 0.75f, 0.75f));
                 } else if (inActionPath) {
-                    // TODO
-                    renderer.material.SetColor("_BaseColor", Color.black);
+                    // Lighter gray
+                    renderer.material.SetColor("_BaseColor", new Color(0.85f, 0.85f, 0.85f));
                 } else if (Info.HasBomb) {
                     // Black
                     renderer.material.SetColor("_BaseColor", Color.black);
                 } else if (Info.HasObstacle) {
-                    // Pink
                     renderer.material.SetColor("_BaseColor", new Color(1.0f, 0.5f, 1.00f));
+                    // Pink
                 } else if (Info.HasDamageHead) {
                     // Dark red
                     renderer.material.SetColor("_BaseColor", new Color(1.0f, 0.0f, 0.0f));

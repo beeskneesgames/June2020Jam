@@ -22,13 +22,13 @@ public class CellSelector : MonoBehaviour {
     public static void HighlightPossibleCells() {
         switch (ActionMenu.Instance.CurrentAction) {
             case ActionMenu.Action.Move:
-                //Grid.Instance.SetActionHighlightCoords();
+                Grid.Instance.SetActionHighlightCoords(ActionMenu.Instance.AvailableMoveCoords());
                 break;
             case ActionMenu.Action.Melee:
-                //Grid.Instance.SetActionHighlightCoords();
+                Grid.Instance.SetActionHighlightCoords(ActionMenu.Instance.AvailableMeleeCoords());
                 break;
             case ActionMenu.Action.Range:
-                //Grid.Instance.SetActionHighlightCoords();
+                Grid.Instance.SetActionHighlightCoords(ActionMenu.Instance.AvailableRangeCoords());
                 break;
             case ActionMenu.Action.Bomb:
                 Grid.Instance.SetActionHighlightCoords(ActionMenu.Instance.AvailableBombCoords());

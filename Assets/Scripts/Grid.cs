@@ -298,7 +298,11 @@ public class Grid : MonoBehaviour {
             }
 
             if (endCoords.x >= 0) {
-                ShowPath(PathBetween(Player.Instance.CurrentCell.Coords, endCoords, Player.diagonalMoveAllowed));
+                if (ActionMenu.Instance.CurrentAction == ActionMenu.Action.None) {
+                    ShowPath(PathBetween(Player.Instance.CurrentCell.Coords, endCoords, Player.diagonalMoveAllowed));
+                } else {
+                    // TODO: Show path only within action range
+                }
             } else {
                 ClearPath();
             }
