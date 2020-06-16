@@ -107,6 +107,15 @@ public class Grid : MonoBehaviour {
         return damagedCellCount / (float)AllCells.Count;
     }
 
+    public void SetActionHighlightCoords(List<Vector2Int> coordsList) {
+        foreach (var coords in coordsList) {
+            CellAt(coords).inActionPath = true;
+        }
+    }
+
+    public void ClearActionHighlightCoords() {
+    }
+
     public void SetHoveredCoords(Vector2Int coords) {
         if (coords == hoveredCoords) {
             // Skip if the hovered coords didn't change.

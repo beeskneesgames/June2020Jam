@@ -22,14 +22,19 @@ public class CellSelector : MonoBehaviour {
     public static void HighlightPossibleCells() {
         switch (ActionMenu.Instance.CurrentAction) {
             case ActionMenu.Action.Move:
+                //Grid.Instance.SetActionHighlightCoords();
                 break;
             case ActionMenu.Action.Melee:
+                //Grid.Instance.SetActionHighlightCoords();
                 break;
             case ActionMenu.Action.Range:
+                //Grid.Instance.SetActionHighlightCoords();
                 break;
             case ActionMenu.Action.Bomb:
+                Grid.Instance.SetActionHighlightCoords(ActionMenu.Instance.AvailableBombCoords());
                 break;
             default:
+                Grid.Instance.ClearActionHighlightCoords();
                 break;
         }
     }
@@ -52,8 +57,6 @@ public class CellSelector : MonoBehaviour {
                     ClearSelection();
                 } else {
                     Grid.Instance.SetSelectedCoords(hitCell.Info.Coords);
-
-                    ActionMenu.Instance.UpdateMenu();
                 }
             } else {
                 Grid.Instance.SetHoveredCoords(hitCell.Info.Coords);
@@ -78,7 +81,6 @@ public class CellSelector : MonoBehaviour {
     }
 
     private void ClearSelection() {
-        ActionMenu.Instance.UpdateMenu();
         Grid.Instance.ClearSelectedCoords();
     }
 }

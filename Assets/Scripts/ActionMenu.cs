@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
-using TMPro;
 
 public class ActionMenu : MonoBehaviour {
     public GameObject panel;
@@ -109,72 +108,56 @@ public class ActionMenu : MonoBehaviour {
         //grid.ClearSelectedCoords();
     }
 
-    public void UpdateMenu() {
-        if (Grid.Instance.HasSelectedCoords) {
-            List<Vector2Int> path = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Grid.Instance.SelectedCoords, Player.diagonalMoveAllowed);
-            CellInfo selectedCell = Grid.Instance.CellInfoAt(Grid.Instance.SelectedCoords);
+    public List<Vector2Int> AvailableMoveCoords() {
+        List<Vector2Int> coords = new List<Vector2Int>();
 
-            bool moveInteractable = true;
-            bool meleeInteractable = true;
-            bool rangedInteractable = true;
-            bool bombInteractable = true;
-
-            foreach (var coords in path) {
-                CellInfo cell = Grid.Instance.CellInfoAt(coords);
-
-                if (cell.HasObstacle) {
-                    moveInteractable = false;
-                    meleeInteractable = false;
-                    rangedInteractable = false;
-                    bombInteractable = false;
-                }
+        // TODO: Make this all cells within AP radius
+        foreach (var cellInfo in Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true)) {
+            if (!cellInfo.HasObstacle && !cellInfo.IsDamaged) {
+                coords.Add(cellInfo.Coords);
             }
-
-            if (Player.Instance.CurrentCoords == Grid.Instance.SelectedCoords) {
-                moveInteractable = false;
-            }
-
-            if (!(Player.Instance.CurrentCoords == Grid.Instance.SelectedCoords) && !Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true).Contains(selectedCell)) {
-                bombInteractable = false;
-                meleeInteractable = false;
-            }
-
-            List<CellInfo> damagedCoords = new List<CellInfo>();
-            foreach (var cell in Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true)) {
-                if (cell.isDamaged) {
-                    damagedCoords.Add(cell);
-                }
-            }
-
-            if (damagedCoords.Count <= 0) {
-                meleeInteractable = false;
-            }
-
-            if (selectedCell.IsDamaged) {
-                bombInteractable = false;
-            }
-
-            if (!selectedCell.IsDamaged) {
-                rangedInteractable = false;
-            }
-
-            if ((path.Count - 1) > CellInfo.RangedFixRange || (path.Count - 1) < 2) {
-                rangedInteractable = false;
-            }
-
-            if (Player.Instance.ActionPoints < path.Count - 1) {
-                moveInteractable = false;
-                meleeInteractable = false;
-            }
-
-            if (Player.Instance.ActionPoints < CellInfo.BombCost) {
-                bombInteractable = false;
-            }
-
-            moveBtn.interactable = moveInteractable;
-            meleeBtn.interactable = meleeInteractable;
-            rangedBtn.interactable = rangedInteractable;
-            bombBtn.interactable = bombInteractable;
         }
+
+        return coords;
+    }
+
+    public List<Vector2Int> AvailableMeleeCoords() {
+        List<Vector2Int> coords = new List<Vector2Int>();
+
+        foreach (var cellInfo in Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true)) {
+            if (!cellInfo.HasObstacle && cellInfo.IsDamaged) {
+                coords.Add(cellInfo.Coords);
+            }
+        }
+
+        return coords;
+    }
+
+    public List<Vector2Int> AvailableRangedCoords() {
+        // TODO: Remove if cell.isDamaged is false
+        // TODO: Check for path count
+        //       if ((path.Count - 1) > CellInfo.RangedFixRange || (path.Count - 1) < 2) {
+        List<Vector2Int> coords = new List<Vector2Int>();
+
+        // TODO: Make this all cells within Ranged radius
+        foreach (var cellInfo in Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true)) {
+            if (!cellInfo.HasObstacle && cellInfo.IsDamaged) {
+                coords.Add(cellInfo.Coords);
+            }
+        }
+
+        return coords;
+    }
+
+    public List<Vector2Int> AvailableBombCoords() {
+        List<Vector2Int> coords = new List<Vector2Int>();
+
+        foreach (var cellInfo in Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true)) {
+            if (!cellInfo.HasObstacle && !cellInfo.IsDamaged) {
+                coords.Add(cellInfo.Coords);
+            }
+        }
+
+        return coords;
     }
 }
