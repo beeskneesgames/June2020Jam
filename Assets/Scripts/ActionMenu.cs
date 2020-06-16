@@ -14,39 +14,103 @@ public class ActionMenu : MonoBehaviour {
     public Button rangedBtn;
     public Button bombBtn;
 
+    private static ActionMenu instance;
+
+    public static ActionMenu Instance {
+        get {
+            return instance;
+        }
+    }
+
+    private Action currentAction = Action.None;
+    public Action CurrentAction {
+        get {
+            return currentAction;
+        }
+
+        private set {
+            currentAction = value;
+            if (currentAction != Action.None) {
+                CellSelector.HighlightPossibleCells();
+            }
+        }
+    }
+
+    public enum Action {
+        None,
+        Move,
+        Melee,
+        Range,
+        Bomb
+    }
+
+    private void Awake() {
+        if (instance != null && instance != this) {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
     public void OnMoveClicked() {
-        Player.Instance.MoveTo(Grid.Instance.SelectedCoords);
-        Grid.Instance.ClearSelectedCoords();
+        if (CurrentAction == Action.Move) {
+            CurrentAction = Action.None;
+        } else {
+            CurrentAction = Action.Move;
+        }
+
+        //Player.Instance.MoveTo(Grid.Instance.SelectedCoords);
+        //Grid.Instance.ClearSelectedCoords();
     }
 
     public void OnMeleeFixClicked() {
-        Player.Instance.playerAnimator.SetTrigger("Fix");
+        if (CurrentAction == Action.Melee) {
+            CurrentAction = Action.None;
+        } else {
+            CurrentAction = Action.Melee;
+        }
 
-        Grid grid = Grid.Instance;
-        CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
+        //Player.Instance.playerAnimator.SetTrigger("Fix");
 
-        cell.MeleeFix();
-        grid.ClearSelectedCoords();
+        //Grid grid = Grid.Instance;
+        //CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
+
+        //cell.MeleeFix();
+        //grid.ClearSelectedCoords();
     }
 
     public void OnRangedFixClicked() {
-        Player.Instance.playerAnimator.SetTrigger("Fix");
+        if (CurrentAction == Action.Range) {
+            CurrentAction = Action.None;
+        } else {
+            CurrentAction = Action.Range;
+        }
 
-        Grid grid = Grid.Instance;
-        CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
+        //Player.Instance.playerAnimator.SetTrigger("Fix");
 
-        cell.RangedFix();
-        grid.ClearSelectedCoords();
+        //Grid grid = Grid.Instance;
+        //CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
+
+        //cell.RangedFix();
+        //grid.ClearSelectedCoords();
     }
 
     public void OnBombClicked() {
-        Player.Instance.playerAnimator.SetTrigger("Fix");
+        if (CurrentAction == Action.Bomb) {
+            CurrentAction = Action.None;
+        } else {
+            CurrentAction = Action.Bomb;
+        }
 
-        Grid grid = Grid.Instance;
-        CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
+        //Player.Instance.playerAnimator.SetTrigger("Fix");
 
-        cell.AddBomb();
-        grid.ClearSelectedCoords();
+        //Grid grid = Grid.Instance;
+        //CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
+
+        //cell.AddBomb();
+        //grid.ClearSelectedCoords();
     }
 
     public void UpdateMenu() {

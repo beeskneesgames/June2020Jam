@@ -1,12 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using TMPro;
 
 public class CellSelector : MonoBehaviour {
-    public ActionMenu actionMenu;
     private Camera mainCamera;
     private int cellLayerMask;
 
@@ -21,6 +16,21 @@ public class CellSelector : MonoBehaviour {
             ClearHover();
         } else {
             UpdateCellMouseState();
+        }
+    }
+
+    public static void HighlightPossibleCells() {
+        switch (ActionMenu.Instance.CurrentAction) {
+            case ActionMenu.Action.Move:
+                break;
+            case ActionMenu.Action.Melee:
+                break;
+            case ActionMenu.Action.Range:
+                break;
+            case ActionMenu.Action.Bomb:
+                break;
+            default:
+                break;
         }
     }
 
@@ -43,7 +53,7 @@ public class CellSelector : MonoBehaviour {
                 } else {
                     Grid.Instance.SetSelectedCoords(hitCell.Info.Coords);
 
-                    actionMenu.UpdateMenu();
+                    ActionMenu.Instance.UpdateMenu();
                 }
             } else {
                 Grid.Instance.SetHoveredCoords(hitCell.Info.Coords);
@@ -68,7 +78,7 @@ public class CellSelector : MonoBehaviour {
     }
 
     private void ClearSelection() {
-        actionMenu.UpdateMenu();
+        ActionMenu.Instance.UpdateMenu();
         Grid.Instance.ClearSelectedCoords();
     }
 }
