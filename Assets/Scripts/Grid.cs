@@ -39,12 +39,12 @@ public class Grid : MonoBehaviour {
         }
     }
 
-    public Vector2Int SelectedCoords { get; private set; } = new Vector2Int(-1, -1);
-    public bool HasSelectedCoords {
-        get {
-            return SelectedCoords.x >= 0;
-        }
-    }
+    //public Vector2Int SelectedCoords { get; private set; } = new Vector2Int(-1, -1);
+    //public bool HasSelectedCoords {
+    //    get {
+    //        return SelectedCoords.x >= 0;
+    //    }
+    //}
 
     public bool HasDamage {
         get {
@@ -128,23 +128,25 @@ public class Grid : MonoBehaviour {
             return;
         }
 
-        if (HasHoveredCoords && HoveredCell != SelectedCell) {
+        //if (HasHoveredCoords && HoveredCell != SelectedCell) {
+        if (HasHoveredCoords) {
             HoveredCell.CurrentMouseState = Cell.MouseState.None;
         }
 
         hoveredCoords = coords;
 
-        if (HoveredCell != SelectedCell) {
+        //if (HoveredCell != SelectedCell) {
             // If a cell is both hovered and selected, we just want to show the
             // selected color.
-            HoveredCell.CurrentMouseState = Cell.MouseState.Hovered;
-        }
+            //HoveredCell.CurrentMouseState = Cell.MouseState.Hovered;
+        //}
 
         UpdateDisplayedPath();
     }
 
     public void ClearHoveredCoords() {
-        if (HasHoveredCoords && HoveredCell != SelectedCell) {
+        //if (HasHoveredCoords && HoveredCell != SelectedCell) {
+        if (HasHoveredCoords) {
             HoveredCell.CurrentMouseState = Cell.MouseState.None;
         }
 
@@ -153,26 +155,26 @@ public class Grid : MonoBehaviour {
         UpdateDisplayedPath();
     }
 
-    public void SetSelectedCoords(Vector2Int coords) {
-        if (HasSelectedCoords) {
-            SelectedCell.CurrentMouseState = Cell.MouseState.None;
-        }
+    //public void SetSelectedCoords(Vector2Int coords) {
+    //    if (HasSelectedCoords) {
+    //        SelectedCell.CurrentMouseState = Cell.MouseState.None;
+    //    }
 
-        SelectedCoords = coords;
-        SelectedCell.CurrentMouseState = Cell.MouseState.Selected;
+    //    SelectedCoords = coords;
+    //    SelectedCell.CurrentMouseState = Cell.MouseState.Selected;
 
-        UpdateDisplayedPath();
-    }
+    //    UpdateDisplayedPath();
+    //}
 
-    public void ClearSelectedCoords() {
-        if (HasSelectedCoords) {
-            SelectedCell.CurrentMouseState = Cell.MouseState.None;
-        }
+    //public void ClearSelectedCoords() {
+    //    if (HasSelectedCoords) {
+    //        SelectedCell.CurrentMouseState = Cell.MouseState.None;
+    //    }
 
-        SelectedCoords = new Vector2Int(-1, -1);
+    //    SelectedCoords = new Vector2Int(-1, -1);
 
-        UpdateDisplayedPath();
-    }
+    //    UpdateDisplayedPath();
+    //}
 
     public List<CellInfo> AdjacentTo(Vector2Int coords, bool includeDiagonal) {
         // Add all the fully adjacent cells.
@@ -289,9 +291,10 @@ public class Grid : MonoBehaviour {
         } else {
             Vector2Int endCoords = new Vector2Int(-1, -1);
 
-            if (HasSelectedCoords) {
-                endCoords = SelectedCoords;
-            } else if (HasHoveredCoords) {
+            //if (HasSelectedCoords) {
+                //endCoords = SelectedCoords;
+            //} else if (HasHoveredCoords) {
+            if (HasHoveredCoords) {
                 if (ActionMenu.Instance.CurrentAction == ActionMenu.Action.None) {
                     endCoords = hoveredCoords;
                 } else {
@@ -334,15 +337,15 @@ public class Grid : MonoBehaviour {
         }
     }
 
-    private Cell SelectedCell {
-        get {
-            if (HasSelectedCoords) {
-                return CellAt(SelectedCoords);
-            } else {
-                return null;
-            }
-        }
-    }
+    //private Cell SelectedCell {
+    //    get {
+    //        if (HasSelectedCoords) {
+    //            return CellAt(SelectedCoords);
+    //        } else {
+    //            return null;
+    //        }
+    //    }
+    //}
 
     private bool InBounds(Vector2Int coords) {
         return
