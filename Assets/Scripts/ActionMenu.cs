@@ -14,13 +14,7 @@ public class ActionMenu : MonoBehaviour {
     public Button rangedBtn;
     public Button bombBtn;
 
-    public void OnCloseClicked() {
-        CloseMenu();
-        Grid.Instance.ClearSelectedCoords();
-    }
-
     public void OnMoveClicked() {
-        CloseMenu();
         Player.Instance.MoveTo(Grid.Instance.SelectedCoords);
         Grid.Instance.ClearSelectedCoords();
     }
@@ -31,7 +25,6 @@ public class ActionMenu : MonoBehaviour {
         Grid grid = Grid.Instance;
         CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
 
-        CloseMenu();
         cell.MeleeFix();
         grid.ClearSelectedCoords();
     }
@@ -42,7 +35,6 @@ public class ActionMenu : MonoBehaviour {
         Grid grid = Grid.Instance;
         CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
 
-        CloseMenu();
         cell.RangedFix();
         grid.ClearSelectedCoords();
     }
@@ -53,18 +45,11 @@ public class ActionMenu : MonoBehaviour {
         Grid grid = Grid.Instance;
         CellInfo cell = grid.CellInfoAt(grid.SelectedCoords);
 
-        CloseMenu();
         cell.AddBomb();
         grid.ClearSelectedCoords();
     }
 
-    public void CloseMenu() {
-        panel.SetActive(false);
-    }
-
-    public void OpenMenu() {
-        panel.SetActive(true);
-
+    public void UpdateMenu() {
         if (Grid.Instance.HasSelectedCoords) {
             List<Vector2Int> path = Grid.PathBetween(Player.Instance.CurrentCell.Coords, Grid.Instance.SelectedCoords, Player.diagonalMoveAllowed);
             CellInfo selectedCell = Grid.Instance.CellInfoAt(Grid.Instance.SelectedCoords);
