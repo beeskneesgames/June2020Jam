@@ -49,7 +49,7 @@ public class CellSelector : MonoBehaviour {
             hitCell = hit.transform.GetComponent<Cell>();
         }
 
-        if (hitCell) {
+        if (hitCell && ActionMenu.Instance.CurrentAction != ActionMenu.Action.None) {
             if (clicked && CanSelect) {
                 Debug.Log("Do action");
                 // TODO: Check if we are within bounds

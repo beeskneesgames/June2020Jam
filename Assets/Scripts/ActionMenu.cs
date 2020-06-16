@@ -120,6 +120,7 @@ public class ActionMenu : MonoBehaviour {
     }
 
     public List<Vector2Int> AvailableMeleeCoords() {
+        // TODO: This doesnt need to highlight at all, can just perform the action
         List<Vector2Int> coords = new List<Vector2Int>();
 
         foreach (var cellInfo in Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true)) {

@@ -128,18 +128,13 @@ public class Grid : MonoBehaviour {
             return;
         }
 
-        //if (HasHoveredCoords && HoveredCell != SelectedCell) {
         if (HasHoveredCoords) {
             HoveredCell.CurrentMouseState = Cell.MouseState.None;
         }
 
+        // TODO: Only hover if it's within action bounds
         hoveredCoords = coords;
-
-        //if (HoveredCell != SelectedCell) {
-            // If a cell is both hovered and selected, we just want to show the
-            // selected color.
-            //HoveredCell.CurrentMouseState = Cell.MouseState.Hovered;
-        //}
+        HoveredCell.CurrentMouseState = Cell.MouseState.Hovered;
 
         UpdateDisplayedPath();
     }
@@ -292,7 +287,7 @@ public class Grid : MonoBehaviour {
             Vector2Int endCoords = new Vector2Int(-1, -1);
 
             //if (HasSelectedCoords) {
-                //endCoords = SelectedCoords;
+            //endCoords = SelectedCoords;
             //} else if (HasHoveredCoords) {
             if (HasHoveredCoords) {
                 if (ActionMenu.Instance.CurrentAction == ActionMenu.Action.None) {
