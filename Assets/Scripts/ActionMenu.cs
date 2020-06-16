@@ -175,17 +175,6 @@ public class ActionMenu : MonoBehaviour {
             meleeBtn.interactable = meleeInteractable;
             rangedBtn.interactable = rangedInteractable;
             bombBtn.interactable = bombInteractable;
-
-            // -1 because path includes the player's square.
-            moveCostText.text = $"Move cost: {path.Count - 1} AP";
-            meleeCostText.text = $"Melee cost: {CellInfo.MeleeFixCost} AP";
-            rangedCostText.text = $"Ranged cost: {CellInfo.RangedFixCost} AP";
-            bombCostText.text = $"Bomb cost: {CellInfo.BombCost} AP";
-        } else {
-            moveCostText.text = "";
-            meleeCostText.text = "";
-            rangedCostText.text = "";
-            bombCostText.text = "";
         }
     }
 }
