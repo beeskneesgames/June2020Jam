@@ -81,6 +81,8 @@ public class ActionManager : MonoBehaviour {
                 Bomb(coords);
                 break;
         }
+
+        CurrentAction = Action.None;
     }
 
     private void Move(Vector2Int coords) {
