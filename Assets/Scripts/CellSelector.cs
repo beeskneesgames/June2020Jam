@@ -39,10 +39,8 @@ public class CellSelector : MonoBehaviour {
         if (hitCell) {
             if (clicked) {
                 if (CanPerformAction) {
-                    Debug.Log("Performing action");
                     ActionManager.Instance.PerformCurrentActionOn(hitCell.Info.Coords);
                 } else {
-                    Debug.Log("Cannot perform action, resetting");
                     ActionManager.Instance.Reset();
                 }
             } else if (CanPerformAction) {
@@ -60,7 +58,7 @@ public class CellSelector : MonoBehaviour {
     }
 
     private bool CanPerformAction {
-        get { 
+        get {
             return !Player.Instance.IsMoving &&
                     ActionManager.Instance.CurrentAction != ActionManager.Action.None &&
                     hitCellWithinActionCoords;
