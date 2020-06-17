@@ -3767,6 +3767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e26f358c2ebd04defad9f8c3eed5d694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionMenu: {fileID: 0}
 --- !u!1 &845842922
 GameObject:
   m_ObjectHideFlags: 0
@@ -6362,6 +6363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e26f358c2ebd04defad9f8c3eed5d694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionMenu: {fileID: 0}
 --- !u!114 &1391134642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6374,6 +6376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e26f358c2ebd04defad9f8c3eed5d694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionMenu: {fileID: 0}
 --- !u!1 &1506862065
 GameObject:
   m_ObjectHideFlags: 0
@@ -9031,6 +9034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e26f358c2ebd04defad9f8c3eed5d694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionMenu: {fileID: 1031893462}
 --- !u!1001 &2417210678221400509
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9784,6 +9788,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Melee Fix
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032044279804971540, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7032044279804971541, guid: eec33171f083b463c8df379f4be5be46,
         type: 3}

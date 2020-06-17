@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 using UnityEngine;
 
 public class ActionMenu : MonoBehaviour {
@@ -8,6 +7,9 @@ public class ActionMenu : MonoBehaviour {
     public Button meleeBtn;
     public Button rangedBtn;
     public Button bombBtn;
+
+    private Color defaultColor = new Color(1.0f, 1.0f, 1.0f);
+    private Color pressedColor = new Color(0.75f, 0.75f, 0.75f);
 
     public void OnMoveClicked() {
         ToggleBtn(moveBtn);
@@ -30,13 +32,25 @@ public class ActionMenu : MonoBehaviour {
     }
 
     private void ToggleBtn(Button btn) {
-        Color defaultColor = new Color(1.0f, 1.0f, 1.0f);
-        Color pressedColor = new Color(0.75f, 0.75f, 0.75f);
-
         if (btn.image.color == defaultColor) {
-            btn.image.color = pressedColor;
+            UnpressBtn(btn);
         } else {
-            btn.image.color = defaultColor;
+            PressBtn(btn);
         }
+    }
+
+    private void PressBtn(Button btn) {
+        btn.image.color = pressedColor;
+    }
+
+    private void UnpressBtn(Button btn) {
+        btn.image.color = defaultColor;
+    }
+
+    public void UnpressAllBtns() {
+        UnpressBtn(moveBtn);
+        UnpressBtn(meleeBtn);
+        UnpressBtn(rangedBtn);
+        UnpressBtn(bombBtn);
     }
 }
