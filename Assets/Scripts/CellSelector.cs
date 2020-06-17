@@ -1,14 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using TMPro;
 
 public class CellSelector : MonoBehaviour {
-    public ActionMenu actionMenu;
     private Camera mainCamera;
     private int cellLayerMask;
+    private bool hitCellWithinActionCoords = false;
 
     private void Start() {
         mainCamera = Camera.main;
@@ -24,41 +20,38 @@ public class CellSelector : MonoBehaviour {
         }
     }
 
+    public static void HighlightPossibleCells() {
+        Grid.Instance.SetActionHighlightCoords(ActionManager.Instance.CurrentActionCoords());
+    }
+
     private void UpdateCellMouseState() {
         RaycastHit hit;
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         Cell hitCell = null;
         bool clicked = Input.GetMouseButtonDown(0);
+        hitCellWithinActionCoords = false;
 
         if (!EventSystem.current.IsPointerOverGameObject() && Physics.Raycast(ray, out hit, Mathf.Infinity, cellLayerMask)) {
             hitCell = hit.transform.GetComponent<Cell>();
+            foreach (var coords in ActionManager.Instance.CurrentActionCoords()) {
+                if (coords == hitCell.Info.Coords) {
+                    hitCellWithinActionCoords = true;
+                }
+            }
         }
 
         if (hitCell) {
-            if (clicked && CanSelect) {
-                if (Grid.Instance.SelectedCoords == hitCell.Info.Coords) {
-                    // If a cell is already selected and is clicked again,
-                    // unselect it.
-                    ClearSelection();
+            if (clicked) {
+                if (CanPerformAction) {
+                    ActionManager.Instance.PerformCurrentActionOn(hitCell.Info.Coords);
                 } else {
-                    Grid.Instance.SetSelectedCoords(hitCell.Info.Coords);
-
-                    actionMenu.transform.position = new Vector3(
-                        hitCell.transform.position.x + 1.5f,
-                        hitCell.transform.position.y + 4.0f,
-                        hitCell.transform.position.z + 3.5f
-                    );
-                    actionMenu.OpenMenu();
+                    Grid.Instance.ClearActionHighlightCoords();
                 }
-            } else {
+            } else if (CanPerformAction) {
                 Grid.Instance.SetHoveredCoords(hitCell.Info.Coords);
             }
         } else {
             ClearHover();
-
-            if (clicked) {
-                ClearSelection();
-            }
         }
     }
 
@@ -66,14 +59,11 @@ public class CellSelector : MonoBehaviour {
         Grid.Instance.ClearHoveredCoords();
     }
 
-    private bool CanSelect {
-        get {
-            return !Player.Instance.IsMoving;
+    private bool CanPerformAction {
+        get { 
+            return !Player.Instance.IsMoving &&
+                    ActionManager.Instance.CurrentAction != ActionManager.Action.None &&
+                    hitCellWithinActionCoords;
         }
-    }
-
-    private void ClearSelection() {
-        actionMenu.CloseMenu();
-        Grid.Instance.ClearSelectedCoords();
     }
 }

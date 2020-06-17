@@ -10,6 +10,7 @@ public class Cell : MonoBehaviour {
     public CellInfo Info { get; set; } = new CellInfo();
     public MouseState CurrentMouseState { get; set; } = MouseState.None;
     public bool inPath = false;
+    public bool inActionPath = false;
 
     private new Renderer renderer;
     private Color originalColor;
@@ -29,12 +30,15 @@ public class Cell : MonoBehaviour {
                 if (inPath) {
                     // Light gray
                     renderer.material.SetColor("_BaseColor", new Color(0.75f, 0.75f, 0.75f));
+                } else if (inActionPath) {
+                    // Lighter gray
+                    renderer.material.SetColor("_BaseColor", new Color(0.85f, 0.85f, 0.85f));
                 } else if (Info.HasBomb) {
                     // Black
                     renderer.material.SetColor("_BaseColor", Color.black);
                 } else if (Info.HasObstacle) {
-                    // Pink
                     renderer.material.SetColor("_BaseColor", new Color(1.0f, 0.5f, 1.00f));
+                    // Pink
                 } else if (Info.HasDamageHead) {
                     // Dark red
                     renderer.material.SetColor("_BaseColor", new Color(1.0f, 0.0f, 0.0f));
@@ -42,7 +46,6 @@ public class Cell : MonoBehaviour {
                     // Light red
                     renderer.material.SetColor("_BaseColor", new Color(1.0f, 0.5f, 0.5f));
                 } else {
-                    // White
                     renderer.material.SetColor("_BaseColor", originalColor);
                 }
                 break;
