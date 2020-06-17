@@ -6,6 +6,7 @@ public class Grid : MonoBehaviour {
     public GameObject rowPrefab;
     public Vector2Int Size = new Vector2Int(16, 16);
 
+    private List<Vector2Int> actionHighlightCoords = new List<Vector2Int>();
     private List<Cell> damageHeadCells = new List<Cell>();
     public List<CellInfo> AllCells { get; private set; } = new List<CellInfo>();
     public List<CellInfo> DamagedCells {
@@ -35,13 +36,6 @@ public class Grid : MonoBehaviour {
     public bool HasHoveredCoords {
         get {
             return hoveredCoords.x >= 0;
-        }
-    }
-
-    public Vector2Int SelectedCoords { get; private set; } = new Vector2Int(-1, -1);
-    public bool HasSelectedCoords {
-        get {
-            return SelectedCoords.x >= 0;
         }
     }
 
@@ -107,54 +101,42 @@ public class Grid : MonoBehaviour {
         return damagedCellCount / (float)AllCells.Count;
     }
 
+    public void SetActionHighlightCoords(List<Vector2Int> coordsList) {
+        actionHighlightCoords = coordsList;
+
+        foreach (var coords in coordsList) {
+            CellAt(coords).inActionPath = true;
+        }
+    }
+
+    public void ClearActionHighlightCoords() {
+        foreach (var coords in actionHighlightCoords) {
+            CellAt(coords).inActionPath = false;
+        }
+    }
+
     public void SetHoveredCoords(Vector2Int coords) {
         if (coords == hoveredCoords) {
             // Skip if the hovered coords didn't change.
             return;
         }
 
-        if (HasHoveredCoords && HoveredCell != SelectedCell) {
+        if (HasHoveredCoords) {
             HoveredCell.CurrentMouseState = Cell.MouseState.None;
         }
 
         hoveredCoords = coords;
-
-        if (HoveredCell != SelectedCell) {
-            // If a cell is both hovered and selected, we just want to show the
-            // selected color.
-            HoveredCell.CurrentMouseState = Cell.MouseState.Hovered;
-        }
+        HoveredCell.CurrentMouseState = Cell.MouseState.Hovered;
 
         UpdateDisplayedPath();
     }
 
     public void ClearHoveredCoords() {
-        if (HasHoveredCoords && HoveredCell != SelectedCell) {
+        if (HasHoveredCoords) {
             HoveredCell.CurrentMouseState = Cell.MouseState.None;
         }
 
         hoveredCoords = new Vector2Int(-1, -1);
-
-        UpdateDisplayedPath();
-    }
-
-    public void SetSelectedCoords(Vector2Int coords) {
-        if (HasSelectedCoords) {
-            SelectedCell.CurrentMouseState = Cell.MouseState.None;
-        }
-
-        SelectedCoords = coords;
-        SelectedCell.CurrentMouseState = Cell.MouseState.Selected;
-
-        UpdateDisplayedPath();
-    }
-
-    public void ClearSelectedCoords() {
-        if (HasSelectedCoords) {
-            SelectedCell.CurrentMouseState = Cell.MouseState.None;
-        }
-
-        SelectedCoords = new Vector2Int(-1, -1);
 
         UpdateDisplayedPath();
     }
@@ -272,18 +254,18 @@ public class Grid : MonoBehaviour {
         if (Player.Instance.IsMoving) {
             ShowPath(Player.Instance.MovementPath);
         } else {
-            Vector2Int endCoords;
+            Vector2Int endCoords = new Vector2Int(-1, -1);
 
-            if (HasSelectedCoords) {
-                endCoords = SelectedCoords;
-            } else if (HasHoveredCoords) {
-                endCoords = hoveredCoords;
-            } else {
-                endCoords = new Vector2Int(-1, -1);
+            if (HasHoveredCoords) {
+                if (ActionManager.Instance.CurrentAction == ActionManager.Action.None) {
+                    endCoords = hoveredCoords;
+                }
             }
 
             if (endCoords.x >= 0) {
-                ShowPath(PathBetween(Player.Instance.CurrentCell.Coords, endCoords, Player.diagonalMoveAllowed));
+                if (ActionManager.Instance.CurrentAction != ActionManager.Action.None) {
+                    ShowPath(PathBetween(Player.Instance.CurrentCell.Coords, endCoords, Player.diagonalMoveAllowed));
+                }
             } else {
                 ClearPath();
             }
@@ -307,16 +289,6 @@ public class Grid : MonoBehaviour {
         get {
             if (HasHoveredCoords) {
                 return CellAt(hoveredCoords);
-            } else {
-                return null;
-            }
-        }
-    }
-
-    private Cell SelectedCell {
-        get {
-            if (HasSelectedCoords) {
-                return CellAt(SelectedCoords);
             } else {
                 return null;
             }

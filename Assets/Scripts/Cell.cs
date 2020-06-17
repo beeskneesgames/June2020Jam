@@ -10,6 +10,7 @@ public class Cell : MonoBehaviour {
     public CellInfo Info { get; private set; }
     public MouseState CurrentMouseState { get; set; } = MouseState.None;
     public bool inPath = false;
+    public bool inActionPath = false;
 
     private new Renderer renderer;
     private Color originalColor;
@@ -57,6 +58,10 @@ public class Cell : MonoBehaviour {
                     // Light gray
                     CurrentMaterial = healthyMaterial;
                     renderer.material.SetColor("_BaseColor", new Color(0.75f, 0.75f, 0.75f));
+                } else if (inActionPath) {
+                    // Lighter gray
+                    CurrentMaterial = healthyMaterial;
+                    renderer.material.SetColor("_BaseColor", new Color(0.85f, 0.85f, 0.85f));
                 } else if (Info.HasBomb) {
                     // Black
                     CurrentMaterial = healthyMaterial;
