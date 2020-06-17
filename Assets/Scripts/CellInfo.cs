@@ -35,6 +35,12 @@ public class CellInfo {
         }
     }
 
+    private Cell cell;
+
+    public CellInfo(Cell c) {
+        cell = c;
+    }
+
     public void Damage() {
         IsDamaged = true;
     }
