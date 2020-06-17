@@ -37,7 +37,7 @@ public class ActionManager : MonoBehaviour {
         None,
         Move,
         Melee,
-        Range,
+        Ranged,
         Bomb
     }
 
@@ -58,7 +58,7 @@ public class ActionManager : MonoBehaviour {
                     return ActionAreaForMove();
                 case Action.Melee:
                     return ActionAreaForMelee();
-                case Action.Range:
+                case Action.Ranged:
                     return ActionAreaForRanged();
                 case Action.Bomb:
                     return ActionAreaForBomb();
@@ -78,8 +78,8 @@ public class ActionManager : MonoBehaviour {
             case Action.Melee:
                 Melee();
                 break;
-            case Action.Range:
-                Range(coords);
+            case Action.Ranged:
+                Ranged(coords);
                 break;
             case Action.Bomb:
                 Bomb(coords);
@@ -99,7 +99,7 @@ public class ActionManager : MonoBehaviour {
         Grid.Instance.CellInfoAt(Player.Instance.CurrentCoords).MeleeFix();
     }
 
-    private void Range(Vector2Int coords) {
+    private void Ranged(Vector2Int coords) {
         Player.Instance.playerAnimator.SetTrigger("Fix");
         Grid.Instance.CellInfoAt(coords).RangedFix();
         Grid.Instance.ClearActionArea();
