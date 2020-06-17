@@ -65,6 +65,8 @@ public class ActionManager : MonoBehaviour {
     }
 
     public void PerformCurrentActionOn(Vector2Int coords) {
+        actionMenu.UnpressAllBtns();
+
         switch (CurrentAction) {
             case Action.Move:
                 Move(coords);
