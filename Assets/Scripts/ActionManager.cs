@@ -51,13 +51,17 @@ public class ActionManager : MonoBehaviour {
 
     public List<Vector2Int> CurrentActionArea {
         get {
-            return CurrentAction switch
-            {
-                Action.Move => ActionAreaForMove(),
-                Action.Melee => ActionAreaForMelee(),
-                Action.Range => ActionAreaForRanged(),
-                Action.Bomb => ActionAreaForBomb(),
-                _ => new List<Vector2Int>(),
+            switch(CurrentAction) {
+                case Action.Move:
+                    return ActionAreaForMove();
+                case Action.Melee:
+                    return ActionAreaForMelee();
+                case Action.Range:
+                    return ActionAreaForRanged();
+                case Action.Bomb:
+                    return ActionAreaForBomb();
+                default:
+                    return new List<Vector2Int>();
             };
         }
     }
@@ -106,16 +110,11 @@ public class ActionManager : MonoBehaviour {
     }
 
     private List<Vector2Int> ActionAreaForMove() {
-        List<Vector2Int> coords = new List<Vector2Int>();
-
-        // TODO: Make this all cells within AP radius
-        foreach (var cellInfo in Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true)) {
-            if (!cellInfo.HasObstacle && !cellInfo.IsDamaged) {
-                coords.Add(cellInfo.Coords);
-            }
-        }
-
-        return coords;
+        return Grid.Instance.CoordsInRadius(
+            Player.Instance.CurrentCoords,
+            Player.Instance.ActionPoints,
+            Player.diagonalMoveAllowed
+        );
     }
 
     private List<Vector2Int> ActionAreaForMelee() {

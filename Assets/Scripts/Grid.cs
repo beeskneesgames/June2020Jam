@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Grid : MonoBehaviour {
@@ -115,6 +116,18 @@ public class Grid : MonoBehaviour {
         }
     }
 
+    public List<Vector2Int> CoordsInRadius(Vector2Int coords, int maxDistance, bool diagonalAllowed) {
+        List<Vector2Int> matchingCoords = new List<Vector2Int>();
+
+        foreach (var cell in AllCells) {
+            if (PathBetween(coords, cell.Coords, diagonalAllowed).Count <= maxDistance) {
+                matchingCoords.Add(cell.Coords);
+            }
+        }
+
+        return matchingCoords;
+    }
+
     public void SetHoveredCoords(Vector2Int coords) {
         if (coords == hoveredCoords) {
             // Skip if the hovered coords didn't change.
@@ -219,8 +232,8 @@ public class Grid : MonoBehaviour {
     }
 
     public CellInfo RetrieveRandomCell(int buffer = 0) {
-        int randomX = Random.Range(0, Size.x - buffer);
-        int randomY = Random.Range(0, Size.y - buffer);
+        int randomX = UnityEngine.Random.Range(0, Size.x - buffer);
+        int randomY = UnityEngine.Random.Range(0, Size.y - buffer);
 
         return CellInfoAt(new Vector2Int(randomX, randomY));
     }
