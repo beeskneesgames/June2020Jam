@@ -7,6 +7,9 @@ public class ObstacleManager : MonoBehaviour {
     private readonly int bigCount = 1;
     private List<CellInfo> obstacleCells = new List<CellInfo>();
 
+    public GameObject smallRock;
+    public GameObject bigRock;
+
     private static ObstacleManager instance;
     public static ObstacleManager Instance {
         get {
@@ -37,6 +40,8 @@ public class ObstacleManager : MonoBehaviour {
 
             cell.AddObstacle();
             obstacleCells.Add(cell);
+            GameObject rock = Object.Instantiate(smallRock, Grid.Instance.transform);
+            rock.transform.position = Grid.Instance.PositionForCoords(cell.Coords);
         }
 
         // Generate big obstacles
