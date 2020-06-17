@@ -112,42 +112,62 @@ public class ActionManager : MonoBehaviour {
     }
 
     private List<Vector2Int> ActionAreaForMove() {
-        return Grid.Instance.CoordsInRadius(
+        List<Vector2Int> unfilteredActionArea = Grid.Instance.CoordsInRadius(
             Player.Instance.CurrentCoords,
             Player.Instance.ActionPoints,
             Player.diagonalMoveAllowed
         );
-    }
+        List<Vector2Int> actionArea = new List<Vector2Int>(unfilteredActionArea.Count);
 
-    private List<Vector2Int> ActionAreaForMelee() {
-        List<Vector2Int> coords = new List<Vector2Int>();
-
-        foreach (var cellInfo in Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true)) {
-            if (!cellInfo.HasObstacle && cellInfo.IsDamaged) {
-                coords.Add(cellInfo.Coords);
+        foreach (var coords in unfilteredActionArea) {
+            if (!Grid.Instance.CellInfoAt(coords).HasObstacle) {
+                actionArea.Add(coords);
             }
         }
 
-        return coords;
+        return actionArea;
+    }
+
+    private List<Vector2Int> ActionAreaForMelee() {
+        List<CellInfo> unfilteredActionArea = Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true);
+        List<Vector2Int> actionArea = new List<Vector2Int>(unfilteredActionArea.Count);
+
+        foreach (var cellInfo in unfilteredActionArea) {
+            if (!cellInfo.HasObstacle) {
+                actionArea.Add(cellInfo.Coords);
+            }
+        }
+
+        return actionArea;
     }
 
     private List<Vector2Int> ActionAreaForRanged() {
-        return Grid.Instance.CoordsInRadius(
+        List<Vector2Int> unfilteredActionArea = Grid.Instance.CoordsInRadius(
             Player.Instance.CurrentCoords,
             RangedFixRange,
             Player.diagonalFixAllowed
         );
-    }
+        List<Vector2Int> actionArea = new List<Vector2Int>(unfilteredActionArea.Count);
 
-    private List<Vector2Int> ActionAreaForBomb() {
-        List<Vector2Int> coords = new List<Vector2Int>();
-
-        foreach (var cellInfo in Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true)) {
-            if (!cellInfo.HasObstacle && !cellInfo.IsDamaged) {
-                coords.Add(cellInfo.Coords);
+        foreach (var coords in unfilteredActionArea) {
+            if (!Grid.Instance.CellInfoAt(coords).HasObstacle) {
+                actionArea.Add(coords);
             }
         }
 
-        return coords;
+        return actionArea;
+    }
+
+    private List<Vector2Int> ActionAreaForBomb() {
+        List<CellInfo> unfilteredActionArea = Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true);
+        List<Vector2Int> actionArea = new List<Vector2Int>(unfilteredActionArea.Count);
+
+        foreach (var cellInfo in unfilteredActionArea) {
+            if (!cellInfo.HasObstacle && !cellInfo.IsDamaged) {
+                actionArea.Add(cellInfo.Coords);
+            }
+        }
+
+        return actionArea;
     }
 }
