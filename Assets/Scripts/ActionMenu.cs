@@ -15,6 +15,7 @@ public class ActionMenu : MonoBehaviour {
 
     public void OnMeleeFixClicked() {
         ActionManager.Instance.CurrentAction = ActionManager.Action.Melee;
+        ActionManager.Instance.PerformCurrentActionOn(Player.Instance.CurrentCoords);
     }
 
     public void OnRangedFixClicked() {

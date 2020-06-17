@@ -258,22 +258,15 @@ public class Grid : MonoBehaviour {
         } else {
             Vector2Int endCoords = new Vector2Int(-1, -1);
 
-            //if (HasSelectedCoords) {
-            //endCoords = SelectedCoords;
-            //} else if (HasHoveredCoords) {
             if (HasHoveredCoords) {
                 if (ActionManager.Instance.CurrentAction == ActionManager.Action.None) {
                     endCoords = hoveredCoords;
-                } else {
-                    // TODO: Show hover only within action range
                 }
             }
 
             if (endCoords.x >= 0) {
                 if (ActionManager.Instance.CurrentAction == ActionManager.Action.None) {
                     ShowPath(PathBetween(Player.Instance.CurrentCell.Coords, endCoords, Player.diagonalMoveAllowed));
-                } else {
-                    // TODO: Show path only within action range
                 }
             } else {
                 ClearPath();

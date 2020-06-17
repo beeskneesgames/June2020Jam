@@ -23,7 +23,9 @@ public class ActionManager : MonoBehaviour {
                 currentAction = value;
             }
 
-            CellSelector.HighlightPossibleCells();
+            if (value != Action.Melee) {
+                CellSelector.HighlightPossibleCells();
+            }
         }
     }
 
@@ -85,7 +87,6 @@ public class ActionManager : MonoBehaviour {
     private void Melee() {
         Player.Instance.playerAnimator.SetTrigger("Fix");
         Grid.Instance.CellInfoAt(Player.Instance.CurrentCoords).MeleeFix();
-        Grid.Instance.ClearActionHighlightCoords();
     }
 
     private void Range(Vector2Int coords) {
@@ -114,7 +115,6 @@ public class ActionManager : MonoBehaviour {
     }
 
     private List<Vector2Int> AvailableMeleeCoords() {
-        // TODO: This doesnt need to highlight at all, can just perform the action
         List<Vector2Int> coords = new List<Vector2Int>();
 
         foreach (var cellInfo in Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true)) {
@@ -127,12 +127,9 @@ public class ActionManager : MonoBehaviour {
     }
 
     private List<Vector2Int> AvailableRangeCoords() {
-        // TODO: Remove if cell.isDamaged is false
-        // TODO: Check for path count
-        //       if ((path.Count - 1) > CellInfo.RangedFixRange || (path.Count - 1) < 2) {
         List<Vector2Int> coords = new List<Vector2Int>();
 
-        // TODO: Make this all cells within Ranged radius
+        // TODO: Make this all cells within CellInfo.RangedFixRange radius
         foreach (var cellInfo in Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true)) {
             if (!cellInfo.HasObstacle && cellInfo.IsDamaged) {
                 coords.Add(cellInfo.Coords);
