@@ -132,7 +132,6 @@ public class Grid : MonoBehaviour {
     }
 
     public void ClearHoveredCoords() {
-        //if (HasHoveredCoords && HoveredCell != SelectedCell) {
         if (HasHoveredCoords) {
             HoveredCell.CurrentMouseState = Cell.MouseState.None;
         }
