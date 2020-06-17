@@ -5,6 +5,9 @@ using UnityEngine;
 public class MaterialDatabase : MonoBehaviour {
     public Material cellDamaged;
     public Material cellHealthy;
+    public Material cellHover;
+    public Material cellInActionArea;
+    public Material cellInPath;
 
     private static MaterialDatabase instance;
     public static MaterialDatabase Instance {
