@@ -10,7 +10,7 @@ public class Cell : MonoBehaviour {
     public CellInfo Info { get; private set; }
     public MouseState CurrentMouseState { get; set; } = MouseState.None;
     public bool inPath = false;
-    public bool inActionPath = false;
+    public bool inActionArea = false;
 
     private new Renderer renderer;
     private Color originalColor;
@@ -52,7 +52,7 @@ public class Cell : MonoBehaviour {
                     // Light gray
                     // TODO show damage thru path highlight
                     CurrentMaterial = MaterialDatabase.Instance.cellInPath;
-                } else if (inActionPath) {
+                } else if (inActionArea) {
                     // Lighter gray
                     // TODO show damage thru area highlight
                     CurrentMaterial = MaterialDatabase.Instance.cellInActionArea;
