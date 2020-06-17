@@ -125,7 +125,6 @@ public class Grid : MonoBehaviour {
             HoveredCell.CurrentMouseState = Cell.MouseState.None;
         }
 
-        // TODO: Only hover if it's within action bounds
         hoveredCoords = coords;
         HoveredCell.CurrentMouseState = Cell.MouseState.Hovered;
 
