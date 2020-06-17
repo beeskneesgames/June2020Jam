@@ -97,8 +97,19 @@ public class ActionManager : MonoBehaviour {
         Grid.Instance.ClearActionArea();
     }
 
-    private void Move(Vector2Int coords) {
-        Player.Instance.MoveTo(coords);
+    private void Move(Vector2Int endCoords) {
+        bool moveAllowed = true;
+
+        foreach (var coords in Grid.PathBetween(Player.Instance.CurrentCoords, endCoords, Player.diagonalMoveAllowed)) {
+            if (Grid.Instance.CellInfoAt(coords).HasObstacle) {
+                moveAllowed = false;
+                break;
+            }
+        }
+
+        if (moveAllowed) {
+            Player.Instance.MoveTo(endCoords);
+        }
     }
 
     private void Melee() {
