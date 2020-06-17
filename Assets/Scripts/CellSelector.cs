@@ -39,12 +39,16 @@ public class CellSelector : MonoBehaviour {
         if (hitCell) {
             if (clicked) {
                 if (CanPerformAction) {
+                    Debug.Log("Performing action");
                     ActionManager.Instance.PerformCurrentActionOn(hitCell.Info.Coords);
                 } else {
-                    Grid.Instance.ClearActionArea();
+                    Debug.Log("Cannot perform action, resetting");
+                    ActionManager.Instance.Reset();
                 }
             } else if (CanPerformAction) {
                 Grid.Instance.SetHoveredCoords(hitCell.Info.Coords);
+            } else {
+                ClearHover();
             }
         } else {
             ClearHover();

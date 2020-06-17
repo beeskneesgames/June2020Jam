@@ -103,6 +103,8 @@ public class Grid : MonoBehaviour {
     }
 
     public void SetActionArea(List<Vector2Int> coordsList) {
+        ClearActionArea();
+
         actionArea = coordsList;
 
         foreach (var coords in coordsList) {

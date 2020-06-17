@@ -51,6 +51,10 @@ public class ActionManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start() {
+        Reset();
+    }
+
     public List<Vector2Int> CurrentActionArea {
         get {
             switch(CurrentAction) {
@@ -69,8 +73,6 @@ public class ActionManager : MonoBehaviour {
     }
 
     public void PerformCurrentActionOn(Vector2Int coords) {
-        actionMenu.UnpressAllBtns();
-
         switch (CurrentAction) {
             case Action.Move:
                 Move(coords);
@@ -86,12 +88,17 @@ public class ActionManager : MonoBehaviour {
                 break;
         }
 
+        Reset();
+    }
+
+    public void Reset() {
         CurrentAction = Action.None;
+        actionMenu.UnpressAllBtns();
+        Grid.Instance.ClearActionArea();
     }
 
     private void Move(Vector2Int coords) {
         Player.Instance.MoveTo(coords);
-        Grid.Instance.ClearActionArea();
     }
 
     private void Melee() {
@@ -102,13 +109,11 @@ public class ActionManager : MonoBehaviour {
     private void Ranged(Vector2Int coords) {
         Player.Instance.playerAnimator.SetTrigger("Fix");
         Grid.Instance.CellInfoAt(coords).RangedFix();
-        Grid.Instance.ClearActionArea();
     }
 
     private void Bomb(Vector2Int coords) {
         Player.Instance.playerAnimator.SetTrigger("Fix");
         Grid.Instance.CellInfoAt(coords).AddBomb();
-        Grid.Instance.ClearActionArea();
     }
 
     private List<Vector2Int> ActionAreaForMove() {

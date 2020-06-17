@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour {
         Grid.Instance.Reset();
         DamageManager.Instance.Reset();
         ObstacleManager.Instance.Reset();
+        ActionManager.Instance.Reset();
     }
 
     public void StateChanged() {
