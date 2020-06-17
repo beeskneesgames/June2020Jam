@@ -2,6 +2,8 @@
 using UnityEngine;
 
 public class ActionManager : MonoBehaviour {
+    public const int RangedFixRange = 5;
+
     private static ActionManager instance;
     public ActionMenu actionMenu;
 
@@ -130,16 +132,11 @@ public class ActionManager : MonoBehaviour {
     }
 
     private List<Vector2Int> ActionAreaForRanged() {
-        List<Vector2Int> coords = new List<Vector2Int>();
-
-        // TODO: Make this all cells within CellInfo.RangedFixRange radius
-        foreach (var cellInfo in Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true)) {
-            if (!cellInfo.HasObstacle) {
-                coords.Add(cellInfo.Coords);
-            }
-        }
-
-        return coords;
+        return Grid.Instance.CoordsInRadius(
+            Player.Instance.CurrentCoords,
+            RangedFixRange,
+            Player.diagonalFixAllowed
+        );
     }
 
     private List<Vector2Int> ActionAreaForBomb() {

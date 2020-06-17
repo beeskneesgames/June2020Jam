@@ -18,7 +18,6 @@ public class CellInfo {
     public const int BombCost = 1;
     public const int MeleeFixCost = 1;
     public const int RangedFixCost = 1;
-    public const int RangedFixRange = 5;
 
     public bool IsHealthy {
         get {
