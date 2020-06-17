@@ -20,10 +20,6 @@ public class CellSelector : MonoBehaviour {
         }
     }
 
-    public static void HighlightPossibleCells() {
-        Grid.Instance.SetActionHighlightCoords(ActionManager.Instance.CurrentActionCoords());
-    }
-
     private void UpdateCellMouseState() {
         RaycastHit hit;
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -33,7 +29,7 @@ public class CellSelector : MonoBehaviour {
 
         if (!EventSystem.current.IsPointerOverGameObject() && Physics.Raycast(ray, out hit, Mathf.Infinity, cellLayerMask)) {
             hitCell = hit.transform.GetComponent<Cell>();
-            foreach (var coords in ActionManager.Instance.CurrentActionCoords()) {
+            foreach (var coords in ActionManager.Instance.CurrentActionArea) {
                 if (coords == hitCell.Info.Coords) {
                     hitCellWithinActionCoords = true;
                 }
@@ -45,10 +41,12 @@ public class CellSelector : MonoBehaviour {
                 if (CanPerformAction) {
                     ActionManager.Instance.PerformCurrentActionOn(hitCell.Info.Coords);
                 } else {
-                    Grid.Instance.ClearActionHighlightCoords();
+                    ActionManager.Instance.Reset();
                 }
             } else if (CanPerformAction) {
                 Grid.Instance.SetHoveredCoords(hitCell.Info.Coords);
+            } else {
+                ClearHover();
             }
         } else {
             ClearHover();
@@ -60,7 +58,7 @@ public class CellSelector : MonoBehaviour {
     }
 
     private bool CanPerformAction {
-        get { 
+        get {
             return !Player.Instance.IsMoving &&
                     ActionManager.Instance.CurrentAction != ActionManager.Action.None &&
                     hitCellWithinActionCoords;

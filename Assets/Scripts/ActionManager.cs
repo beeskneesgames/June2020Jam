@@ -2,6 +2,8 @@
 using UnityEngine;
 
 public class ActionManager : MonoBehaviour {
+    public const int RangedFixRange = 5;
+
     private static ActionManager instance;
     public ActionMenu actionMenu;
 
@@ -20,13 +22,13 @@ public class ActionManager : MonoBehaviour {
         set {
             if (currentAction == value) {
                 currentAction = Action.None;
-                Grid.Instance.ClearActionHighlightCoords();
+                Grid.Instance.ClearActionArea();
             } else {
                 currentAction = value;
             }
 
             if (value != Action.Melee) {
-                CellSelector.HighlightPossibleCells();
+                Grid.Instance.SetActionArea(CurrentActionArea);
             }
         }
     }
@@ -35,7 +37,7 @@ public class ActionManager : MonoBehaviour {
         None,
         Move,
         Melee,
-        Range,
+        Ranged,
         Bomb
     }
 
@@ -49,24 +51,28 @@ public class ActionManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    public List<Vector2Int> CurrentActionCoords() {
-        switch (CurrentAction) {
-            case Action.Move:
-                return AvailableMoveCoords();
-            case Action.Melee:
-                return AvailableMeleeCoords();
-            case Action.Range:
-                return AvailableRangeCoords();
-            case Action.Bomb:
-                return AvailableBombCoords();
-            default:
-                return new List<Vector2Int>();
+    private void Start() {
+        Reset();
+    }
+
+    public List<Vector2Int> CurrentActionArea {
+        get {
+            switch(CurrentAction) {
+                case Action.Move:
+                    return ActionAreaForMove();
+                case Action.Melee:
+                    return ActionAreaForMelee();
+                case Action.Ranged:
+                    return ActionAreaForRanged();
+                case Action.Bomb:
+                    return ActionAreaForBomb();
+                default:
+                    return new List<Vector2Int>();
+            };
         }
     }
 
     public void PerformCurrentActionOn(Vector2Int coords) {
-        actionMenu.UnpressAllBtns();
-
         switch (CurrentAction) {
             case Action.Move:
                 Move(coords);
@@ -74,20 +80,36 @@ public class ActionManager : MonoBehaviour {
             case Action.Melee:
                 Melee();
                 break;
-            case Action.Range:
-                Range(coords);
+            case Action.Ranged:
+                Ranged(coords);
                 break;
             case Action.Bomb:
                 Bomb(coords);
                 break;
         }
 
-        CurrentAction = Action.None;
+        Reset();
     }
 
-    private void Move(Vector2Int coords) {
-        Player.Instance.MoveTo(coords);
-        Grid.Instance.ClearActionHighlightCoords();
+    public void Reset() {
+        CurrentAction = Action.None;
+        actionMenu.UnpressAllBtns();
+        Grid.Instance.ClearActionArea();
+    }
+
+    private void Move(Vector2Int endCoords) {
+        bool moveAllowed = true;
+
+        foreach (var coords in Grid.PathBetween(Player.Instance.CurrentCoords, endCoords, Player.diagonalMoveAllowed)) {
+            if (Grid.Instance.CellInfoAt(coords).HasObstacle) {
+                moveAllowed = false;
+                break;
+            }
+        }
+
+        if (moveAllowed) {
+            Player.Instance.MoveTo(endCoords);
+        }
     }
 
     private void Melee() {
@@ -95,65 +117,73 @@ public class ActionManager : MonoBehaviour {
         Grid.Instance.CellInfoAt(Player.Instance.CurrentCoords).MeleeFix();
     }
 
-    private void Range(Vector2Int coords) {
+    private void Ranged(Vector2Int coords) {
         Player.Instance.playerAnimator.SetTrigger("Fix");
         Grid.Instance.CellInfoAt(coords).RangedFix();
-        Grid.Instance.ClearActionHighlightCoords();
     }
 
     private void Bomb(Vector2Int coords) {
         Player.Instance.playerAnimator.SetTrigger("Fix");
         Grid.Instance.CellInfoAt(coords).AddBomb();
-        Grid.Instance.ClearActionHighlightCoords();
     }
 
-    private List<Vector2Int> AvailableMoveCoords() {
-        List<Vector2Int> coords = new List<Vector2Int>();
+    private List<Vector2Int> ActionAreaForMove() {
+        List<Vector2Int> unfilteredActionArea = Grid.Instance.CoordsInRadius(
+            Player.Instance.CurrentCoords,
+            Player.Instance.ActionPoints,
+            Player.diagonalMoveAllowed
+        );
+        List<Vector2Int> actionArea = new List<Vector2Int>(unfilteredActionArea.Count);
 
-        // TODO: Make this all cells within AP radius
-        foreach (var cellInfo in Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true)) {
-            if (!cellInfo.HasObstacle && !cellInfo.IsDamaged) {
-                coords.Add(cellInfo.Coords);
+        foreach (var coords in unfilteredActionArea) {
+            if (!Grid.Instance.CellInfoAt(coords).HasObstacle) {
+                actionArea.Add(coords);
             }
         }
 
-        return coords;
+        return actionArea;
     }
 
-    private List<Vector2Int> AvailableMeleeCoords() {
-        List<Vector2Int> coords = new List<Vector2Int>();
+    private List<Vector2Int> ActionAreaForMelee() {
+        List<CellInfo> unfilteredActionArea = Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true);
+        List<Vector2Int> actionArea = new List<Vector2Int>(unfilteredActionArea.Count);
 
-        foreach (var cellInfo in Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true)) {
-            if (!cellInfo.HasObstacle && cellInfo.IsDamaged) {
-                coords.Add(cellInfo.Coords);
-            }
-        }
-
-        return coords;
-    }
-
-    private List<Vector2Int> AvailableRangeCoords() {
-        List<Vector2Int> coords = new List<Vector2Int>();
-
-        // TODO: Make this all cells within CellInfo.RangedFixRange radius
-        foreach (var cellInfo in Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true)) {
+        foreach (var cellInfo in unfilteredActionArea) {
             if (!cellInfo.HasObstacle) {
-                coords.Add(cellInfo.Coords);
+                actionArea.Add(cellInfo.Coords);
             }
         }
 
-        return coords;
+        return actionArea;
     }
 
-    private List<Vector2Int> AvailableBombCoords() {
-        List<Vector2Int> coords = new List<Vector2Int>();
+    private List<Vector2Int> ActionAreaForRanged() {
+        List<Vector2Int> unfilteredActionArea = Grid.Instance.CoordsInRadius(
+            Player.Instance.CurrentCoords,
+            RangedFixRange,
+            Player.diagonalFixAllowed
+        );
+        List<Vector2Int> actionArea = new List<Vector2Int>(unfilteredActionArea.Count);
 
-        foreach (var cellInfo in Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true)) {
-            if (!cellInfo.HasObstacle && !cellInfo.IsDamaged) {
-                coords.Add(cellInfo.Coords);
+        foreach (var coords in unfilteredActionArea) {
+            if (!Grid.Instance.CellInfoAt(coords).HasObstacle) {
+                actionArea.Add(coords);
             }
         }
 
-        return coords;
+        return actionArea;
+    }
+
+    private List<Vector2Int> ActionAreaForBomb() {
+        List<CellInfo> unfilteredActionArea = Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true);
+        List<Vector2Int> actionArea = new List<Vector2Int>(unfilteredActionArea.Count);
+
+        foreach (var cellInfo in unfilteredActionArea) {
+            if (!cellInfo.HasObstacle && !cellInfo.IsDamaged) {
+                actionArea.Add(cellInfo.Coords);
+            }
+        }
+
+        return actionArea;
     }
 }

@@ -23,7 +23,7 @@ public class ActionMenu : MonoBehaviour {
 
     public void OnRangedFixClicked() {
         ToggleBtn(rangedBtn);
-        ActionManager.Instance.CurrentAction = ActionManager.Action.Range;
+        ActionManager.Instance.CurrentAction = ActionManager.Action.Ranged;
     }
 
     public void OnBombClicked() {

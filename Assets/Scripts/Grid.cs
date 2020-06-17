@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Grid : MonoBehaviour {
@@ -6,7 +7,7 @@ public class Grid : MonoBehaviour {
     public GameObject rowPrefab;
     public Vector2Int Size = new Vector2Int(16, 16);
 
-    private List<Vector2Int> actionHighlightCoords = new List<Vector2Int>();
+    private List<Vector2Int> actionArea = new List<Vector2Int>();
     private List<Cell> damageHeadCells = new List<Cell>();
     public List<CellInfo> AllCells { get; private set; } = new List<CellInfo>();
     public List<CellInfo> DamagedCells {
@@ -101,18 +102,36 @@ public class Grid : MonoBehaviour {
         return damagedCellCount / (float)AllCells.Count;
     }
 
-    public void SetActionHighlightCoords(List<Vector2Int> coordsList) {
-        actionHighlightCoords = coordsList;
+    public void SetActionArea(List<Vector2Int> coordsList) {
+        ClearActionArea();
+
+        actionArea = coordsList;
 
         foreach (var coords in coordsList) {
-            CellAt(coords).inActionPath = true;
+            CellAt(coords).inActionArea = true;
         }
     }
 
-    public void ClearActionHighlightCoords() {
-        foreach (var coords in actionHighlightCoords) {
-            CellAt(coords).inActionPath = false;
+    public void ClearActionArea() {
+        foreach (var coords in actionArea) {
+            CellAt(coords).inActionArea = false;
         }
+    }
+
+    public List<Vector2Int> CoordsInRadius(Vector2Int coords, int maxDistance, bool diagonalAllowed) {
+        List<Vector2Int> matchingCoords = new List<Vector2Int>();
+
+        // +1 because PathBetween includes the starting cell, which is at radius
+        // 0 rather than 1.
+        int realMaxDistance = maxDistance + 1;
+
+        foreach (var cell in AllCells) {
+            if (cell.Coords != coords && PathBetween(coords, cell.Coords, diagonalAllowed).Count <= realMaxDistance) {
+                matchingCoords.Add(cell.Coords);
+            }
+        }
+
+        return matchingCoords;
     }
 
     public void SetHoveredCoords(Vector2Int coords) {
@@ -219,8 +238,8 @@ public class Grid : MonoBehaviour {
     }
 
     public CellInfo RetrieveRandomCell(int buffer = 0) {
-        int randomX = Random.Range(0, Size.x - buffer);
-        int randomY = Random.Range(0, Size.y - buffer);
+        int randomX = UnityEngine.Random.Range(0, Size.x - buffer);
+        int randomY = UnityEngine.Random.Range(0, Size.y - buffer);
 
         return CellInfoAt(new Vector2Int(randomX, randomY));
     }
@@ -251,26 +270,13 @@ public class Grid : MonoBehaviour {
     }
 
     private void UpdateDisplayedPath() {
+        ClearPath();
+
         if (Player.Instance.IsMoving) {
             ShowPath(Player.Instance.MovementPath);
-        } else {
-            Vector2Int endCoords = new Vector2Int(-1, -1);
-
-            if (HasHoveredCoords) {
-                if (ActionManager.Instance.CurrentAction == ActionManager.Action.None) {
-                    endCoords = hoveredCoords;
-                }
-            }
-
-            if (endCoords.x >= 0) {
-                if (ActionManager.Instance.CurrentAction != ActionManager.Action.None) {
-                    ShowPath(PathBetween(Player.Instance.CurrentCell.Coords, endCoords, Player.diagonalMoveAllowed));
-                }
-            } else {
-                ClearPath();
-            }
+        } else if (ActionManager.Instance.CurrentAction == ActionManager.Action.Move && HasHoveredCoords) {
+            ShowPath(PathBetween(Player.Instance.CurrentCell.Coords, hoveredCoords, Player.diagonalMoveAllowed));
         }
-
     }
 
     private Cell CellAt(Vector2Int coords) {

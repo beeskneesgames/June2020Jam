@@ -10,13 +10,10 @@ public class Cell : MonoBehaviour {
     public CellInfo Info { get; private set; }
     public MouseState CurrentMouseState { get; set; } = MouseState.None;
     public bool inPath = false;
-    public bool inActionPath = false;
+    public bool inActionArea = false;
 
     private new Renderer renderer;
     private Color originalColor;
-
-    private Material healthyMaterial;
-    private Material damagedMaterial;
     private MaterialPropertyBlock damagedMaterialPropertyBlock;
 
     private Material currentMaterial;
@@ -42,9 +39,6 @@ public class Cell : MonoBehaviour {
     private void Start() {
         renderer = GetComponent<Renderer>();
         originalColor = renderer.material.GetColor("_BaseColor");
-
-        healthyMaterial = MaterialDatabase.Instance.cellHealthy;
-        damagedMaterial = MaterialDatabase.Instance.cellDamaged;
     }
 
     private void Update() {
@@ -54,48 +48,47 @@ public class Cell : MonoBehaviour {
     private void UpdateAppearance() {
         switch(CurrentMouseState) {
             case MouseState.None:
-                if (inPath) {
-                    // Light gray
-                    CurrentMaterial = healthyMaterial;
-                    renderer.material.SetColor("_BaseColor", new Color(0.75f, 0.75f, 0.75f));
-                } else if (inActionPath) {
-                    // Lighter gray
-                    CurrentMaterial = healthyMaterial;
-                    renderer.material.SetColor("_BaseColor", new Color(0.85f, 0.85f, 0.85f));
-                } else if (Info.HasBomb) {
-                    // Black
-                    CurrentMaterial = healthyMaterial;
-                    renderer.material.SetColor("_BaseColor", Color.black);
-                } else if (Info.HasObstacle) {
-                    // Pink
-                    CurrentMaterial = healthyMaterial;
-                    renderer.material.SetColor("_BaseColor", new Color(1.0f, 0.5f, 1.00f));
-                } else if (Info.HasDamageHead) {
+                if (Info.HasDamageHead) {
                     // Dark red
-                    CurrentMaterial = healthyMaterial;
+                    CurrentMaterial = MaterialDatabase.Instance.cellHealthy;
                     renderer.material.SetColor("_BaseColor", new Color(1.0f, 0.0f, 0.0f));
                 } else if (Info.IsDamaged) {
                     // Glitch
                     UseDamagedMaterial();
+                } else if (inPath) {
+                    // Light gray
+                    // TODO show damage thru path highlight
+                    CurrentMaterial = MaterialDatabase.Instance.cellInPath;
+                } else if (inActionArea) {
+                    // Lighter gray
+                    // TODO show damage thru area highlight
+                    CurrentMaterial = MaterialDatabase.Instance.cellInActionArea;
+                } else if (Info.HasBomb) {
+                    // Black
+                    CurrentMaterial = MaterialDatabase.Instance.cellHealthy;
+                    renderer.material.SetColor("_BaseColor", Color.black);
+                } else if (Info.HasObstacle) {
+                    // Pink
+                    CurrentMaterial = MaterialDatabase.Instance.cellHealthy;
+                    renderer.material.SetColor("_BaseColor", new Color(1.0f, 0.5f, 1.00f));
                 } else {
-                    // White
-                    CurrentMaterial = healthyMaterial;
+                    // Blue #42676E (0.259, 0.404, 0.431)
+                    CurrentMaterial = MaterialDatabase.Instance.cellHealthy;
                     renderer.material.SetColor("_BaseColor", originalColor);
                 }
                 break;
             case MouseState.Hovered:
-                CurrentMaterial = healthyMaterial;
-                renderer.material.SetColor("_BaseColor", new Color(1.0f, 1.0f, 0.5f));
+                CurrentMaterial = MaterialDatabase.Instance.cellHover;
                 break;
             case MouseState.Selected:
-                CurrentMaterial = healthyMaterial;
+                CurrentMaterial = MaterialDatabase.Instance.cellHealthy;
                 renderer.material.SetColor("_BaseColor", new Color(0.5f, 1.0f, 0.5f));
                 break;
         }
     }
 
     private void UseDamagedMaterial() {
-        CurrentMaterial = damagedMaterial;
+        CurrentMaterial = MaterialDatabase.Instance.cellDamaged;
         damagedMaterialPropertyBlock.SetVector("_Seed", new Vector4(Info.Coords.x, Info.Coords.y));
         renderer.SetPropertyBlock(damagedMaterialPropertyBlock);
     }
