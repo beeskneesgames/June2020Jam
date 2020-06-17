@@ -6375,6 +6375,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93750c3a2771f4710be849d8b45b320f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  smallRockModel: {fileID: 8313153480559667899, guid: 2092a368d73234770b87ce57b76f0d31,
+    type: 3}
+  bigRockModel: {fileID: 4026762461137224617, guid: 054bb49a9ca80418492280d7a351b7f7,
+    type: 3}
+  towerModel: {fileID: 5452170974143962255, guid: b0dc90f6da2e44e2195ddbdb419d936b,
+    type: 3}
 --- !u!1 &1506862065
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,10 @@ public class ObstacleManager : MonoBehaviour {
     private readonly int bigCount = 1;
     private List<CellInfo> obstacleCells = new List<CellInfo>();
 
+    public GameObject smallRockModel;
+    public GameObject bigRockModel;
+    public GameObject towerModel;
+
     private static ObstacleManager instance;
     public static ObstacleManager Instance {
         get {
@@ -37,6 +41,8 @@ public class ObstacleManager : MonoBehaviour {
 
             cell.AddObstacle();
             obstacleCells.Add(cell);
+            GameObject smallRock = Object.Instantiate(smallRockModel, Grid.Instance.transform);
+            smallRock.transform.position = Grid.Instance.PositionForCoords(cell.Coords);
         }
 
         // Generate big obstacles
@@ -54,6 +60,9 @@ public class ObstacleManager : MonoBehaviour {
                 bigObstacleCell.AddObstacle();
                 obstacleCells.Add(bigObstacleCell);
             }
+
+            GameObject bigRock = Object.Instantiate(bigRockModel, Grid.Instance.transform);
+            bigRock.transform.position = Grid.Instance.PositionForCoords(bigObstacleCells[0].Coords);
         }
 
         // Generate tower
@@ -70,6 +79,9 @@ public class ObstacleManager : MonoBehaviour {
             towerCell.AddObstacle();
             obstacleCells.Add(towerCell);
         }
+
+        GameObject tower = Object.Instantiate(towerModel, Grid.Instance.transform);
+        tower.transform.position = Grid.Instance.PositionForCoords(towerCells[0].Coords);
     }
 
     public void Reset() {
