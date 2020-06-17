@@ -265,7 +265,7 @@ public class Grid : MonoBehaviour {
             }
 
             if (endCoords.x >= 0) {
-                if (ActionManager.Instance.CurrentAction == ActionManager.Action.None) {
+                if (ActionManager.Instance.CurrentAction != ActionManager.Action.None) {
                     ShowPath(PathBetween(Player.Instance.CurrentCell.Coords, endCoords, Player.diagonalMoveAllowed));
                 }
             } else {

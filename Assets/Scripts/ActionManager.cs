@@ -19,6 +19,7 @@ public class ActionManager : MonoBehaviour {
         set {
             if (currentAction == value) {
                 currentAction = Action.None;
+                Grid.Instance.ClearActionHighlightCoords();
             } else {
                 currentAction = value;
             }
@@ -131,7 +132,7 @@ public class ActionManager : MonoBehaviour {
 
         // TODO: Make this all cells within CellInfo.RangedFixRange radius
         foreach (var cellInfo in Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true)) {
-            if (!cellInfo.HasObstacle && cellInfo.IsDamaged) {
+            if (!cellInfo.HasObstacle) {
                 coords.Add(cellInfo.Coords);
             }
         }
