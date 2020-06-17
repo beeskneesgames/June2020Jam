@@ -266,26 +266,13 @@ public class Grid : MonoBehaviour {
     }
 
     private void UpdateDisplayedPath() {
+        ClearPath();
+
         if (Player.Instance.IsMoving) {
             ShowPath(Player.Instance.MovementPath);
-        } else {
-            Vector2Int endCoords = new Vector2Int(-1, -1);
-
-            if (HasHoveredCoords) {
-                if (ActionManager.Instance.CurrentAction == ActionManager.Action.None) {
-                    endCoords = hoveredCoords;
-                }
-            }
-
-            if (endCoords.x >= 0) {
-                if (ActionManager.Instance.CurrentAction != ActionManager.Action.None) {
-                    ShowPath(PathBetween(Player.Instance.CurrentCell.Coords, endCoords, Player.diagonalMoveAllowed));
-                }
-            } else {
-                ClearPath();
-            }
+        } else if (ActionManager.Instance.CurrentAction == ActionManager.Action.Move && HasHoveredCoords) {
+            ShowPath(PathBetween(Player.Instance.CurrentCell.Coords, hoveredCoords, Player.diagonalMoveAllowed));
         }
-
     }
 
     private Cell CellAt(Vector2Int coords) {
