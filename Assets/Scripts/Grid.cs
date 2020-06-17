@@ -121,8 +121,12 @@ public class Grid : MonoBehaviour {
     public List<Vector2Int> CoordsInRadius(Vector2Int coords, int maxDistance, bool diagonalAllowed) {
         List<Vector2Int> matchingCoords = new List<Vector2Int>();
 
+        // +1 because PathBetween includes the starting cell, which is at radius
+        // 0 rather than 1.
+        int realMaxDistance = maxDistance + 1;
+
         foreach (var cell in AllCells) {
-            if (PathBetween(coords, cell.Coords, diagonalAllowed).Count <= maxDistance) {
+            if (cell.Coords != coords && PathBetween(coords, cell.Coords, diagonalAllowed).Count <= realMaxDistance) {
                 matchingCoords.Add(cell.Coords);
             }
         }
