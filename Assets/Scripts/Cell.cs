@@ -48,7 +48,14 @@ public class Cell : MonoBehaviour {
     private void UpdateAppearance() {
         switch(CurrentMouseState) {
             case MouseState.None:
-                if (inPath) {
+                if (Info.HasDamageHead) {
+                    // Dark red
+                    CurrentMaterial = MaterialDatabase.Instance.cellHealthy;
+                    renderer.material.SetColor("_BaseColor", new Color(1.0f, 0.0f, 0.0f));
+                } else if (Info.IsDamaged) {
+                    // Glitch
+                    UseDamagedMaterial();
+                } else if (inPath) {
                     // Light gray
                     // TODO show damage thru path highlight
                     CurrentMaterial = MaterialDatabase.Instance.cellInPath;
@@ -64,13 +71,6 @@ public class Cell : MonoBehaviour {
                     // Pink
                     CurrentMaterial = MaterialDatabase.Instance.cellHealthy;
                     renderer.material.SetColor("_BaseColor", new Color(1.0f, 0.5f, 1.00f));
-                } else if (Info.HasDamageHead) {
-                    // Dark red
-                    CurrentMaterial = MaterialDatabase.Instance.cellHealthy;
-                    renderer.material.SetColor("_BaseColor", new Color(1.0f, 0.0f, 0.0f));
-                } else if (Info.IsDamaged) {
-                    // Glitch
-                    UseDamagedMaterial();
                 } else {
                     // Blue #42676E (0.259, 0.404, 0.431)
                     CurrentMaterial = MaterialDatabase.Instance.cellHealthy;
