@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 public class CellSelector : MonoBehaviour {
     private Camera mainCamera;
     private int cellLayerMask;
+    private bool hitCellWithinActionCoords = false;
 
     private void Start() {
         mainCamera = Camera.main;
@@ -20,23 +21,7 @@ public class CellSelector : MonoBehaviour {
     }
 
     public static void HighlightPossibleCells() {
-        switch (ActionManager.Instance.CurrentAction) {
-            case ActionManager.Action.Move:
-                Grid.Instance.SetActionHighlightCoords(ActionManager.Instance.AvailableMoveCoords());
-                break;
-            case ActionManager.Action.Melee:
-                Grid.Instance.SetActionHighlightCoords(ActionManager.Instance.AvailableMeleeCoords());
-                break;
-            case ActionManager.Action.Range:
-                Grid.Instance.SetActionHighlightCoords(ActionManager.Instance.AvailableRangeCoords());
-                break;
-            case ActionManager.Action.Bomb:
-                Grid.Instance.SetActionHighlightCoords(ActionManager.Instance.AvailableBombCoords());
-                break;
-            case ActionManager.Action.None:
-                Grid.Instance.ClearActionHighlightCoords();
-                break;
-        }
+        Grid.Instance.SetActionHighlightCoords(ActionManager.Instance.CurrentActionCoords());
     }
 
     private void UpdateCellMouseState() {
@@ -44,17 +29,25 @@ public class CellSelector : MonoBehaviour {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         Cell hitCell = null;
         bool clicked = Input.GetMouseButtonDown(0);
+        hitCellWithinActionCoords = false;
 
         if (!EventSystem.current.IsPointerOverGameObject() && Physics.Raycast(ray, out hit, Mathf.Infinity, cellLayerMask)) {
             hitCell = hit.transform.GetComponent<Cell>();
+            foreach (var coords in ActionManager.Instance.CurrentActionCoords()) {
+                if (coords == hitCell.Info.Coords) {
+                    hitCellWithinActionCoords = true;
+                }
+            }
         }
 
-        if (hitCell && ActionManager.Instance.CurrentAction != ActionManager.Action.None) {
-            if (clicked && CanSelect) {
-                Debug.Log("Do action");
-                // TODO: Check if we are within bounds
-                //       If so, do action
-            } else {
+        if (hitCell) {
+            if (clicked) {
+                if (CanPerformAction) {
+                    ActionManager.Instance.PerformCurrentActionOn(hitCell.Info.Coords);
+                } else {
+                    Grid.Instance.ClearActionHighlightCoords();
+                }
+            } else if (CanPerformAction) {
                 Grid.Instance.SetHoveredCoords(hitCell.Info.Coords);
             }
         } else {
@@ -66,9 +59,11 @@ public class CellSelector : MonoBehaviour {
         Grid.Instance.ClearHoveredCoords();
     }
 
-    private bool CanSelect {
-        get {
-            return !Player.Instance.IsMoving;
+    private bool CanPerformAction {
+        get { 
+            return !Player.Instance.IsMoving &&
+                    ActionManager.Instance.CurrentAction != ActionManager.Action.None &&
+                    hitCellWithinActionCoords;
         }
     }
 }

@@ -45,7 +45,62 @@ public class ActionManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    public List<Vector2Int> AvailableMoveCoords() {
+    public List<Vector2Int> CurrentActionCoords() {
+        switch (CurrentAction) {
+            case Action.Move:
+                return AvailableMoveCoords();
+            case Action.Melee:
+                return AvailableMeleeCoords();
+            case Action.Range:
+                return AvailableRangeCoords();
+            case Action.Bomb:
+                return AvailableBombCoords();
+            default:
+                return new List<Vector2Int>();
+        }
+    }
+
+    public void PerformCurrentActionOn(Vector2Int coords) {
+        switch (CurrentAction) {
+            case Action.Move:
+                Move(coords);
+                break;
+            case Action.Melee:
+                Melee();
+                break;
+            case Action.Range:
+                Range(coords);
+                break;
+            case Action.Bomb:
+                Bomb(coords);
+                break;
+        }
+    }
+
+    private void Move(Vector2Int coords) {
+        Player.Instance.MoveTo(coords);
+        Grid.Instance.ClearActionHighlightCoords();
+    }
+
+    private void Melee() {
+        Player.Instance.playerAnimator.SetTrigger("Fix");
+        Grid.Instance.CellInfoAt(Player.Instance.CurrentCoords).MeleeFix();
+        Grid.Instance.ClearActionHighlightCoords();
+    }
+
+    private void Range(Vector2Int coords) {
+        Player.Instance.playerAnimator.SetTrigger("Fix");
+        Grid.Instance.CellInfoAt(coords).RangedFix();
+        Grid.Instance.ClearActionHighlightCoords();
+    }
+
+    private void Bomb(Vector2Int coords) {
+        Player.Instance.playerAnimator.SetTrigger("Fix");
+        Grid.Instance.CellInfoAt(coords).AddBomb();
+        Grid.Instance.ClearActionHighlightCoords();
+    }
+
+    private List<Vector2Int> AvailableMoveCoords() {
         List<Vector2Int> coords = new List<Vector2Int>();
 
         // TODO: Make this all cells within AP radius
@@ -58,7 +113,7 @@ public class ActionManager : MonoBehaviour {
         return coords;
     }
 
-    public List<Vector2Int> AvailableMeleeCoords() {
+    private List<Vector2Int> AvailableMeleeCoords() {
         // TODO: This doesnt need to highlight at all, can just perform the action
         List<Vector2Int> coords = new List<Vector2Int>();
 
@@ -71,7 +126,7 @@ public class ActionManager : MonoBehaviour {
         return coords;
     }
 
-    public List<Vector2Int> AvailableRangeCoords() {
+    private List<Vector2Int> AvailableRangeCoords() {
         // TODO: Remove if cell.isDamaged is false
         // TODO: Check for path count
         //       if ((path.Count - 1) > CellInfo.RangedFixRange || (path.Count - 1) < 2) {
@@ -87,7 +142,7 @@ public class ActionManager : MonoBehaviour {
         return coords;
     }
 
-    public List<Vector2Int> AvailableBombCoords() {
+    private List<Vector2Int> AvailableBombCoords() {
         List<Vector2Int> coords = new List<Vector2Int>();
 
         foreach (var cellInfo in Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true)) {
