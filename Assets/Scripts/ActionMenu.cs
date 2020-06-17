@@ -10,6 +10,7 @@ public class ActionMenu : MonoBehaviour {
     public Button bombBtn;
 
     public void OnMoveClicked() {
+        ToggleBtn(moveBtn);
         ActionManager.Instance.CurrentAction = ActionManager.Action.Move;
     }
 
@@ -19,10 +20,23 @@ public class ActionMenu : MonoBehaviour {
     }
 
     public void OnRangedFixClicked() {
+        ToggleBtn(rangedBtn);
         ActionManager.Instance.CurrentAction = ActionManager.Action.Range;
     }
 
     public void OnBombClicked() {
+        ToggleBtn(bombBtn);
         ActionManager.Instance.CurrentAction = ActionManager.Action.Bomb;
+    }
+
+    private void ToggleBtn(Button btn) {
+        Color defaultColor = new Color(1.0f, 1.0f, 1.0f);
+        Color pressedColor = new Color(0.75f, 0.75f, 0.75f);
+
+        if (btn.image.color == defaultColor) {
+            btn.image.color = pressedColor;
+        } else {
+            btn.image.color = defaultColor;
+        }
     }
 }

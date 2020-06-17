@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ActionManager : MonoBehaviour {
     private static ActionManager instance;
+    public ActionMenu actionMenu;
 
     public static ActionManager Instance {
         get {
