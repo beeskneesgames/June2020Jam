@@ -59,6 +59,9 @@ public class ObstacleManager : MonoBehaviour {
                 bigObstacleCell.AddObstacle();
                 obstacleCells.Add(bigObstacleCell);
             }
+
+            GameObject rock = Object.Instantiate(bigRock, Grid.Instance.transform);
+            rock.transform.position = Grid.Instance.PositionForCoords(bigObstacleCells[0].Coords);
         }
 
         // Generate tower
