@@ -30,8 +30,8 @@ public class DamageHead {
     private Renderer renderer;
     private MaterialPropertyBlock propertyBlock;
 
-    public DamageHead(Vector2Int coords, GameObject damgeHeadModel) {
-        gameObject = damgeHeadModel;
+    public DamageHead(Vector2Int coords, GameObject damageHeadGameObject) {
+        gameObject = damageHeadGameObject;
         renderer = gameObject.GetComponent<DamageHeadController>().model.GetComponent<Renderer>();
         propertyBlock = new MaterialPropertyBlock();
 
