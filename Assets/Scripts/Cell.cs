@@ -48,11 +48,7 @@ public class Cell : MonoBehaviour {
     private void UpdateAppearance() {
         switch(CurrentMouseState) {
             case MouseState.None:
-                if (Info.HasDamageHead) {
-                    // Dark red
-                    CurrentMaterial = MaterialDatabase.Instance.cellHealthy;
-                    renderer.material.SetColor("_BaseColor", new Color(1.0f, 0.0f, 0.0f));
-                } else if (Info.IsDamaged) {
+                if (Info.IsDamaged) {
                     // Glitch
                     UseDamagedMaterial();
                 } else if (inPath) {

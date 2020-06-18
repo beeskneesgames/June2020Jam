@@ -20,10 +20,21 @@ public class DamageHead {
         set {
             coords = value;
             CurrentCellInfo.Damage();
+            gameObject.transform.position = Grid.Instance.PositionForCoords(Coords);
+            propertyBlock.SetVector("_Seed", new Vector4(Coords.x, Coords.y));
+            renderer.SetPropertyBlock(propertyBlock);
         }
     }
 
-    public DamageHead(Vector2Int coords) {
+    private GameObject gameObject;
+    private Renderer renderer;
+    private MaterialPropertyBlock propertyBlock;
+
+    public DamageHead(Vector2Int coords, GameObject damgeHeadModel) {
+        gameObject = damgeHeadModel;
+        renderer = gameObject.GetComponent<DamageHeadController>().model.GetComponent<Renderer>();
+        propertyBlock = new MaterialPropertyBlock();
+
         Coords = coords;
     }
 
