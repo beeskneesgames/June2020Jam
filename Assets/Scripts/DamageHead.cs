@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -27,11 +28,13 @@ public class DamageHead {
     }
 
     private GameObject gameObject;
+    private DamageHeadController controller;
     private Renderer renderer;
     private MaterialPropertyBlock propertyBlock;
 
     public DamageHead(Vector2Int coords, GameObject damageHeadGameObject) {
         gameObject = damageHeadGameObject;
+        controller = damageHeadGameObject.GetComponent<DamageHeadController>();
         renderer = gameObject.GetComponent<DamageHeadController>().model.GetComponent<Renderer>();
         propertyBlock = new MaterialPropertyBlock();
 
@@ -62,7 +65,7 @@ public class DamageHead {
         }
 
         if (possibleCells.Count > 0) {
-            Vector2Int nextCoords = possibleCells[Random.Range(0, possibleCells.Count)].Coords;
+            Vector2Int nextCoords = possibleCells[UnityEngine.Random.Range(0, possibleCells.Count)].Coords;
 
             // If negative, the nextCoords is still set as its sentinel value,
             // which is effectively null here.
@@ -70,5 +73,9 @@ public class DamageHead {
                 Coords = nextCoords;
             }
         }
+    }
+
+    public void DestroyGameObject() {
+        controller.DestroyGameObject();
     }
 }

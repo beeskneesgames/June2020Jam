@@ -77,7 +77,18 @@ public class DamageManager : MonoBehaviour {
     }
 
     public void RemoveHeadsAt(Vector2Int coords) {
-        damageHeads.RemoveAll(head => head.Coords == coords);
+        List<DamageHead> damageHeadsToDestroy = new List<DamageHead>();
+
+        foreach (var damageHead in damageHeads) {
+            if (damageHead.Coords == coords) {
+                damageHeadsToDestroy.Add(damageHead);
+            }
+        }
+
+        foreach (var damageHead in damageHeadsToDestroy) {
+            damageHeads.Remove(damageHead);
+            damageHead.DestroyGameObject();
+        }
     }
 
     private void AddHead(Vector2Int coords) {
