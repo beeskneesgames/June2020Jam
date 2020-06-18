@@ -48,9 +48,12 @@ public class Cell : MonoBehaviour {
     private void UpdateAppearance() {
         switch(CurrentMouseState) {
             case MouseState.None:
-                if (Info.IsDamaged) {
-                    // Glitch
-                    UseDamagedMaterial();
+                if (Info.HasDamageHead) {
+                    // Dark glitch
+                    UseDamageHeadMaterial();
+                } else if (Info.IsDamaged) {
+                    // Light glitch
+                    UseCellDamagedMaterial();
                 } else if (inPath) {
                     // Light gray
                     // TODO show damage thru path highlight
@@ -83,8 +86,17 @@ public class Cell : MonoBehaviour {
         }
     }
 
-    private void UseDamagedMaterial() {
+    private void UseCellDamagedMaterial() {
         CurrentMaterial = MaterialDatabase.Instance.cellDamaged;
+        SetPropertyBlockSeed();
+    }
+
+    private void UseDamageHeadMaterial() {
+        CurrentMaterial = MaterialDatabase.Instance.damageHead;
+        SetPropertyBlockSeed();
+    }
+
+    private void SetPropertyBlockSeed() {
         damagedMaterialPropertyBlock.SetVector("_Seed", new Vector4(Info.Coords.x, Info.Coords.y));
         renderer.SetPropertyBlock(damagedMaterialPropertyBlock);
     }

@@ -8,6 +8,7 @@ public class MaterialDatabase : MonoBehaviour {
     public Material cellHover;
     public Material cellInActionArea;
     public Material cellInPath;
+    public Material damageHead;
 
     private static MaterialDatabase instance;
     public static MaterialDatabase Instance {

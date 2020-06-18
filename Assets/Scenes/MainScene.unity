@@ -5104,6 +5104,7 @@ MonoBehaviour:
   cellHover: {fileID: 2100000, guid: 66b1eaa8ef01c47308aceea7212951be, type: 2}
   cellInActionArea: {fileID: 2100000, guid: 8d4513b1560e5465ab0363090647cc52, type: 2}
   cellInPath: {fileID: 2100000, guid: 45979e770296f4152b5075b609a2a376, type: 2}
+  damageHead: {fileID: 2100000, guid: b091dd3ee2dd14147b52623256413f82, type: 2}
 --- !u!1 &1018973783
 GameObject:
   m_ObjectHideFlags: 0
