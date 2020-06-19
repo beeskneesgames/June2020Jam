@@ -3,27 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Obstacle : MonoBehaviour {
-    private Mesh mesh = null;
-    public Mesh Mesh {
+    public enum Type {
+        None,
+        SmallRock,
+        BigRock,
+        Tower
+    }
+
+    public Type currentType = Type.None;
+    public Type CurrentType {
         get {
-            return mesh;
+            return currentType;
         }
 
         set {
-            mesh = value;
-            SyncMesh();
+            currentType = value;
+            SyncDisplayObject();
         }
     }
 
     public Vector2Int SWCoords { get; set; } = new Vector2Int(-1, -1);
     public Vector2Int NECoords { get; set; } = new Vector2Int(-1, -1);
 
-    private MeshFilter meshFilter;
-
-    private void Start() {
-        meshFilter = GetComponentInChildren<MeshFilter>();
-        SyncMesh();
-    }
+    private GameObject displayObject = null;
 
     public void SetCoords(Vector2Int coords) {
         SetCoords(new List<Vector2Int> { coords });
@@ -57,9 +59,27 @@ public class Obstacle : MonoBehaviour {
         NECoords = new Vector2Int(maxX, maxY);
     }
 
-    private void SyncMesh() {
-        if (meshFilter != null) {
-            meshFilter.mesh = Mesh;
+    private void SyncDisplayObject() {
+        if (displayObject != null) {
+            Destroy(displayObject);
+        }
+
+        GameObject prefab = null;
+
+        switch (CurrentType) {
+            case Type.SmallRock:
+                prefab = ObstacleManager.Instance.smallRockPrefab;
+                break;
+            case Type.BigRock:
+                prefab = ObstacleManager.Instance.bigRockPrefab;
+                break;
+            case Type.Tower:
+                prefab = ObstacleManager.Instance.towerPrefab;
+                break;
+        }
+
+        if (prefab != null) {
+            displayObject = Instantiate(prefab, transform);
         }
     }
 }

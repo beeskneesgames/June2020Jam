@@ -3,14 +3,15 @@ using UnityEngine;
 
 public class ObstacleManager : MonoBehaviour {
     public Vector2Int Coords { get; set; } = new Vector2Int(-1, -1);
+
     private readonly int smallCount = 2;
     private readonly int bigCount = 1;
     private List<CellInfo> obstacleCells = new List<CellInfo>();
 
     public GameObject obstaclePrefab;
-    public Mesh smallRockMesh;
-    public Mesh bigRockMesh;
-    public Mesh towerMesh;
+    public GameObject smallRockPrefab;
+    public GameObject bigRockPrefab;
+    public GameObject towerPrefab;
 
     private static ObstacleManager instance;
     public static ObstacleManager Instance {
@@ -44,7 +45,7 @@ public class ObstacleManager : MonoBehaviour {
             obstacleCells.Add(cell);
 
             Obstacle smallRock = Instantiate(obstaclePrefab, Grid.Instance.transform).GetComponent<Obstacle>();
-            smallRock.Mesh = smallRockMesh;
+            smallRock.CurrentType = Obstacle.Type.SmallRock;
             smallRock.transform.position = Grid.Instance.PositionForCoords(cell.Coords);
             smallRock.SetCoords(cell.Coords);
         }
@@ -66,7 +67,7 @@ public class ObstacleManager : MonoBehaviour {
             }
 
             Obstacle bigRock = Instantiate(obstaclePrefab, Grid.Instance.transform).GetComponent<Obstacle>();
-            bigRock.Mesh = bigRockMesh;
+            bigRock.CurrentType = Obstacle.Type.BigRock;
             bigRock.transform.position = Grid.Instance.PositionForCoords(bigObstacleCells[0].Coords);
             bigRock.SetCoords(CellInfo.ToCoords(bigObstacleCells));
         }
@@ -87,7 +88,7 @@ public class ObstacleManager : MonoBehaviour {
         }
 
         Obstacle tower = Instantiate(obstaclePrefab, Grid.Instance.transform).GetComponent<Obstacle>();
-        tower.Mesh = towerMesh;
+        tower.CurrentType = Obstacle.Type.Tower;
         tower.transform.position = Grid.Instance.PositionForCoords(towerCells[0].Coords);
         tower.SetCoords(CellInfo.ToCoords(towerCells));
     }
