@@ -11159,7 +11159,7 @@ PrefabInstance:
     - target: {fileID: 7032044279113351718, guid: eec33171f083b463c8df379f4be5be46,
         type: 3}
       propertyPath: m_text
-      value: 'Move: 1-5 AP'
+      value: 'Move: 1 - 5 AP'
       objectReference: {fileID: 0}
     - target: {fileID: 7032044279113351718, guid: eec33171f083b463c8df379f4be5be46,
         type: 3}
@@ -11169,7 +11169,7 @@ PrefabInstance:
     - target: {fileID: 7032044279113351718, guid: eec33171f083b463c8df379f4be5be46,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 12
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 7032044279113351718, guid: eec33171f083b463c8df379f4be5be46,
         type: 3}
@@ -11179,12 +11179,12 @@ PrefabInstance:
     - target: {fileID: 7032044279113351718, guid: eec33171f083b463c8df379f4be5be46,
         type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7032044279113351718, guid: eec33171f083b463c8df379f4be5be46,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7032044279113351718, guid: eec33171f083b463c8df379f4be5be46,
         type: 3}

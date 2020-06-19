@@ -1,5 +1,6 @@
 ﻿using UnityEngine.UI;
 using UnityEngine;
+using TMPro;
 
 public class ActionMenu : MonoBehaviour {
     public GameObject panel;
@@ -10,6 +11,33 @@ public class ActionMenu : MonoBehaviour {
 
     private Color defaultColor = new Color(1.0f, 1.0f, 1.0f);
     private Color pressedColor = new Color(0.75f, 0.75f, 0.75f);
+
+    private void Start() {
+        string moveAPRange;
+
+        if (Player.Instance.ActionPoints == 1) {
+            moveAPRange = $"{Player.Instance.ActionPoints}";
+        } else {
+            moveAPRange = $"1 - {Player.Instance.ActionPoints}";
+        }
+
+        moveBtn.GetComponentInChildren<TextMeshProUGUI>().text = $"Move: {moveAPRange} AP";
+        meleeBtn.GetComponentInChildren<TextMeshProUGUI>().text = $"Melee Fix: {CellInfo.MeleeFixCost} AP";
+        rangedBtn.GetComponentInChildren<TextMeshProUGUI>().text = $"Ranged Fix: {CellInfo.RangedFixCost} AP";
+        bombBtn.GetComponentInChildren<TextMeshProUGUI>().text = $"Place Bomb: {CellInfo.BombCost} AP";
+    }
+
+    private void Update() {
+        string moveAPRange;
+
+        if (Player.Instance.ActionPoints == 1) {
+            moveAPRange = $"{Player.Instance.ActionPoints}";
+        } else {
+            moveAPRange = $"1 - {Player.Instance.ActionPoints}";
+        }
+
+        moveBtn.GetComponentInChildren<TextMeshProUGUI>().text = $"Move: {moveAPRange} AP";
+    }
 
     public void OnMoveClicked() {
         ToggleBtn(moveBtn);
