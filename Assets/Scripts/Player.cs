@@ -107,12 +107,11 @@ public class Player : MonoBehaviour {
     private IEnumerator PerformMoveTo(Vector2Int endCoords, System.Action callback = null) {
         playerAnimator.SetTrigger("StartMove");
 
-        MovementPath = Grid.PathBetween(CurrentCoords, endCoords, Player.diagonalMoveAllowed);
+        MovementPath = Grid.PathBetween(CurrentCoords, endCoords, diagonalMoveAllowed);
 
         // The player shouldn't skid if they're moving just 1 cell (which would
         // have a movement path count of 2: the start cell and the end cell).
         bool shouldSkid = MovementPath.Count > 2;
-        bool isSkidding = false;
 
         // Start at 1, since the player is already at the first cell in the path.
         for (int i = 1; i < MovementPath.Count; i++) {
@@ -120,38 +119,11 @@ public class Player : MonoBehaviour {
 
             // Spin the player until they're facing the coords they'll be moving
             // towards.
-            yield return StartCoroutine(SpinToFace(coords));
+            yield return StartCoroutine(SpinToFaceNextCoords(coords));
 
-            float timeMoving = 0.0f;
-            Vector3 startPosition = NormalizedPosition(Grid.Instance.PositionForCoords(CurrentCoords));
-            Vector3 endPosition = NormalizedPosition(Grid.Instance.PositionForCoords(coords));
+            // Move the player to the next coords.
+            yield return StartCoroutine(MoveToNextCoords(coords, shouldSkid, i == (MovementPath.Count - 1)));
 
-            // Move until we're on the target cell
-            while (timeMoving < MaxTimeMoving) {
-                timeMoving += Time.deltaTime;
-                float percentComplete = timeMoving / MaxTimeMoving;
-                transform.position = Vector3.Lerp(
-                    startPosition,
-                    endPosition,
-                    percentComplete
-                );
-
-                // Start skid if necessary.
-                //
-                // We start the skid if all the following things are true:
-                // 1. The player is traveling more than 1 cell.
-                // 2. The player is more than 10% of the way between the
-                //    second-to-last and the last cell in their path.
-                // 2. The skid has not already been started.
-                if (shouldSkid && !isSkidding && i == MovementPath.Count - 1 && percentComplete > 0.1f) {
-                    playerAnimator.SetTrigger("StartSkid");
-                    isSkidding = true;
-                }
-
-                yield return null;
-            }
-
-            MoveToImmediate(coords);
             UseActionPoints(1);
 
             // TODO: Stop movement if game ended. Maybe here, maybe
@@ -160,7 +132,7 @@ public class Player : MonoBehaviour {
         }
 
         // If we didn't finish the movement with a skid, stop the move.
-        if (!isSkidding) {
+        if (!shouldSkid) {
             playerAnimator.SetTrigger("StopMove");
         }
 
@@ -168,7 +140,7 @@ public class Player : MonoBehaviour {
         callback?.Invoke();
     }
 
-    private IEnumerator SpinToFace(Vector2Int coords) {
+    private IEnumerator SpinToFaceNextCoords(Vector2Int coords) {
         // Figure out if we need to do a spin animation before moving.
         Direction targetDirection = DirectionBetween(CurrentCoords, coords);
 
@@ -197,6 +169,40 @@ public class Player : MonoBehaviour {
             transform.localEulerAngles = NormalizedEulerAnglesFor(targetDirection);
             CurrentDirection = targetDirection;
         }
+    }
+
+    private IEnumerator MoveToNextCoords(Vector2Int coords, bool shouldSkid, bool isLastCoords) {
+        bool isSkidding = false;
+        float timeMoving = 0.0f;
+        Vector3 startPosition = NormalizedPosition(Grid.Instance.PositionForCoords(CurrentCoords));
+        Vector3 endPosition = NormalizedPosition(Grid.Instance.PositionForCoords(coords));
+
+        // Move until we're on the target cell
+        while (timeMoving < MaxTimeMoving) {
+            timeMoving += Time.deltaTime;
+            float percentComplete = timeMoving / MaxTimeMoving;
+            transform.position = Vector3.Lerp(
+                startPosition,
+                endPosition,
+                percentComplete
+            );
+
+            // Start skid if necessary.
+            //
+            // We start the skid if all the following things are true:
+            // 1. The player is traveling more than 1 cell.
+            // 2. The player is more than 10% of the way between the
+            //    second-to-last and the last cell in their path.
+            // 2. The skid has not already been started.
+            if (shouldSkid && !isSkidding && isLastCoords && percentComplete > 0.1f) {
+                playerAnimator.SetTrigger("StartSkid");
+                isSkidding = true;
+            }
+
+            yield return null;
+        }
+
+        MoveToImmediate(coords);
     }
 
     private void ResetCoords() {
