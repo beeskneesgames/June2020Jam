@@ -57,6 +57,15 @@ public class Obstacle : MonoBehaviour {
 
         SWCoords = new Vector2Int(minX, minY);
         NECoords = new Vector2Int(maxX, maxY);
+
+        Vector3 SWPosition = Grid.Instance.PositionForCoords(SWCoords);
+        Vector3 NEPosition = Grid.Instance.PositionForCoords(NECoords);
+        Vector3 centerPosition = (SWPosition + NEPosition) * 0.5f;
+        transform.position = new Vector3(
+            centerPosition.x,
+            transform.position.y,
+            centerPosition.z
+        );
     }
 
     private void SyncDisplayObject() {
