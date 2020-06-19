@@ -2,8 +2,12 @@
 using UnityEngine;
 
 public class ObstacleManager : MonoBehaviour {
-    private readonly int smallCount = 2;
-    private readonly int bigCount = 1;
+    private const int SmallCount = 2;
+    private const int BigCount = 1;
+    private const int HoleWidth = 4;
+    private const int HoleHeight = 4;
+    private const int HoleCellCount = HoleWidth * HoleHeight;
+
     private List<CellInfo> obstacleCells = new List<CellInfo>();
     private List<Obstacle> obstacles = new List<Obstacle>();
 
@@ -34,7 +38,7 @@ public class ObstacleManager : MonoBehaviour {
 
     private void Generate() {
         // Generate small obstacles
-        for (int count = 0; count < smallCount; count++) {
+        for (int count = 0; count < SmallCount; count++) {
             CellInfo cell;
             do {
                 cell = Grid.Instance.RetrieveRandomCell();
@@ -50,7 +54,7 @@ public class ObstacleManager : MonoBehaviour {
         }
 
         // Generate big obstacles
-        for (int count = 0; count < bigCount; count++) {
+        for (int count = 0; count < BigCount; count++) {
             List<CellInfo> bigObstacleCells = new List<CellInfo>(2);
 
             do {
@@ -73,14 +77,14 @@ public class ObstacleManager : MonoBehaviour {
         }
 
         // Generate hole
-        List<CellInfo> holeCells = new List<CellInfo>(16);
+        List<CellInfo> holeCells = new List<CellInfo>(HoleCellCount);
 
         do {
             holeCells.Clear();
             CellInfo firstHoleCell = Grid.Instance.RetrieveRandomCell(3);
 
-            for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < HoleWidth; i++) {
+                for (int j = 0; j < HoleHeight; j++) {
                     holeCells.Add(Grid.Instance.CellInfoAt(firstHoleCell.Coords + new Vector2Int(i, j)));
                 }
             }
