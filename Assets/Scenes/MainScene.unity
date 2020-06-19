@@ -817,7 +817,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -2.5}
-  m_SizeDelta: {x: 2.5, y: 0.5}
+  m_SizeDelta: {x: 3.5, y: 0.5}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &121149273
 MonoBehaviour:
@@ -7971,7 +7971,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2.5, y: 0.5}
+  m_SizeDelta: {x: 3.5, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1566608448
 MonoBehaviour:
@@ -7992,7 +7992,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Place Bomb
+  m_text: 'Place Bomb: 1 AP'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8061,10 +8061,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1566608448}
-    characterCount: 10
+    characterCount: 16
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 3
+    wordCount: 4
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -8127,7 +8127,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2.5, y: 0.5}
+  m_SizeDelta: {x: 3.5, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1597934993
 MonoBehaviour:
@@ -8148,7 +8148,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ranged Fix
+  m_text: 'Ranged Fix: 1 AP'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8217,10 +8217,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1597934993}
-    characterCount: 10
+    characterCount: 16
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 3
+    wordCount: 4
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -8638,7 +8638,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -1.75}
-  m_SizeDelta: {x: 2.5, y: 0.5}
+  m_SizeDelta: {x: 3.5, y: 0.5}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1671781648
 MonoBehaviour:
@@ -11124,7 +11124,7 @@ PrefabInstance:
     - target: {fileID: 7032044279104485254, guid: eec33171f083b463c8df379f4be5be46,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 2.5
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 7032044279104485254, guid: eec33171f083b463c8df379f4be5be46,
         type: 3}
@@ -11155,6 +11155,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MeleeFixButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032044279113351718, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_text
+      value: 'Move: 1 - 5 AP'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032044279113351718, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_firstOverflowCharacterIndex
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032044279113351718, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032044279113351718, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032044279113351718, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032044279113351718, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032044279113351718, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_textAlignment
+      value: 258
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032044279113351719, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 7032044279354848073, guid: eec33171f083b463c8df379f4be5be46,
         type: 3}
@@ -11274,12 +11314,27 @@ PrefabInstance:
     - target: {fileID: 7032044279680303556, guid: eec33171f083b463c8df379f4be5be46,
         type: 3}
       propertyPath: m_text
-      value: Melee Fix
+      value: 'Melee Fix: 2 AP'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032044279680303556, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032044279680303556, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032044279680303556, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7032044279680303557, guid: eec33171f083b463c8df379f4be5be46,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 2.5
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 7032044279680303558, guid: eec33171f083b463c8df379f4be5be46,
         type: 3}
@@ -11360,6 +11415,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032044279804971542, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 7032044279878456979, guid: eec33171f083b463c8df379f4be5be46,
         type: 3}
