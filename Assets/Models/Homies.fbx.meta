@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9cd3138a71ac840d792b91b01db40652
+guid: fe6e7e5bbbd6f454388451836cc28070
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
@@ -9,18 +9,6 @@ ModelImporter:
   - first:
       74: -5789546664213868009
     second: Homie2|dirt pile smallAction
-  - first:
-      74: 5548743657984824331
-    second: Homie2|ground and holeAction
-  - first:
-      74: -3938922243693223278
-    second: Homie2|Henry_Shiver
-  - first:
-      74: 9128509893549912637
-    second: Homie2|Henry_Shiver.001
-  - first:
-      74: 7285059088938748054
-    second: Homie2|Henry_Shiver.002
   - first:
       74: 1245729516122994815
     second: Homie2|Homie1Shiver
@@ -40,18 +28,6 @@ ModelImporter:
       74: 545299972143682294
     second: ground and hole|dirt pile smallAction
   - first:
-      74: 696533270602058024
-    second: ground and hole|ground and holeAction
-  - first:
-      74: 7918685663272022964
-    second: ground and hole|Henry_Shiver
-  - first:
-      74: -3532365072628724261
-    second: ground and hole|Henry_Shiver.001
-  - first:
-      74: -5440426529977766698
-    second: ground and hole|Henry_Shiver.002
-  - first:
       74: -8406712963808384941
     second: ground and hole|Homie1Shiver
   - first:
@@ -69,18 +45,6 @@ ModelImporter:
   - first:
       74: -5480110404643779961
     second: dirt pile big|dirt pile smallAction
-  - first:
-      74: 2202241858335961169
-    second: dirt pile big|ground and holeAction
-  - first:
-      74: -5875807596668991183
-    second: dirt pile big|Henry_Shiver
-  - first:
-      74: 880932578625478619
-    second: dirt pile big|Henry_Shiver.001
-  - first:
-      74: -9002675649779919490
-    second: dirt pile big|Henry_Shiver.002
   - first:
       74: -7848322382174697486
     second: dirt pile big|Homie1Shiver
@@ -100,18 +64,6 @@ ModelImporter:
       74: 7691732176922877778
     second: dirt pile small|dirt pile smallAction
   - first:
-      74: -5685702174503212604
-    second: dirt pile small|ground and holeAction
-  - first:
-      74: 7979262339072186871
-    second: dirt pile small|Henry_Shiver
-  - first:
-      74: 4442583380594818986
-    second: dirt pile small|Henry_Shiver.001
-  - first:
-      74: 8481036905575739891
-    second: dirt pile small|Henry_Shiver.002
-  - first:
       74: 8310488439005259542
     second: dirt pile small|Homie1Shiver
   - first:
@@ -129,18 +81,6 @@ ModelImporter:
   - first:
       74: 4367986500217264046
     second: Shovel1|dirt pile smallAction
-  - first:
-      74: -6741817223751575424
-    second: Shovel1|ground and holeAction
-  - first:
-      74: -7638736585485348297
-    second: Shovel1|Henry_Shiver
-  - first:
-      74: 3947101809713065092
-    second: Shovel1|Henry_Shiver.001
-  - first:
-      74: -2245878542548212666
-    second: Shovel1|Henry_Shiver.002
   - first:
       74: 6018822007354826234
     second: Shovel1|Homie1Shiver
@@ -160,18 +100,6 @@ ModelImporter:
       74: -1073980561659907061
     second: Homie1|dirt pile smallAction
   - first:
-      74: 5567096814343690137
-    second: Homie1|ground and holeAction
-  - first:
-      74: -5724806014707450899
-    second: Homie1|Henry_Shiver
-  - first:
-      74: -502756633754638521
-    second: Homie1|Henry_Shiver.001
-  - first:
-      74: 3146919150966296461
-    second: Homie1|Henry_Shiver.002
-  - first:
       74: 1171117957790427489
     second: Homie1|Homie1Shiver
   - first:
@@ -189,18 +117,6 @@ ModelImporter:
   - first:
       74: -6277849151905190459
     second: Shovel2|dirt pile smallAction
-  - first:
-      74: -9088068563333581351
-    second: Shovel2|ground and holeAction
-  - first:
-      74: -4869262459309586675
-    second: Shovel2|Henry_Shiver
-  - first:
-      74: -6017480927862610150
-    second: Shovel2|Henry_Shiver.001
-  - first:
-      74: 3094177732469116798
-    second: Shovel2|Henry_Shiver.002
   - first:
       74: 2359236021681004303
     second: Shovel2|Homie1Shiver
