@@ -46,7 +46,6 @@ public class ObstacleManager : MonoBehaviour {
 
             Obstacle smallRock = Instantiate(obstaclePrefab, Grid.Instance.transform).GetComponent<Obstacle>();
             smallRock.CurrentType = Obstacle.Type.SmallRock;
-            smallRock.transform.position = Grid.Instance.PositionForCoords(cell.Coords);
             smallRock.SetCoords(cell.Coords);
         }
 
@@ -68,7 +67,6 @@ public class ObstacleManager : MonoBehaviour {
 
             Obstacle bigRock = Instantiate(obstaclePrefab, Grid.Instance.transform).GetComponent<Obstacle>();
             bigRock.CurrentType = Obstacle.Type.BigRock;
-            bigRock.transform.position = Grid.Instance.PositionForCoords(bigObstacleCells[0].Coords);
             bigRock.SetCoords(CellInfo.ToCoords(bigObstacleCells));
         }
 
@@ -89,7 +87,6 @@ public class ObstacleManager : MonoBehaviour {
 
         Obstacle tower = Instantiate(obstaclePrefab, Grid.Instance.transform).GetComponent<Obstacle>();
         tower.CurrentType = Obstacle.Type.Tower;
-        tower.transform.position = Grid.Instance.PositionForCoords(towerCells[0].Coords);
         tower.SetCoords(CellInfo.ToCoords(towerCells));
     }
 
