@@ -37,6 +37,7 @@ public class Player : MonoBehaviour {
     public bool IsMoving { get; private set; } = false;
     public List<Vector2Int> MovementPath { get; private set; }
     private const float MaxTimeMoving = 0.25f;
+    private Coroutine moveCoroutine;
 
     // Spinnin, spinnin, spinnin while my hands up
     public Direction CurrentDirection { get; private set; }
@@ -78,7 +79,7 @@ public class Player : MonoBehaviour {
         }
 
         IsMoving = true;
-        StartCoroutine(PerformMoveTo(endCoords, callback));
+        moveCoroutine = StartCoroutine(PerformMoveTo(endCoords, callback));
     }
 
     public void UseActionPoints(int points) {
@@ -97,6 +98,10 @@ public class Player : MonoBehaviour {
 
         CurrentDirection = Direction.South;
         transform.localEulerAngles = new Vector3(0, 90.0f, 0);
+
+        if (moveCoroutine != null) {
+            StopCoroutine(moveCoroutine);
+        }
     }
 
     private IEnumerator PerformMoveTo(Vector2Int endCoords, System.Action callback = null) {
