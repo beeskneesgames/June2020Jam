@@ -11314,7 +11314,7 @@ PrefabInstance:
     - target: {fileID: 7032044279680303556, guid: eec33171f083b463c8df379f4be5be46,
         type: 3}
       propertyPath: m_text
-      value: 'Melee Fix: 1 AP'
+      value: 'Melee Fix: 2 AP'
       objectReference: {fileID: 0}
     - target: {fileID: 7032044279680303556, guid: eec33171f083b463c8df379f4be5be46,
         type: 3}
