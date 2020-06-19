@@ -1,0 +1,307 @@
+fileFormatVersion: 2
+guid: 9cd3138a71ac840d792b91b01db40652
+ModelImporter:
+  serializedVersion: 19301
+  internalIDToNameTable:
+  - first:
+      74: -2776834998323276053
+    second: Homie2|dirt pile bigAction
+  - first:
+      74: -5789546664213868009
+    second: Homie2|dirt pile smallAction
+  - first:
+      74: 5548743657984824331
+    second: Homie2|ground and holeAction
+  - first:
+      74: -3938922243693223278
+    second: Homie2|Henry_Shiver
+  - first:
+      74: 9128509893549912637
+    second: Homie2|Henry_Shiver.001
+  - first:
+      74: 7285059088938748054
+    second: Homie2|Henry_Shiver.002
+  - first:
+      74: 1245729516122994815
+    second: Homie2|Homie1Shiver
+  - first:
+      74: -6032229173635384146
+    second: Homie2|Homie2Shiver
+  - first:
+      74: -8847323153515019757
+    second: Homie2|ShovelAction
+  - first:
+      74: -6622131509197887884
+    second: Homie2|ShovelAction.001
+  - first:
+      74: -6538596598982871163
+    second: ground and hole|dirt pile bigAction
+  - first:
+      74: 545299972143682294
+    second: ground and hole|dirt pile smallAction
+  - first:
+      74: 696533270602058024
+    second: ground and hole|ground and holeAction
+  - first:
+      74: 7918685663272022964
+    second: ground and hole|Henry_Shiver
+  - first:
+      74: -3532365072628724261
+    second: ground and hole|Henry_Shiver.001
+  - first:
+      74: -5440426529977766698
+    second: ground and hole|Henry_Shiver.002
+  - first:
+      74: -8406712963808384941
+    second: ground and hole|Homie1Shiver
+  - first:
+      74: 4689241100835037984
+    second: ground and hole|Homie2Shiver
+  - first:
+      74: 4125902482882493827
+    second: ground and hole|ShovelAction
+  - first:
+      74: 6868387319933152756
+    second: ground and hole|ShovelAction.001
+  - first:
+      74: 5439143834984508333
+    second: dirt pile big|dirt pile bigAction
+  - first:
+      74: -5480110404643779961
+    second: dirt pile big|dirt pile smallAction
+  - first:
+      74: 2202241858335961169
+    second: dirt pile big|ground and holeAction
+  - first:
+      74: -5875807596668991183
+    second: dirt pile big|Henry_Shiver
+  - first:
+      74: 880932578625478619
+    second: dirt pile big|Henry_Shiver.001
+  - first:
+      74: -9002675649779919490
+    second: dirt pile big|Henry_Shiver.002
+  - first:
+      74: -7848322382174697486
+    second: dirt pile big|Homie1Shiver
+  - first:
+      74: 7645165112327561435
+    second: dirt pile big|Homie2Shiver
+  - first:
+      74: -8059005954086451118
+    second: dirt pile big|ShovelAction
+  - first:
+      74: 768486893634076843
+    second: dirt pile big|ShovelAction.001
+  - first:
+      74: -8449454231697602277
+    second: dirt pile small|dirt pile bigAction
+  - first:
+      74: 7691732176922877778
+    second: dirt pile small|dirt pile smallAction
+  - first:
+      74: -5685702174503212604
+    second: dirt pile small|ground and holeAction
+  - first:
+      74: 7979262339072186871
+    second: dirt pile small|Henry_Shiver
+  - first:
+      74: 4442583380594818986
+    second: dirt pile small|Henry_Shiver.001
+  - first:
+      74: 8481036905575739891
+    second: dirt pile small|Henry_Shiver.002
+  - first:
+      74: 8310488439005259542
+    second: dirt pile small|Homie1Shiver
+  - first:
+      74: -1141101531836100599
+    second: dirt pile small|Homie2Shiver
+  - first:
+      74: -8821148020703655434
+    second: dirt pile small|ShovelAction
+  - first:
+      74: -5524463054203322596
+    second: dirt pile small|ShovelAction.001
+  - first:
+      74: -5924997453802891695
+    second: Shovel1|dirt pile bigAction
+  - first:
+      74: 4367986500217264046
+    second: Shovel1|dirt pile smallAction
+  - first:
+      74: -6741817223751575424
+    second: Shovel1|ground and holeAction
+  - first:
+      74: -7638736585485348297
+    second: Shovel1|Henry_Shiver
+  - first:
+      74: 3947101809713065092
+    second: Shovel1|Henry_Shiver.001
+  - first:
+      74: -2245878542548212666
+    second: Shovel1|Henry_Shiver.002
+  - first:
+      74: 6018822007354826234
+    second: Shovel1|Homie1Shiver
+  - first:
+      74: 6613356817365394395
+    second: Shovel1|Homie2Shiver
+  - first:
+      74: -3858638102958536418
+    second: Shovel1|ShovelAction
+  - first:
+      74: 3868236010002489798
+    second: Shovel1|ShovelAction.001
+  - first:
+      74: 2268470913785621733
+    second: Homie1|dirt pile bigAction
+  - first:
+      74: -1073980561659907061
+    second: Homie1|dirt pile smallAction
+  - first:
+      74: 5567096814343690137
+    second: Homie1|ground and holeAction
+  - first:
+      74: -5724806014707450899
+    second: Homie1|Henry_Shiver
+  - first:
+      74: -502756633754638521
+    second: Homie1|Henry_Shiver.001
+  - first:
+      74: 3146919150966296461
+    second: Homie1|Henry_Shiver.002
+  - first:
+      74: 1171117957790427489
+    second: Homie1|Homie1Shiver
+  - first:
+      74: -1364576061575155187
+    second: Homie1|Homie2Shiver
+  - first:
+      74: -7817774412913927913
+    second: Homie1|ShovelAction
+  - first:
+      74: -3863344562294354686
+    second: Homie1|ShovelAction.001
+  - first:
+      74: 3839306998533738613
+    second: Shovel2|dirt pile bigAction
+  - first:
+      74: -6277849151905190459
+    second: Shovel2|dirt pile smallAction
+  - first:
+      74: -9088068563333581351
+    second: Shovel2|ground and holeAction
+  - first:
+      74: -4869262459309586675
+    second: Shovel2|Henry_Shiver
+  - first:
+      74: -6017480927862610150
+    second: Shovel2|Henry_Shiver.001
+  - first:
+      74: 3094177732469116798
+    second: Shovel2|Henry_Shiver.002
+  - first:
+      74: 2359236021681004303
+    second: Shovel2|Homie1Shiver
+  - first:
+      74: -5654145498876391233
+    second: Shovel2|Homie2Shiver
+  - first:
+      74: -1380416923952145516
+    second: Shovel2|ShovelAction
+  - first:
+      74: -5523220342356240025
+    second: Shovel2|ShovelAction.001
+  externalObjects: {}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
