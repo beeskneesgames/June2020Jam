@@ -2,15 +2,19 @@
 using UnityEngine;
 
 public class ObstacleManager : MonoBehaviour {
-    private readonly int smallCount = 2;
-    private readonly int bigCount = 1;
+    private const int SmallCount = 2;
+    private const int BigCount = 1;
+    private const int HoleWidth = 4;
+    private const int HoleHeight = 4;
+    private const int HoleCellCount = HoleWidth * HoleHeight;
+
     private List<CellInfo> obstacleCells = new List<CellInfo>();
     private List<Obstacle> obstacles = new List<Obstacle>();
 
     public GameObject obstaclePrefab;
     public GameObject smallRockPrefab;
     public GameObject bigRockPrefab;
-    public GameObject towerPrefab;
+    public GameObject holePrefab;
 
     private static ObstacleManager instance;
     public static ObstacleManager Instance {
@@ -34,7 +38,7 @@ public class ObstacleManager : MonoBehaviour {
 
     private void Generate() {
         // Generate small obstacles
-        for (int count = 0; count < smallCount; count++) {
+        for (int count = 0; count < SmallCount; count++) {
             CellInfo cell;
             do {
                 cell = Grid.Instance.RetrieveRandomCell();
@@ -50,14 +54,15 @@ public class ObstacleManager : MonoBehaviour {
         }
 
         // Generate big obstacles
-        for (int count = 0; count < bigCount; count++) {
+        for (int count = 0; count < BigCount; count++) {
             List<CellInfo> bigObstacleCells = new List<CellInfo>(2);
 
             do {
+                bigObstacleCells.Clear();
                 bigObstacleCells.Add(Grid.Instance.RetrieveRandomCell());
 
                 List<CellInfo> adjacentCells = Grid.Instance.AdjacentTo(bigObstacleCells[0].Coords, false);
-                bigObstacleCells.Add(adjacentCells[Random.Range(0, bigObstacleCells.Count)]);
+                bigObstacleCells.Add(adjacentCells[Random.Range(0, adjacentCells.Count)]);
             } while (!IsValidForObstacles(bigObstacleCells));
 
             foreach (var bigObstacleCell in bigObstacleCells) {
@@ -71,25 +76,29 @@ public class ObstacleManager : MonoBehaviour {
             obstacles.Add(bigRock);
         }
 
-        // Generate tower
-        List<CellInfo> towerCells = new List<CellInfo>(4);
+        // Generate hole
+        List<CellInfo> holeCells = new List<CellInfo>(HoleCellCount);
 
         do {
-            towerCells.Add(Grid.Instance.RetrieveRandomCell(1));
-            towerCells.Add(Grid.Instance.CellInfoAt(towerCells[0].Coords + new Vector2Int(1, 0)));
-            towerCells.Add(Grid.Instance.CellInfoAt(towerCells[0].Coords + new Vector2Int(0, 1)));
-            towerCells.Add(Grid.Instance.CellInfoAt(towerCells[0].Coords + new Vector2Int(1, 1)));
-        } while (!IsValidForObstacles(towerCells));
+            holeCells.Clear();
+            CellInfo firstHoleCell = Grid.Instance.RetrieveRandomCell(3);
 
-        foreach (var towerCell in towerCells) {
-            towerCell.AddObstacle();
-            obstacleCells.Add(towerCell);
+            for (int i = 0; i < HoleWidth; i++) {
+                for (int j = 0; j < HoleHeight; j++) {
+                    holeCells.Add(Grid.Instance.CellInfoAt(firstHoleCell.Coords + new Vector2Int(i, j)));
+                }
+            }
+        } while (!IsValidForObstacles(holeCells));
+
+        foreach (var holeCell in holeCells) {
+            holeCell.AddObstacle();
+            obstacleCells.Add(holeCell);
         }
 
-        Obstacle tower = Instantiate(obstaclePrefab, Grid.Instance.transform).GetComponent<Obstacle>();
-        tower.CurrentType = Obstacle.Type.Tower;
-        tower.SetCoords(CellInfo.ToCoords(towerCells));
-        obstacles.Add(tower);
+        Obstacle hole = Instantiate(obstaclePrefab, Grid.Instance.transform).GetComponent<Obstacle>();
+        hole.CurrentType = Obstacle.Type.Hole;
+        hole.SetCoords(CellInfo.ToCoords(holeCells));
+        obstacles.Add(hole);
     }
 
     public void Reset() {
