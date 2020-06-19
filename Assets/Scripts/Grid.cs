@@ -213,9 +213,22 @@ public class Grid : MonoBehaviour {
 
     public void ShowPath(List<Vector2Int> path) {
         ClearPath();
+        bool isBadPath = false;
 
-        foreach (Vector2Int coords in path) {
-            CellAt(coords).inPath = true;
+        foreach (var coords in path) {
+            if (CellInfoAt(coords).HasObstacle) {
+                isBadPath = true;
+            }
+        }
+
+        foreach (var coords in path) {
+            if (isBadPath) {
+                CellAt(coords).inPath = false;
+                CellAt(coords).inBadPath = true;
+            } else {
+                CellAt(coords).inPath = true;
+                CellAt(coords).inBadPath = false;
+            }
         }
     }
 
@@ -223,6 +236,7 @@ public class Grid : MonoBehaviour {
         foreach (Row row in rows) {
             foreach (Cell cell in row.cells) {
                 cell.inPath = false;
+                cell.inBadPath = false;
             }
         }
     }
