@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class DamageManager : MonoBehaviour {
     public int spreadRate = 3;
+    public GameObject damageHeadPrefab;
+
     private List<DamageHead> damageHeads;
     private Vector2Int DefaultHeadCoords1;
     private Vector2Int DefaultHeadCoords2;
@@ -75,11 +77,22 @@ public class DamageManager : MonoBehaviour {
     }
 
     public void RemoveHeadsAt(Vector2Int coords) {
-        damageHeads.RemoveAll(head => head.Coords == coords);
+        List<DamageHead> damageHeadsToDestroy = new List<DamageHead>();
+
+        foreach (var damageHead in damageHeads) {
+            if (damageHead.Coords == coords) {
+                damageHeadsToDestroy.Add(damageHead);
+            }
+        }
+
+        foreach (var damageHead in damageHeadsToDestroy) {
+            damageHeads.Remove(damageHead);
+            damageHead.DestroyGameObject();
+        }
     }
 
     private void AddHead(Vector2Int coords) {
-        damageHeads.Add(new DamageHead(coords));
+        damageHeads.Add(new DamageHead(coords, Instantiate(damageHeadPrefab)));
     }
 
     // TODO: Move this logic into some sort of Bomb or BombManager class.
