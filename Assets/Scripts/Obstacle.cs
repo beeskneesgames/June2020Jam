@@ -98,7 +98,7 @@ public class Obstacle : MonoBehaviour {
                 break;
         }
 
-        if (prefab != null) {
+        if (prefab) {
             displayObject = Instantiate(prefab, transform);
         }
     }
