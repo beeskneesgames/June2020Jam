@@ -66,6 +66,17 @@ public class Obstacle : MonoBehaviour {
             transform.position.y,
             centerPosition.z
         );
+
+        int width = NECoords.x - SWCoords.x;
+        int height = NECoords.y - SWCoords.y;
+
+        if (width > height) {
+            // It's a wide object, rotate 90 degrees.
+            transform.localEulerAngles = new Vector3(0.0f, 90.0f, 0.0f);
+        } else {
+            // It's a tall object, no rotation since our model default assumes tall.
+            transform.localEulerAngles = Vector3.zero;
+        }
     }
 
     private void SyncDisplayObject() {
