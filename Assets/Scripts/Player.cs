@@ -118,38 +118,10 @@ public class Player : MonoBehaviour {
         for (int i = 1; i < MovementPath.Count; i++) {
             Vector2Int coords = MovementPath[i];
 
-            // --- SyncDirection() ---
-            // Figure out if we need to do a spin animation before moving.
-            Direction targetDirection = DirectionBetween(CurrentCoords, coords);
+            // Spin the player until they're facing the coords they'll be moving
+            // towards.
+            yield return StartCoroutine(SpinToFace(coords));
 
-            if (targetDirection != CurrentDirection) {
-                float timeSpinning = 0.0f;
-                Vector3 startEulerAngles = transform.localEulerAngles;
-                Vector3 endEulerAngles = EulerAnglesFor(CurrentDirection, targetDirection);
-
-                // --- TickSpin() ---
-                // Spin until we're facing the correct direction.
-                while (timeSpinning < MaxTimeMoving) {
-                    timeSpinning += Time.deltaTime;
-
-                    transform.localEulerAngles = Vector3.Lerp(
-                        startEulerAngles,
-                        endEulerAngles,
-                        timeSpinning / MaxTimeMoving
-                    );
-
-                    // Give up control of execution until the next frame.
-                    yield return null;
-                }
-
-                // We're now facing the correct direction. Normalize the euler
-                // angles so we don't end up twisted outside the 0-360 degree
-                // range.
-                transform.localEulerAngles = NormalizedEulerAnglesFor(targetDirection);
-                CurrentDirection = targetDirection;
-            }
-
-            // --- TickMove() ---
             float timeMoving = 0.0f;
             Vector3 startPosition = NormalizedPosition(Grid.Instance.PositionForCoords(CurrentCoords));
             Vector3 endPosition = NormalizedPosition(Grid.Instance.PositionForCoords(coords));
@@ -194,6 +166,37 @@ public class Player : MonoBehaviour {
 
         IsMoving = false;
         callback?.Invoke();
+    }
+
+    private IEnumerator SpinToFace(Vector2Int coords) {
+        // Figure out if we need to do a spin animation before moving.
+        Direction targetDirection = DirectionBetween(CurrentCoords, coords);
+
+        if (targetDirection != CurrentDirection) {
+            float timeSpinning = 0.0f;
+            Vector3 startEulerAngles = transform.localEulerAngles;
+            Vector3 endEulerAngles = EulerAnglesFor(CurrentDirection, targetDirection);
+
+            // Spin until we're facing the correct direction.
+            while (timeSpinning < MaxTimeMoving) {
+                timeSpinning += Time.deltaTime;
+
+                transform.localEulerAngles = Vector3.Lerp(
+                    startEulerAngles,
+                    endEulerAngles,
+                    timeSpinning / MaxTimeMoving
+                );
+
+                // Give up control of execution until the next frame.
+                yield return null;
+            }
+
+            // We're now facing the correct direction. Normalize the euler
+            // angles so we don't end up twisted outside the 0-360 degree
+            // range.
+            transform.localEulerAngles = NormalizedEulerAnglesFor(targetDirection);
+            CurrentDirection = targetDirection;
+        }
     }
 
     private void ResetCoords() {
