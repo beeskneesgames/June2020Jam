@@ -35,6 +35,7 @@ public class Player : MonoBehaviour {
 
     // Movement
     public bool IsMoving { get; private set; } = false;
+    public List<Vector2Int> MovementPath { get; private set; }
     private const float MaxTimeMoving = 0.25f;
 
     // Spinnin, spinnin, spinnin while my hands up
@@ -70,17 +71,6 @@ public class Player : MonoBehaviour {
         Reset();
     }
 
-    private void SyncDirection() {
-        // Figure out if we need to do a spin animation before moving.
-        //Direction newDirection = DirectionBetween(CurrentCoords, targetCoords);
-
-        //if (newDirection != CurrentDirection) {
-        //    targetDirection = newDirection;
-        //    startEulerAnglesForSpin = transform.localEulerAngles;
-        //    endEulerAnglesForSpin = EulerAnglesFor(CurrentDirection, targetDirection);
-        //}
-    }
-
     public void MoveTo(Vector2Int endCoords, System.Action callback = null) {
         if (IsMoving) {
             // Don't allow double-moving
@@ -108,20 +98,6 @@ public class Player : MonoBehaviour {
         CurrentDirection = Direction.South;
         transform.localEulerAngles = new Vector3(0, 90.0f, 0);
     }
-
-    //private void Update() {
-    //    if (IsMoving) {
-    //        timeMoving += Time.deltaTime;
-
-    //        if (CurrentDirection == targetDirection) {
-    //            TickMove();
-    //        } else {
-    //            TickSpin();
-    //        }
-    //    }
-    //}
-    // Movement
-    public List<Vector2Int> MovementPath { get; private set; }
 
     private IEnumerator PerformMoveTo(Vector2Int endCoords, System.Action callback = null) {
         playerAnimator.SetTrigger("StartMove");
@@ -215,55 +191,6 @@ public class Player : MonoBehaviour {
         callback?.Invoke();
     }
 
-    private void TickMove() {
-        //if (timeMoving < MaxTimeMoving) {
-        //    // We're between the starting cell and the target cell, keep
-        //    // lerping between them.
-        //    float percentComplete = timeMoving / MaxTimeMoving;
-        //    transform.position = Vector3.Lerp(
-        //        startPositionForMove,
-        //        endPositionForMove,
-        //        percentComplete
-        //    );
-
-        //    // If we're partway between the second to last cell and the last
-        //    // cell, begin the stop-running animation so we skid while moving.
-        //    //if (shouldSkid && remainingMovementPath.Count < 1 && percentComplete >= 0.1f && !isSkidding) {
-        //    //    isSkidding = true;
-        //    //    playerAnimator.SetTrigger("StartSkid");
-        //    //}
-        //} else {
-        //    // We've made it to the target cell. Do one of these two things:
-        //    //
-        //    // * Set up the next target cell (if there is one left in the
-        //    //   path). This may require a spin before moving.
-        //    // * End the movement (if we're at the last cell in the path).
-        //    timeMoving = 0.0f;
-        //    MoveToImmediate(targetCoords);
-        //    UseActionPoints(1);
-
-        //    // TODO: Stop movement if game ended. Maybe here, maybe
-        //    // somewhere more global.
-        //    GameManager.Instance.StateChanged();
-
-        //    PopPathCoords();
-        //    SyncDirection();
-
-        //    if (targetCoords.x < 0) {
-        //        // We've moved to the last cell in the path, end the
-        //        // movement.
-        //        //if (isSkidding) {
-        //        //    isSkidding = false;
-        //        //} else {
-        //        //    playerAnimator.SetTrigger("StopMove");
-        //        //}
-
-        //        IsMoving = false;
-        //        //moveCallback?.Invoke();
-        //    }
-        //}
-    }
-
     private void ResetCoords() {
         MoveToImmediate(new Vector2Int(Grid.Instance.Size.x - 1, Grid.Instance.Size.y - 1));
     }
@@ -274,18 +201,6 @@ public class Player : MonoBehaviour {
             transform.position.y,
             position.z
         );
-    }
-
-    private void PopPathCoords() {
-        //if (remainingMovementPath.Count > 0) {
-        //    targetCoords = remainingMovementPath[0];
-        //    remainingMovementPath.RemoveAt(0);
-
-        //    startPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(CurrentCoords));
-        //    endPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(targetCoords));
-        //} else {
-        //    targetCoords = new Vector2Int(-1, -1);
-        //}
     }
 
     private void MoveToImmediate(Vector2Int coords) {
