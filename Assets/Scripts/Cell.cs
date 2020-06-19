@@ -47,7 +47,12 @@ public class Cell : MonoBehaviour {
 
     private void UpdateAppearance() {
         // Hide the cell if there's a hole on it, so it doesn't block it.
-        renderer.enabled = !Info.hasHole;
+        if (Info.HasObstacle) {
+            renderer.enabled = false;
+            return;
+        } else {
+            renderer.enabled = true;
+        }
 
         switch(CurrentMouseState) {
             case MouseState.None:

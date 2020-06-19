@@ -57,7 +57,7 @@ public class ObstacleManager : MonoBehaviour {
                 bigObstacleCells.Add(Grid.Instance.RetrieveRandomCell());
 
                 List<CellInfo> adjacentCells = Grid.Instance.AdjacentTo(bigObstacleCells[0].Coords, false);
-                bigObstacleCells.Add(adjacentCells[Random.Range(0, bigObstacleCells.Count)]);
+                bigObstacleCells.Add(adjacentCells[Random.Range(0, adjacentCells.Count)]);
             } while (!IsValidForObstacles(bigObstacleCells));
 
             foreach (var bigObstacleCell in bigObstacleCells) {
@@ -86,7 +86,6 @@ public class ObstacleManager : MonoBehaviour {
 
         foreach (var holeCell in holeCells) {
             holeCell.AddObstacle();
-            holeCell.hasHole = true;
             obstacleCells.Add(holeCell);
         }
 

@@ -25,7 +25,6 @@ public class CellInfo {
         }
     }
 
-    public bool hasHole = false;
     public bool HasDamageHead { get; set; } = false;
     public bool HasObstacle { get; private set; } = false;
     public bool HasBomb { get; set; } = false;
