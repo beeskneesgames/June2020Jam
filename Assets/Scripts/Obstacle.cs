@@ -25,7 +25,7 @@ public class Obstacle : MonoBehaviour {
     public Vector2Int SWCoords { get; set; } = new Vector2Int(-1, -1);
     public Vector2Int NECoords { get; set; } = new Vector2Int(-1, -1);
 
-    private GameObject displayObject = null;
+    private GameObject displayObject;
 
     public void SetCoords(Vector2Int coords) {
         SetCoords(new List<Vector2Int> { coords });
