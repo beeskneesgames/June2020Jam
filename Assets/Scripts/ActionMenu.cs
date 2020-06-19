@@ -12,8 +12,11 @@ public class ActionMenu : MonoBehaviour {
     private Color defaultColor = new Color(1.0f, 1.0f, 1.0f);
     private Color pressedColor = new Color(0.75f, 0.75f, 0.75f);
 
+    private TextMeshProUGUI moveBtnTMP;
+
     private void Start() {
         string moveAPRange;
+        moveBtnTMP = moveBtn.GetComponentInChildren<TextMeshProUGUI>();
 
         if (Player.Instance.ActionPoints == 1) {
             moveAPRange = $"{Player.Instance.ActionPoints}";
@@ -21,7 +24,7 @@ public class ActionMenu : MonoBehaviour {
             moveAPRange = $"1 - {Player.Instance.ActionPoints}";
         }
 
-        moveBtn.GetComponentInChildren<TextMeshProUGUI>().text = $"Move: {moveAPRange} AP";
+        moveBtnTMP.text = $"Move: {moveAPRange} AP";
         meleeBtn.GetComponentInChildren<TextMeshProUGUI>().text = $"Melee Fix: {CellInfo.MeleeFixCost} AP";
         rangedBtn.GetComponentInChildren<TextMeshProUGUI>().text = $"Ranged Fix: {CellInfo.RangedFixCost} AP";
         bombBtn.GetComponentInChildren<TextMeshProUGUI>().text = $"Place Bomb: {CellInfo.BombCost} AP";
@@ -36,7 +39,7 @@ public class ActionMenu : MonoBehaviour {
             moveAPRange = $"1 - {Player.Instance.ActionPoints}";
         }
 
-        moveBtn.GetComponentInChildren<TextMeshProUGUI>().text = $"Move: {moveAPRange} AP";
+        moveBtnTMP.text = $"Move: {moveAPRange} AP";
     }
 
     public void OnMoveClicked() {
