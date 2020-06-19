@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -24,19 +25,6 @@ public class Player : MonoBehaviour {
 
     public Animator playerAnimator;
 
-    // Movement
-    public bool IsMoving { get; private set; } = false;
-    private bool isSkidding = false;
-    private bool shouldSkid = false;
-    private System.Action moveCallback;
-    private List<Vector2Int> remainingMovementPath = null;
-    public List<Vector2Int> MovementPath { get; private set; }
-    private Vector2Int targetCoords = new Vector2Int(-1, -1);
-    private Vector3 startPositionForMove;
-    private Vector3 endPositionForMove;
-    private float timeMoving;
-    private const float MaxTimeMoving = 0.25f;
-
     public Vector2Int CurrentCoords { get; private set; }
 
     public CellInfo CurrentCell {
@@ -45,11 +33,12 @@ public class Player : MonoBehaviour {
         }
     }
 
+    // Movement
+    public bool IsMoving { get; private set; } = false;
+    private const float MaxTimeMoving = 0.25f;
+
     // Spinnin, spinnin, spinnin while my hands up
     public Direction CurrentDirection { get; private set; }
-    private Direction targetDirection;
-    private Vector3 startEulerAnglesForSpin;
-    private Vector3 endEulerAnglesForSpin;
 
     // Action Points
     public TextMeshProUGUI actionPointUI;
@@ -81,117 +70,25 @@ public class Player : MonoBehaviour {
         Reset();
     }
 
-    private void Update() {
-        if (IsMoving) {
-            timeMoving += Time.deltaTime;
-
-            if (CurrentDirection == targetDirection) {
-                TickMove();
-            } else {
-                TickSpin();
-            }
-        }
-    }
-
-    private void TickSpin() {
-        if (timeMoving < MaxTimeMoving) {
-            // We're between the starting direction and the target direction,
-            // keep lerping between them.
-            transform.localEulerAngles = Vector3.Lerp(
-                startEulerAnglesForSpin,
-                endEulerAnglesForSpin,
-                timeMoving / MaxTimeMoving
-            );
-        } else {
-            // We're now facing the correct direction. The next target cell
-            // should've already been set up by TickMove().
-            timeMoving = 0.0f;
-            transform.localEulerAngles = NormalizedEulerAnglesFor(targetDirection);
-            CurrentDirection = targetDirection;
-        }
-    }
-
-    private void TickMove() {
-        if (timeMoving < MaxTimeMoving) {
-            // We're between the starting cell and the target cell, keep
-            // lerping between them.
-            float percentComplete = timeMoving / MaxTimeMoving;
-            transform.position = Vector3.Lerp(
-                startPositionForMove,
-                endPositionForMove,
-                percentComplete
-            );
-
-            // If we're partway between the second to last cell and the last
-            // cell, begin the stop-running animation so we skid while moving.
-            if (shouldSkid && remainingMovementPath.Count < 1 && percentComplete >= 0.1f && !isSkidding) {
-                isSkidding = true;
-                playerAnimator.SetTrigger("StartSkid");
-            }
-        } else {
-            // We've made it to the target cell. Do one of these two things:
-            //
-            // * Set up the next target cell (if there is one left in the
-            //   path). This may require a spin before moving.
-            // * End the movement (if we're at the last cell in the path).
-            timeMoving = 0.0f;
-            MoveToImmediate(targetCoords);
-            UseActionPoints(1);
-
-            // TODO: Stop movement if game ended. Maybe here, maybe
-            // somewhere more global.
-            GameManager.Instance.StateChanged();
-
-            PopPathCoords();
-            SyncDirection();
-
-            if (targetCoords.x < 0) {
-                // We've moved to the last cell in the path, end the
-                // movement.
-                if (isSkidding) {
-                    isSkidding = false;
-                } else {
-                    playerAnimator.SetTrigger("StopMove");
-                }
-
-                IsMoving = false;
-                moveCallback?.Invoke();
-            }
-        }
-    }
-
     private void SyncDirection() {
         // Figure out if we need to do a spin animation before moving.
-        Direction newDirection = DirectionBetween(CurrentCoords, targetCoords);
+        //Direction newDirection = DirectionBetween(CurrentCoords, targetCoords);
 
-        if (newDirection != CurrentDirection) {
-            targetDirection = newDirection;
-            startEulerAnglesForSpin = transform.localEulerAngles;
-            endEulerAnglesForSpin = EulerAnglesFor(CurrentDirection, targetDirection);
-        }
+        //if (newDirection != CurrentDirection) {
+        //    targetDirection = newDirection;
+        //    startEulerAnglesForSpin = transform.localEulerAngles;
+        //    endEulerAnglesForSpin = EulerAnglesFor(CurrentDirection, targetDirection);
+        //}
     }
 
-    public void MoveTo(Vector2Int coords, System.Action callback = null) {
+    public void MoveTo(Vector2Int endCoords, System.Action callback = null) {
         if (IsMoving) {
             // Don't allow double-moving
             return;
         }
 
-        playerAnimator.SetTrigger("StartMove");
         IsMoving = true;
-        timeMoving = 0.0f;
-        moveCallback = callback;
-        MovementPath = Grid.PathBetween(CurrentCoords, coords, Player.diagonalMoveAllowed);
-        remainingMovementPath = new List<Vector2Int>(MovementPath);
-
-        // We're already at the first cell in the path, so remove it.
-        remainingMovementPath.RemoveAt(0);
-
-        // The player shouldn't skid if they're moving just 1 cell.
-        shouldSkid = remainingMovementPath.Count > 1;
-
-        PopPathCoords();
-        SyncDirection();
+        StartCoroutine(PerformMoveTo(endCoords, callback));
     }
 
     public void UseActionPoints(int points) {
@@ -209,13 +106,162 @@ public class Player : MonoBehaviour {
         ResetCoords();
 
         CurrentDirection = Direction.South;
-        targetDirection = Direction.South;
         transform.localEulerAngles = new Vector3(0, 90.0f, 0);
+    }
 
-        timeMoving = 0.0f;
+    //private void Update() {
+    //    if (IsMoving) {
+    //        timeMoving += Time.deltaTime;
+
+    //        if (CurrentDirection == targetDirection) {
+    //            TickMove();
+    //        } else {
+    //            TickSpin();
+    //        }
+    //    }
+    //}
+    // Movement
+    public List<Vector2Int> MovementPath { get; private set; }
+
+    private IEnumerator PerformMoveTo(Vector2Int endCoords, System.Action callback = null) {
+        playerAnimator.SetTrigger("StartMove");
+
+        MovementPath = Grid.PathBetween(CurrentCoords, endCoords, Player.diagonalMoveAllowed);
+
+        // The player shouldn't skid if they're moving just 1 cell (which would
+        // have a movement path count of 2: the start cell and the end cell).
+        bool shouldSkid = MovementPath.Count > 2;
+        bool isSkidding = false;
+
+        // Start at 1, since the player is already at the first cell in the path.
+        for (int i = 1; i < MovementPath.Count; i++) {
+            Vector2Int coords = MovementPath[i];
+
+            // --- SyncDirection() ---
+            // Figure out if we need to do a spin animation before moving.
+            Direction targetDirection = DirectionBetween(CurrentCoords, coords);
+
+            if (targetDirection != CurrentDirection) {
+                float timeSpinning = 0.0f;
+                Vector3 startEulerAngles = transform.localEulerAngles;
+                Vector3 endEulerAngles = EulerAnglesFor(CurrentDirection, targetDirection);
+
+                // --- TickSpin() ---
+                // Spin until we're facing the correct direction.
+                while (timeSpinning < MaxTimeMoving) {
+                    timeSpinning += Time.deltaTime;
+
+                    transform.localEulerAngles = Vector3.Lerp(
+                        startEulerAngles,
+                        endEulerAngles,
+                        timeSpinning / MaxTimeMoving
+                    );
+
+                    // Give up control of execution until the next frame.
+                    yield return null;
+                }
+
+                // We're now facing the correct direction. Normalize the euler
+                // angles so we don't end up twisted outside the 0-360 degree
+                // range.
+                transform.localEulerAngles = NormalizedEulerAnglesFor(targetDirection);
+                CurrentDirection = targetDirection;
+            }
+
+            // --- TickMove() ---
+            float timeMoving = 0.0f;
+            Vector3 startPosition = NormalizedPosition(Grid.Instance.PositionForCoords(CurrentCoords));
+            Vector3 endPosition = NormalizedPosition(Grid.Instance.PositionForCoords(coords));
+
+            // Move until we're on the target cell
+            while (timeMoving < MaxTimeMoving) {
+                timeMoving += Time.deltaTime;
+                float percentComplete = timeMoving / MaxTimeMoving;
+                transform.position = Vector3.Lerp(
+                    startPosition,
+                    endPosition,
+                    percentComplete
+                );
+
+                // Start skid if necessary.
+                //
+                // We start the skid if all the following things are true:
+                // 1. The player is traveling more than 1 cell.
+                // 2. The player is more than 10% of the way between the
+                //    second-to-last and the last cell in their path.
+                // 2. The skid has not already been started.
+                if (shouldSkid && !isSkidding && i == MovementPath.Count - 1 && percentComplete > 0.1f) {
+                    playerAnimator.SetTrigger("StartSkid");
+                    isSkidding = true;
+                }
+
+                yield return null;
+            }
+
+            MoveToImmediate(coords);
+            UseActionPoints(1);
+
+            // TODO: Stop movement if game ended. Maybe here, maybe
+            // somewhere more global.
+            GameManager.Instance.StateChanged();
+        }
+
+        // If we didn't finish the movement with a skid, stop the move.
+        if (!isSkidding) {
+            playerAnimator.SetTrigger("StopMove");
+        }
+
         IsMoving = false;
-        isSkidding = false;
-        shouldSkid = false;
+        callback?.Invoke();
+    }
+
+    private void TickMove() {
+        //if (timeMoving < MaxTimeMoving) {
+        //    // We're between the starting cell and the target cell, keep
+        //    // lerping between them.
+        //    float percentComplete = timeMoving / MaxTimeMoving;
+        //    transform.position = Vector3.Lerp(
+        //        startPositionForMove,
+        //        endPositionForMove,
+        //        percentComplete
+        //    );
+
+        //    // If we're partway between the second to last cell and the last
+        //    // cell, begin the stop-running animation so we skid while moving.
+        //    //if (shouldSkid && remainingMovementPath.Count < 1 && percentComplete >= 0.1f && !isSkidding) {
+        //    //    isSkidding = true;
+        //    //    playerAnimator.SetTrigger("StartSkid");
+        //    //}
+        //} else {
+        //    // We've made it to the target cell. Do one of these two things:
+        //    //
+        //    // * Set up the next target cell (if there is one left in the
+        //    //   path). This may require a spin before moving.
+        //    // * End the movement (if we're at the last cell in the path).
+        //    timeMoving = 0.0f;
+        //    MoveToImmediate(targetCoords);
+        //    UseActionPoints(1);
+
+        //    // TODO: Stop movement if game ended. Maybe here, maybe
+        //    // somewhere more global.
+        //    GameManager.Instance.StateChanged();
+
+        //    PopPathCoords();
+        //    SyncDirection();
+
+        //    if (targetCoords.x < 0) {
+        //        // We've moved to the last cell in the path, end the
+        //        // movement.
+        //        //if (isSkidding) {
+        //        //    isSkidding = false;
+        //        //} else {
+        //        //    playerAnimator.SetTrigger("StopMove");
+        //        //}
+
+        //        IsMoving = false;
+        //        //moveCallback?.Invoke();
+        //    }
+        //}
     }
 
     private void ResetCoords() {
@@ -231,15 +277,15 @@ public class Player : MonoBehaviour {
     }
 
     private void PopPathCoords() {
-        if (remainingMovementPath.Count > 0) {
-            targetCoords = remainingMovementPath[0];
-            remainingMovementPath.RemoveAt(0);
+        //if (remainingMovementPath.Count > 0) {
+        //    targetCoords = remainingMovementPath[0];
+        //    remainingMovementPath.RemoveAt(0);
 
-            startPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(CurrentCoords));
-            endPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(targetCoords));
-        } else {
-            targetCoords = new Vector2Int(-1, -1);
-        }
+        //    startPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(CurrentCoords));
+        //    endPositionForMove = NormalizedPosition(Grid.Instance.PositionForCoords(targetCoords));
+        //} else {
+        //    targetCoords = new Vector2Int(-1, -1);
+        //}
     }
 
     private void MoveToImmediate(Vector2Int coords) {
