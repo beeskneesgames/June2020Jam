@@ -2,11 +2,10 @@
 using UnityEngine;
 
 public class ObstacleManager : MonoBehaviour {
-    public Vector2Int Coords { get; set; } = new Vector2Int(-1, -1);
-
     private readonly int smallCount = 2;
     private readonly int bigCount = 1;
     private List<CellInfo> obstacleCells = new List<CellInfo>();
+    private List<Obstacle> obstacles = new List<Obstacle>();
 
     public GameObject obstaclePrefab;
     public GameObject smallRockPrefab;
@@ -47,6 +46,7 @@ public class ObstacleManager : MonoBehaviour {
             Obstacle smallRock = Instantiate(obstaclePrefab, Grid.Instance.transform).GetComponent<Obstacle>();
             smallRock.CurrentType = Obstacle.Type.SmallRock;
             smallRock.SetCoords(cell.Coords);
+            obstacles.Add(smallRock);
         }
 
         // Generate big obstacles
@@ -68,6 +68,7 @@ public class ObstacleManager : MonoBehaviour {
             Obstacle bigRock = Instantiate(obstaclePrefab, Grid.Instance.transform).GetComponent<Obstacle>();
             bigRock.CurrentType = Obstacle.Type.BigRock;
             bigRock.SetCoords(CellInfo.ToCoords(bigObstacleCells));
+            obstacles.Add(bigRock);
         }
 
         // Generate tower
@@ -88,6 +89,7 @@ public class ObstacleManager : MonoBehaviour {
         Obstacle tower = Instantiate(obstaclePrefab, Grid.Instance.transform).GetComponent<Obstacle>();
         tower.CurrentType = Obstacle.Type.Tower;
         tower.SetCoords(CellInfo.ToCoords(towerCells));
+        obstacles.Add(tower);
     }
 
     public void Reset() {
@@ -95,6 +97,11 @@ public class ObstacleManager : MonoBehaviour {
             cell.RemoveObstacle();
         }
         obstacleCells.Clear();
+
+        foreach (var obstacle in obstacles) {
+            Destroy(obstacle.gameObject);
+        }
+        obstacles.Clear();
 
         Generate();
     }
