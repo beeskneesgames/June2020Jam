@@ -7,7 +7,7 @@ public class Obstacle : MonoBehaviour {
         None,
         SmallRock,
         BigRock,
-        Tower
+        Hole
     }
 
     public Type currentType = Type.None;
@@ -93,8 +93,8 @@ public class Obstacle : MonoBehaviour {
             case Type.BigRock:
                 prefab = ObstacleManager.Instance.bigRockPrefab;
                 break;
-            case Type.Tower:
-                prefab = ObstacleManager.Instance.towerPrefab;
+            case Type.Hole:
+                prefab = ObstacleManager.Instance.holePrefab;
                 break;
         }
 

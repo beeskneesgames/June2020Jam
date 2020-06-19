@@ -10,7 +10,7 @@ public class ObstacleManager : MonoBehaviour {
     public GameObject obstaclePrefab;
     public GameObject smallRockPrefab;
     public GameObject bigRockPrefab;
-    public GameObject towerPrefab;
+    public GameObject holePrefab;
 
     private static ObstacleManager instance;
     public static ObstacleManager Instance {
@@ -71,25 +71,28 @@ public class ObstacleManager : MonoBehaviour {
             obstacles.Add(bigRock);
         }
 
-        // Generate tower
-        List<CellInfo> towerCells = new List<CellInfo>(4);
+        // Generate hole
+        List<CellInfo> holeCells = new List<CellInfo>(16);
 
         do {
-            towerCells.Add(Grid.Instance.RetrieveRandomCell(1));
-            towerCells.Add(Grid.Instance.CellInfoAt(towerCells[0].Coords + new Vector2Int(1, 0)));
-            towerCells.Add(Grid.Instance.CellInfoAt(towerCells[0].Coords + new Vector2Int(0, 1)));
-            towerCells.Add(Grid.Instance.CellInfoAt(towerCells[0].Coords + new Vector2Int(1, 1)));
-        } while (!IsValidForObstacles(towerCells));
+            CellInfo firstHoleCell = Grid.Instance.RetrieveRandomCell(3);
 
-        foreach (var towerCell in towerCells) {
-            towerCell.AddObstacle();
-            obstacleCells.Add(towerCell);
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    holeCells.Add(Grid.Instance.CellInfoAt(firstHoleCell.Coords + new Vector2Int(i, j)));
+                }
+            }
+        } while (!IsValidForObstacles(holeCells));
+
+        foreach (var holeCell in holeCells) {
+            holeCell.AddObstacle();
+            obstacleCells.Add(holeCell);
         }
 
-        Obstacle tower = Instantiate(obstaclePrefab, Grid.Instance.transform).GetComponent<Obstacle>();
-        tower.CurrentType = Obstacle.Type.Tower;
-        tower.SetCoords(CellInfo.ToCoords(towerCells));
-        obstacles.Add(tower);
+        Obstacle hole = Instantiate(obstaclePrefab, Grid.Instance.transform).GetComponent<Obstacle>();
+        hole.CurrentType = Obstacle.Type.Hole;
+        hole.SetCoords(CellInfo.ToCoords(holeCells));
+        obstacles.Add(hole);
     }
 
     public void Reset() {

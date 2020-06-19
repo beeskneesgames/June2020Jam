@@ -7546,7 +7546,7 @@ MonoBehaviour:
     type: 3}
   bigRockPrefab: {fileID: 4026762461137224617, guid: 054bb49a9ca80418492280d7a351b7f7,
     type: 3}
-  towerPrefab: {fileID: 5452170974143962255, guid: b0dc90f6da2e44e2195ddbdb419d936b,
+  holePrefab: {fileID: 7812668420582439876, guid: d2a83d7612f1344779b5462a210b7cde,
     type: 3}
 --- !u!1 &1506862065
 GameObject:
