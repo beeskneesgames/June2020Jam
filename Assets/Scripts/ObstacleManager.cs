@@ -86,6 +86,7 @@ public class ObstacleManager : MonoBehaviour {
 
         foreach (var holeCell in holeCells) {
             holeCell.AddObstacle();
+            holeCell.hasHole = true;
             obstacleCells.Add(holeCell);
         }
 

@@ -46,6 +46,9 @@ public class Cell : MonoBehaviour {
     }
 
     private void UpdateAppearance() {
+        // Hide the cell if there's a hole on it, so it doesn't block it.
+        renderer.enabled = !Info.hasHole;
+
         switch(CurrentMouseState) {
             case MouseState.None:
                 if (Info.HasDamageHead) {

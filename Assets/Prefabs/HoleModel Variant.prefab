@@ -81,6 +81,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 637766885c182482a9a339bee10a59e3,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 637766885c182482a9a339bee10a59e3,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 637766885c182482a9a339bee10a59e3,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.75
+      objectReference: {fileID: 0}
     - target: {fileID: -8315387478214709876, guid: 637766885c182482a9a339bee10a59e3,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -94,7 +109,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 637766885c182482a9a339bee10a59e3,
         type: 3}
       propertyPath: m_Name
-      value: HoleModel
+      value: HoleModel Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5083937799825487871, guid: 637766885c182482a9a339bee10a59e3,
         type: 3}
