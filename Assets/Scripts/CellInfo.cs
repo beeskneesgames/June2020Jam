@@ -40,6 +40,16 @@ public class CellInfo {
         cell = c;
     }
 
+    public static List<Vector2Int> ToCoords(List<CellInfo> cellInfos) {
+        List<Vector2Int> coords = new List<Vector2Int>(cellInfos.Count);
+
+        foreach (var cellInfo in cellInfos) {
+            coords.Add(cellInfo.Coords);
+        }
+
+        return coords;
+    }
+
     public void Damage() {
         IsDamaged = true;
     }

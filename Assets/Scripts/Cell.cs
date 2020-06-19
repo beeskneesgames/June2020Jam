@@ -66,10 +66,6 @@ public class Cell : MonoBehaviour {
                     // Black
                     CurrentMaterial = MaterialDatabase.Instance.cellHealthy;
                     renderer.material.SetColor("_BaseColor", Color.black);
-                } else if (Info.HasObstacle) {
-                    // Pink
-                    CurrentMaterial = MaterialDatabase.Instance.cellHealthy;
-                    renderer.material.SetColor("_BaseColor", new Color(1.0f, 0.5f, 1.00f));
                 } else {
                     // Blue #42676E (0.259, 0.404, 0.431)
                     CurrentMaterial = MaterialDatabase.Instance.cellHealthy;

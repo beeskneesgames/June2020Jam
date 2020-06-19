@@ -2,14 +2,15 @@
 using UnityEngine;
 
 public class ObstacleManager : MonoBehaviour {
-    public Vector2Int Coords { get; set; } = new Vector2Int(-1, -1);
     private readonly int smallCount = 2;
     private readonly int bigCount = 1;
     private List<CellInfo> obstacleCells = new List<CellInfo>();
+    private List<Obstacle> obstacles = new List<Obstacle>();
 
-    public GameObject smallRockModel;
-    public GameObject bigRockModel;
-    public GameObject towerModel;
+    public GameObject obstaclePrefab;
+    public GameObject smallRockPrefab;
+    public GameObject bigRockPrefab;
+    public GameObject towerPrefab;
 
     private static ObstacleManager instance;
     public static ObstacleManager Instance {
@@ -41,19 +42,22 @@ public class ObstacleManager : MonoBehaviour {
 
             cell.AddObstacle();
             obstacleCells.Add(cell);
-            GameObject smallRock = Object.Instantiate(smallRockModel, Grid.Instance.transform);
-            smallRock.transform.position = Grid.Instance.PositionForCoords(cell.Coords);
+
+            Obstacle smallRock = Instantiate(obstaclePrefab, Grid.Instance.transform).GetComponent<Obstacle>();
+            smallRock.CurrentType = Obstacle.Type.SmallRock;
+            smallRock.SetCoords(cell.Coords);
+            obstacles.Add(smallRock);
         }
 
         // Generate big obstacles
         for (int count = 0; count < bigCount; count++) {
-            CellInfo[] bigObstacleCells = new CellInfo[2];
+            List<CellInfo> bigObstacleCells = new List<CellInfo>(2);
 
             do {
-                bigObstacleCells[0] = Grid.Instance.RetrieveRandomCell();
+                bigObstacleCells.Add(Grid.Instance.RetrieveRandomCell());
 
                 List<CellInfo> adjacentCells = Grid.Instance.AdjacentTo(bigObstacleCells[0].Coords, false);
-                bigObstacleCells[1] = adjacentCells[Random.Range(0, bigObstacleCells.Length)];
+                bigObstacleCells.Add(adjacentCells[Random.Range(0, bigObstacleCells.Count)]);
             } while (!IsValidForObstacles(bigObstacleCells));
 
             foreach (var bigObstacleCell in bigObstacleCells) {
@@ -61,18 +65,20 @@ public class ObstacleManager : MonoBehaviour {
                 obstacleCells.Add(bigObstacleCell);
             }
 
-            GameObject bigRock = Object.Instantiate(bigRockModel, Grid.Instance.transform);
-            bigRock.transform.position = Grid.Instance.PositionForCoords(bigObstacleCells[0].Coords);
+            Obstacle bigRock = Instantiate(obstaclePrefab, Grid.Instance.transform).GetComponent<Obstacle>();
+            bigRock.CurrentType = Obstacle.Type.BigRock;
+            bigRock.SetCoords(CellInfo.ToCoords(bigObstacleCells));
+            obstacles.Add(bigRock);
         }
 
         // Generate tower
-        CellInfo[] towerCells = new CellInfo[4];
+        List<CellInfo> towerCells = new List<CellInfo>(4);
 
         do {
-            towerCells[0] = Grid.Instance.RetrieveRandomCell(1);
-            towerCells[1] = Grid.Instance.CellInfoAt(towerCells[0].Coords + new Vector2Int(1, 0));
-            towerCells[2] = Grid.Instance.CellInfoAt(towerCells[0].Coords + new Vector2Int(0, 1));
-            towerCells[3] = Grid.Instance.CellInfoAt(towerCells[0].Coords + new Vector2Int(1, 1));
+            towerCells.Add(Grid.Instance.RetrieveRandomCell(1));
+            towerCells.Add(Grid.Instance.CellInfoAt(towerCells[0].Coords + new Vector2Int(1, 0)));
+            towerCells.Add(Grid.Instance.CellInfoAt(towerCells[0].Coords + new Vector2Int(0, 1)));
+            towerCells.Add(Grid.Instance.CellInfoAt(towerCells[0].Coords + new Vector2Int(1, 1)));
         } while (!IsValidForObstacles(towerCells));
 
         foreach (var towerCell in towerCells) {
@@ -80,8 +86,10 @@ public class ObstacleManager : MonoBehaviour {
             obstacleCells.Add(towerCell);
         }
 
-        GameObject tower = Object.Instantiate(towerModel, Grid.Instance.transform);
-        tower.transform.position = Grid.Instance.PositionForCoords(towerCells[0].Coords);
+        Obstacle tower = Instantiate(obstaclePrefab, Grid.Instance.transform).GetComponent<Obstacle>();
+        tower.CurrentType = Obstacle.Type.Tower;
+        tower.SetCoords(CellInfo.ToCoords(towerCells));
+        obstacles.Add(tower);
     }
 
     public void Reset() {
@@ -89,6 +97,11 @@ public class ObstacleManager : MonoBehaviour {
             cell.RemoveObstacle();
         }
         obstacleCells.Clear();
+
+        foreach (var obstacle in obstacles) {
+            Destroy(obstacle.gameObject);
+        }
+        obstacles.Clear();
 
         Generate();
     }
