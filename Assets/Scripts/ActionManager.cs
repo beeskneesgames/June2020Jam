@@ -113,17 +113,17 @@ public class ActionManager : MonoBehaviour {
     }
 
     private void Melee() {
-        Player.Instance.playerAnimator.SetTrigger("Fix");
+        Player.Instance.playerAnimator.SetTrigger("FixMelee");
         Grid.Instance.CellInfoAt(Player.Instance.CurrentCoords).MeleeFix();
     }
 
     private void Ranged(Vector2Int coords) {
-        Player.Instance.playerAnimator.SetTrigger("Fix");
+        Player.Instance.playerAnimator.SetTrigger("FixRanged");
         Grid.Instance.CellInfoAt(coords).RangedFix();
     }
 
     private void Bomb(Vector2Int coords) {
-        Player.Instance.playerAnimator.SetTrigger("Fix");
+        Player.Instance.playerAnimator.SetTrigger("FixRanged");
         Grid.Instance.CellInfoAt(coords).AddBomb();
     }
 
