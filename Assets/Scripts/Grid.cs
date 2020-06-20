@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Grid : MonoBehaviour {
     public GameObject cellPrefab;
     public GameObject rowPrefab;
+    public TextMeshProUGUI percentDamagedUI;
     public Vector2Int Size = new Vector2Int(16, 16);
 
     private List<Vector2Int> actionArea = new List<Vector2Int>();
@@ -65,6 +67,10 @@ public class Grid : MonoBehaviour {
         Reset();
     }
 
+    private void Update() {
+        UpdatePercentDamagedUI();
+    }
+
     public void Reset() {
         damageHeadCells.Clear();
         AllCells.Clear();
@@ -88,6 +94,8 @@ public class Grid : MonoBehaviour {
                 AllCells.Add(cell.Info);
             }
         }
+
+        UpdatePercentDamagedUI();
     }
 
     public float PercentDamaged() {
@@ -100,6 +108,12 @@ public class Grid : MonoBehaviour {
         }
 
         return damagedCellCount / (float)AllCells.Count;
+    }
+
+    public void UpdatePercentDamagedUI() {
+        float floatDamaged = Instance.PercentDamaged();
+
+        percentDamagedUI.text = String.Format("Timeline Damage: {0:P0}", floatDamaged);
     }
 
     public void SetActionArea(List<Vector2Int> coordsList) {
