@@ -24,6 +24,7 @@ public class Player : MonoBehaviour {
     }
 
     public Animator playerAnimator;
+    public Animator bandaidAnimator;
 
     public Vector2Int CurrentCoords { get; private set; }
 
@@ -102,6 +103,11 @@ public class Player : MonoBehaviour {
         if (moveCoroutine != null) {
             StopCoroutine(moveCoroutine);
         }
+    }
+
+    public void StartShootAnimation() {
+        playerAnimator.SetTrigger("FixRanged");
+        bandaidAnimator.SetTrigger("StartShoot");
     }
 
     private IEnumerator PerformMoveTo(Vector2Int endCoords, System.Action callback = null) {

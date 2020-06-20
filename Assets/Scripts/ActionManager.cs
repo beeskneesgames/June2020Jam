@@ -118,12 +118,12 @@ public class ActionManager : MonoBehaviour {
     }
 
     private void Ranged(Vector2Int coords) {
-        Player.Instance.playerAnimator.SetTrigger("FixRanged");
+        Player.Instance.StartShootAnimation();
         Grid.Instance.CellInfoAt(coords).RangedFix();
     }
 
     private void Bomb(Vector2Int coords) {
-        Player.Instance.playerAnimator.SetTrigger("FixRanged");
+        Player.Instance.StartShootAnimation();
         Grid.Instance.CellInfoAt(coords).AddBomb();
     }
 
