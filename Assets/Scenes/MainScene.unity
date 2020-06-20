@@ -681,6 +681,7 @@ MonoBehaviour:
   openButton: {fileID: 1798333220}
   closeButton: {fileID: 1650596612}
   instructionsContainer: {fileID: 589587485}
+  instructionsText: {fileID: 557211890}
 --- !u!1001 &69602292
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3366,26 +3367,26 @@ MonoBehaviour:
     <b>You
     win if:</b>
 
-    * You survive 25 turns without losing.
+    * You survive A turns without losing.
 
 
     <b>Your tools:</b>
 
     These
-    are the tools at your disposal. You only have 5 action points every turn, so
+    are the tools at your disposal. You only have B action points every turn, so
     choose wisely!
 
 
-    * Move (1-5 AP): Move to the selected cell (no diagonals).
+    * Move (1-C AP): Move to the selected cell (no diagonals).
     Each cell costs 1 action point.
 
-    * Melee fix (2 AP): Fix all the cells adjacent
+    * Melee fix (D AP): Fix all the cells adjacent
     to you (including diagonals).
 
-    * Ranged fix (1 AP): Fix a single cell of
+    * Ranged fix (E AP): Fix a single cell of
     your choice.
 
-    * Bomb (1 AP): Leave a bomb on the selected cell. If the alternate
+    * Bomb (F AP): Leave a bomb on the selected cell. If the alternate
     timelines hit the bomb, its cell and all its adjacent cells get fixed (including
     diagonals).
 
@@ -3393,10 +3394,8 @@ MonoBehaviour:
     <b>How the alternate timelines work</b>
 
     Every turn, the
-    alternate timeline "heads" move to a new cell and consume it. Every 3 turns,
-    each head splits into two. Watch out for exponential growth!
-
-'
+    alternate timeline "heads" move to a new cell and consume it. Every G turns,
+    each head splits into two. Watch out for exponential growth!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3513,7 +3512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &589587486
 RectTransform:
   m_ObjectHideFlags: 0
