@@ -15,7 +15,7 @@ public class Turn : MonoBehaviour {
         private set {
             int oldTurnCount = turnCount;
             turnCount = value;
-            turnUI.text = $"Turn: {turnCount + 1}";
+            turnUI.text = $"Turn {turnCount + 1}";
 
             if (oldTurnCount < turnCount) {
                 DamageManager.Instance.Spread();

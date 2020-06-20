@@ -53,7 +53,7 @@ public class Player : MonoBehaviour {
 
         set {
             actionPoints = value;
-            actionPointUI.text = $"Action Points: {actionPoints}";
+            actionPointUI.text = $"Action Points: {actionPoints}/{maxPoints}";
 
             GameManager.Instance.StateChanged();
         }
