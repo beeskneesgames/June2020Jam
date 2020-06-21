@@ -18,4 +18,8 @@ public class RangedBandaid : MonoBehaviour {
         );
         animator.SetTrigger("StartFall");
     }
+
+    public void OnFallEnded() {
+        Player.Instance.FallAnimationEnded();
+    }
 }

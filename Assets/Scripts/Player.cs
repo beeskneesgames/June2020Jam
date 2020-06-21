@@ -130,16 +130,23 @@ public class Player : MonoBehaviour {
 
     public void ShootAnimationEnded() {
         rangedBandaid.StartFall(Grid.Instance.PositionForCoords(rangedFixCoords));
+    }
 
+    public void FallAnimationEnded() {
+        Vector3 cellPosition = Grid.Instance.PositionForCoords(rangedFixCoords);
+        GameObject cellBandaid = Instantiate(cellBandaidPrefab);
+        cellBandaid.transform.position = new Vector3(
+            cellPosition.x,
+            0.0f,
+            cellPosition.z
+        );
+        cellBandaid.transform.localEulerAngles = new Vector3(
+            cellBandaid.transform.localEulerAngles.x,
+            UnityEngine.Random.Range(0.0f, 360.0f),
+            cellBandaid.transform.localEulerAngles.z
+        );
 
-        //GameObject cellBandaid = Instantiate(cellBandaidPrefab);
-        //cellBandaid.transform.position = new Vector3(
-        //    cellPosition.x,
-        //    0.0f,
-        //    cellPosition.z
-        //);
-
-        //Grid.Instance.CellInfoAt(coords).RangedFix();
+        Grid.Instance.CellInfoAt(rangedFixCoords).RangedFix();
     }
 
     public void StartSkidAnimation() {
