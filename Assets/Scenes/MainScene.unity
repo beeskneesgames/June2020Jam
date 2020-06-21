@@ -695,7 +695,7 @@ PrefabInstance:
         type: 3}
       propertyPath: winLoseUI
       value: 
-      objectReference: {fileID: 1794618328}
+      objectReference: {fileID: 0}
     - target: {fileID: 3925421017620871706, guid: 767c2120a653e4d83bf19cfa8be6af87,
         type: 3}
       propertyPath: gameUI
@@ -5515,6 +5515,7 @@ GameObject:
   - component: {fileID: 860455366}
   - component: {fileID: 860455365}
   - component: {fileID: 860455364}
+  - component: {fileID: 860455368}
   m_Layer: 5
   m_Name: WinLoseCanvas
   m_TagString: Untagged
@@ -5602,6 +5603,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &860455368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860455363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc4a2661030404c4994fbb5aca7eab34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  losePanel: {fileID: 0}
+  gameView: {fileID: 0}
 --- !u!1 &863078801
 GameObject:
   m_ObjectHideFlags: 0
@@ -9055,7 +9070,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1794618328}
+      - m_Target: {fileID: 0}
         m_MethodName: ResetBoard
         m_Mode: 1
         m_Arguments:
@@ -10659,7 +10674,7 @@ GameObject:
   - component: {fileID: 1794618325}
   - component: {fileID: 1794618327}
   - component: {fileID: 1794618326}
-  - component: {fileID: 1794618328}
+  - component: {fileID: 1794618329}
   m_Layer: 5
   m_Name: WinLosePanel
   m_TagString: Untagged
@@ -10686,7 +10701,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1794618326
@@ -10702,13 +10717,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.8}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10726,20 +10741,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1794618324}
   m_CullTransparentMesh: 0
---- !u!114 &1794618328
-MonoBehaviour:
+--- !u!328 &1794618329
+VideoPlayer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1794618324}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc4a2661030404c4994fbb5aca7eab34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panel: {fileID: 1794618324}
-  winLoseText: {fileID: 863078803}
+  m_VideoClip: {fileID: 32900000, guid: b7d3df33d20ef48448ed61d64804f5d8, type: 3}
+  m_TargetCameraAlpha: 1
+  m_TargetCamera3DLayout: 0
+  m_TargetCamera: {fileID: 791890958}
+  m_TargetTexture: {fileID: 0}
+  m_TimeReference: 0
+  m_TargetMaterialRenderer: {fileID: 0}
+  m_TargetMaterialProperty: _MainTex
+  m_RenderMode: 0
+  m_AspectRatio: 5
+  m_DataSource: 0
+  m_PlaybackSpeed: 1
+  m_AudioOutputMode: 2
+  m_TargetAudioSources:
+  - {fileID: 0}
+  m_DirectAudioVolumes:
+  - 1
+  m_Url: 
+  m_EnabledAudioTracks: 01
+  m_DirectAudioMutes: 00
+  m_ControlledAudioTrackCount: 1
+  m_PlayOnAwake: 1
+  m_SkipOnDrop: 1
+  m_Looping: 1
+  m_WaitForFirstFrame: 1
+  m_FrameReadyEventEnabled: 0
 --- !u!1 &1798333218
 GameObject:
   m_ObjectHideFlags: 0

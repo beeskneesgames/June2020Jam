@@ -2,27 +2,24 @@
 using UnityEngine;
 
 public class WinLoseUI : MonoBehaviour {
-    public GameObject panel;
-    public TextMeshProUGUI winLoseText;
+    public GameObject losePanel;
 
     public void Show(bool win) {
         SetWinLose(win);
-        panel.SetActive(true);
 
         AudioManager.Instance.Stop("Theme");
     }
 
     public void Hide() {
-        panel.SetActive(false);
+        losePanel.SetActive(false);
     }
 
     public void SetWinLose(bool win) {
         if (win) {
             AudioManager.Instance.Play("Win");
-            winLoseText.text = "You win!";
         } else {
             AudioManager.Instance.Play("Lose");
-            winLoseText.text = "You lose :(";
+            losePanel.SetActive(true);
         }
     }
 
