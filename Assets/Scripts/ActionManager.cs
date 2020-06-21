@@ -122,8 +122,7 @@ public class ActionManager : MonoBehaviour {
     }
 
     private void Bomb(Vector2Int coords) {
-        Player.Instance.StartShootAnimation();
-        Grid.Instance.CellInfoAt(coords).AddBomb();
+        Player.Instance.PlaceBomb(coords);
     }
 
     private List<Vector2Int> ActionAreaForMove() {

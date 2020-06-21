@@ -74,10 +74,6 @@ public class Cell : MonoBehaviour {
                     // Lighter gray
                     // TODO show damage thru area highlight
                     CurrentMaterial = MaterialDatabase.Instance.cellInActionArea;
-                } else if (Info.HasBomb) {
-                    // Black
-                    CurrentMaterial = MaterialDatabase.Instance.cellHealthy;
-                    renderer.material.SetColor("_BaseColor", Color.black);
                 } else {
                     // Blue #42676E (0.259, 0.404, 0.431)
                     CurrentMaterial = MaterialDatabase.Instance.cellHealthy;

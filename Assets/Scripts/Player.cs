@@ -34,6 +34,7 @@ public class Player : MonoBehaviour {
     public Animator backpackBandaidAnimator;
     public RangedBandaid rangedBandaid;
     public GameObject cellBandaidPrefab;
+    public GameObject bombPrefab;
 
     public Vector2Int CurrentCoords { get; private set; }
 
@@ -54,6 +55,7 @@ public class Player : MonoBehaviour {
 
     // Fixes
     private Vector2Int rangedFixCoords = new Vector2Int(-1, -1);
+    private List<Bomb> bombs = new List<Bomb>();
 
     // Action Points
     public TextMeshProUGUI actionPointUI;
@@ -115,6 +117,13 @@ public class Player : MonoBehaviour {
         CurrentDirection = Direction.South;
         transform.localEulerAngles = new Vector3(0.0f, 90.0f, 0.0f);
 
+        rangedFixCoords = new Vector2Int(-1, -1);
+
+        foreach (var bomb in bombs) {
+            Destroy(bomb.gameObject);
+        }
+        bombs.Clear();
+
         if (moveCoroutine != null) {
             StopCoroutine(moveCoroutine);
         }
@@ -160,6 +169,31 @@ public class Player : MonoBehaviour {
         Grid.Instance.CellInfoAt(rangedFixCoords).RangedFix();
         rangedFixCoords = new Vector2Int(-1, -1);
         IsPerformingAction = false;
+    }
+
+    public void PlaceBomb(Vector2Int coords) {
+        Grid.Instance.CellInfoAt(coords).AddBomb();
+
+        Bomb bomb = Instantiate(bombPrefab).GetComponent<Bomb>(); // bi dom bi dum bum bay
+        bomb.coords = coords;
+        bomb.transform.position = Grid.Instance.PositionForCoords(coords);
+        bombs.Add(bomb);
+    }
+
+    public void ExplodeBombAt(CellInfo cell) {
+        Bomb bombToExplode = null;
+
+        foreach (var bomb in bombs) {
+            if (bomb.coords == cell.Coords) {
+                bombToExplode = bomb;
+                break;
+            }
+        }
+
+        if (bombToExplode) {
+            bombs.Remove(bombToExplode);
+            bombToExplode.Explode();
+        }
     }
 
     public void StartSkidAnimation() {

@@ -71,8 +71,11 @@ public class DamageManager : MonoBehaviour {
             damageHead.Move();
         }
 
+        Grid.Instance.SetDamageHeads(damageHeads);
+
         ExplodeBombs();
 
+        // Set damage heads a second time, in case exploding the bomb removed any.
         Grid.Instance.SetDamageHeads(damageHeads);
     }
 
@@ -121,6 +124,8 @@ public class DamageManager : MonoBehaviour {
                 }
 
                 damageHeads = newDamageHeads;
+
+                Player.Instance.ExplodeBombAt(cell);
             }
         }
     }
