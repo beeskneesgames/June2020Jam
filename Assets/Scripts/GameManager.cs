@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     private const float LossPercent = 0.5f;
+
     public WinLoseUI winLoseUI;
     public GameObject gameUI;
     public GameObject actionUI;

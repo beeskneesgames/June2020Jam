@@ -15,6 +15,7 @@ public class Player : MonoBehaviour {
 
     public static bool diagonalFixAllowed = false;
     public static bool diagonalMoveAllowed = false;
+    private const float StartY = -1.49f;
 
     private static Player instance;
     public static Player Instance {
@@ -47,6 +48,7 @@ public class Player : MonoBehaviour {
     public TextMeshProUGUI actionPointUI;
     public int maxPoints = 5;
     private int actionPoints;
+
     public int ActionPoints {
         get {
             return actionPoints;
@@ -121,8 +123,10 @@ public class Player : MonoBehaviour {
     }
 
     public void EnterGame() {
-        transform.parent = transform.root;
+        transform.parent = null;
+        transform.position = new Vector3(0.0f, StartY, 0.0f);
         Reset();
+        GameManager.Instance.StateChanged();
     }
 
     private IEnumerator PerformMoveTo(Vector2Int endCoords, System.Action callback = null) {

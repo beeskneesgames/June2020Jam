@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MainIntroController : MonoBehaviour {
+    private Animator animator;
+
+    private void Start() {
+        animator = GetComponent<Animator>();
+    }
+
     public void OnVehicleStopped() {
         Player.Instance.StartMoveAnimation();
     }
@@ -12,6 +18,9 @@ public class MainIntroController : MonoBehaviour {
     }
 
     public void OnIntroFinished() {
+        animator.StopPlayback();
+        animator.enabled = false;
+
         GameManager.Instance.EnableGame();
     }
 }
