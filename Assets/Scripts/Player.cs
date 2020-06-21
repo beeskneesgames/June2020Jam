@@ -46,6 +46,9 @@ public class Player : MonoBehaviour {
     // Spinnin, spinnin, spinnin while my hands up
     public Direction CurrentDirection { get; private set; }
 
+    // Fixes
+    private Vector2Int rangedFixCoords = new Vector2Int(-1, -1);
+
     // Action Points
     public TextMeshProUGUI actionPointUI;
     public int maxPoints = 5;
@@ -122,22 +125,19 @@ public class Player : MonoBehaviour {
 
     public void RangedFix(Vector2Int coords) {
         StartShootAnimation();
+        rangedFixCoords = coords;
+    }
 
-        Vector3 cellPosition = Grid.Instance.PositionForCoords(coords);
-        rangedBandaid.transform.position = new Vector3(
-            cellPosition.x,
-            rangedBandaid.transform.position.y,
-            cellPosition.z
-        );
+    public void ShootAnimationEnded() {
+        rangedBandaid.StartFall(Grid.Instance.PositionForCoords(rangedFixCoords));
 
-        rangedBandaid.GetComponent<Animator>().SetTrigger("StartFall");
 
-        GameObject cellBandaid = Instantiate(cellBandaidPrefab);
-        cellBandaid.transform.position = new Vector3(
-            cellPosition.x,
-            0.0f,
-            cellPosition.z
-        );
+        //GameObject cellBandaid = Instantiate(cellBandaidPrefab);
+        //cellBandaid.transform.position = new Vector3(
+        //    cellPosition.x,
+        //    0.0f,
+        //    cellPosition.z
+        //);
 
         //Grid.Instance.CellInfoAt(coords).RangedFix();
     }
