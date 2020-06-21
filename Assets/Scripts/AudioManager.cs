@@ -5,6 +5,8 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour {
     private static AudioManager instance;
 
+    public bool IntroPlaying { get; private set; }
+
     public static AudioManager Instance {
         get {
             return instance;
@@ -33,9 +35,31 @@ public class AudioManager : MonoBehaviour {
         }
     }
 
-    private void Play(string soundName) {
+    //private void Start() {
+    //    Play("Intro");
+    //}
+
+    public void Mute(string soundName) {
         Sound sound = Array.Find(sounds, item => item.name == soundName);
         CheckForSound(sound, soundName);
+
+        sound.source.volume = 0.0f;
+    }
+
+    public void Unmute(string soundName) {
+        Sound sound = Array.Find(sounds, item => item.name == soundName);
+        CheckForSound(sound, soundName);
+
+        sound.source.volume = 1.0f;
+    }
+
+    public void Play(string soundName) {
+        Sound sound = Array.Find(sounds, item => item.name == soundName);
+        CheckForSound(sound, soundName);
+
+        if (soundName == "Intro") {
+            IntroPlaying = true;
+        }
 
         sound.source.volume = sound.volume * (1.0f + UnityEngine.Random.Range(-sound.volumeVariance * 0.5f, sound.volumeVariance * 0.5f));
         sound.source.pitch = sound.pitch * (1.0f + UnityEngine.Random.Range(-sound.pitchVariance * 0.5f, sound.pitchVariance * 0.5f));
@@ -43,9 +67,13 @@ public class AudioManager : MonoBehaviour {
         sound.source.Play();
     }
 
-    private void Stop(string soundName) {
+    public void Stop(string soundName) {
         Sound sound = Array.Find(sounds, item => item.name == soundName);
         CheckForSound(sound, soundName);
+
+        if (soundName == "Intro") {
+            IntroPlaying = false;
+        }
 
         sound.source.Stop();
     }
