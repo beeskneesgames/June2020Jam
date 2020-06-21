@@ -177,10 +177,23 @@ public class Player : MonoBehaviour {
         Bomb bomb = Instantiate(bombPrefab).GetComponent<Bomb>(); // bi dom bi dum bum bay
         bomb.coords = coords;
         bomb.transform.position = Grid.Instance.PositionForCoords(coords);
+        bombs.Add(bomb);
     }
 
-    public void RemoveBombAt(CellInfo cell) {
-        throw new NotImplementedException();
+    public void ExplodeBombAt(CellInfo cell) {
+        Bomb bombToExplode = null;
+
+        foreach (var bomb in bombs) {
+            if (bomb.coords == cell.Coords) {
+                bombToExplode = bomb;
+                break;
+            }
+        }
+
+        if (bombToExplode) {
+            bombs.Remove(bombToExplode);
+            bombToExplode.Explode();
+        }
     }
 
     public void StartSkidAnimation() {
