@@ -33,6 +33,10 @@ public class GameManager : MonoBehaviour {
         AudioManager.Instance.Play("Theme");
     }
 
+    private void OnDestroy() {
+        AudioManager.Instance.Stop("Theme");
+    }
+
     public void EnableGame() {
         gameUI.SetActive(true);
         actionUI.SetActive(true);
