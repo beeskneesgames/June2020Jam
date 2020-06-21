@@ -14,6 +14,10 @@ public class SceneLoader {
         SceneManager.LoadScene("CreditsScene");
     }
 
+    public static void StartWinScene() {
+        SceneManager.LoadScene("WinScene");
+    }
+
     public static void StartLoseScene() {
         SceneManager.LoadScene("LoseScene");
     }
