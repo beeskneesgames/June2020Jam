@@ -121,7 +121,7 @@ public class ObstacleManager : MonoBehaviour {
 
     private static bool IsValidForObstacles(IEnumerable<CellInfo> cells) {
         foreach (var cell in cells) {
-            if (cell.HasObstacle || cell.HasDamageHead || cell == Player.Instance.CurrentCell) {
+            if (cell.HasObstacle || cell.HasDamageHead || cell.Coords == Player.StartCoords) {
                 return false;
             }
         }
