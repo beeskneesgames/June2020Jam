@@ -10,4 +10,8 @@ public class MainIntroController : MonoBehaviour {
     public void OnPlayerWillStop() {
         Player.Instance.StartSkidAnimation();
     }
+
+    public void OnIntroFinished() {
+        GameManager.Instance.EnableGame();
+    }
 }

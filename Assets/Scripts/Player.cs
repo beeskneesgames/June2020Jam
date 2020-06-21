@@ -70,7 +70,9 @@ public class Player : MonoBehaviour {
     }
 
     private void Start() {
-        Reset();
+        // We don't fully call Reset() here because the player starts out in an
+        // animation.
+        ResetAP();
     }
 
     public void MoveTo(Vector2Int endCoords, System.Action callback = null) {
@@ -95,10 +97,10 @@ public class Player : MonoBehaviour {
 
     public void Reset() {
         ResetAP();
-        //ResetCoords();
+        ResetCoords();
 
-        //CurrentDirection = Direction.South;
-        //transform.localEulerAngles = new Vector3(0, 90.0f, 0);
+        CurrentDirection = Direction.South;
+        transform.localEulerAngles = new Vector3(0, 90.0f, 0);
 
         if (moveCoroutine != null) {
             StopCoroutine(moveCoroutine);
@@ -116,6 +118,11 @@ public class Player : MonoBehaviour {
 
     public void StartSkidAnimation() {
         playerAnimator.SetTrigger("StartSkid");
+    }
+
+    public void EnterGame() {
+        transform.parent = transform.root;
+        Reset();
     }
 
     private IEnumerator PerformMoveTo(Vector2Int endCoords, System.Action callback = null) {
@@ -207,7 +214,7 @@ public class Player : MonoBehaviour {
             // 1. The player is traveling more than 1 cell.
             // 2. The player is more than 10% of the way between the
             //    second-to-last and the last cell in their path.
-            // 2. The skid has not already been started.
+            // 3. The skid has not already been started.
             if (shouldSkid && !isSkidding && isLastCoords && percentComplete > 0.1f) {
                 StartSkidAnimation();
                 isSkidding = true;

@@ -582,7 +582,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &68543401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -698,6 +698,21 @@ PrefabInstance:
       propertyPath: winLoseUI
       value: 
       objectReference: {fileID: 1794618328}
+    - target: {fileID: 3925421017620871706, guid: 767c2120a653e4d83bf19cfa8be6af87,
+        type: 3}
+      propertyPath: gameUI
+      value: 
+      objectReference: {fileID: 68543400}
+    - target: {fileID: 3925421017620871706, guid: 767c2120a653e4d83bf19cfa8be6af87,
+        type: 3}
+      propertyPath: actionUI
+      value: 
+      objectReference: {fileID: 1031893457}
+    - target: {fileID: 3925421017620871706, guid: 767c2120a653e4d83bf19cfa8be6af87,
+        type: 3}
+      propertyPath: debugUI
+      value: 
+      objectReference: {fileID: 1337834422}
     - target: {fileID: 3925421017620871707, guid: 767c2120a653e4d83bf19cfa8be6af87,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6252,7 +6267,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1031893458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7921,7 +7936,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1337834423
 MonoBehaviour:
   m_ObjectHideFlags: 0
