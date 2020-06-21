@@ -121,6 +121,8 @@ public class DamageManager : MonoBehaviour {
                 }
 
                 damageHeads = newDamageHeads;
+
+                Player.Instance.RemoveBombAt(cell);
             }
         }
     }
