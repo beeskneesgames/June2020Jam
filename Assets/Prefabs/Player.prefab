@@ -112,6 +112,8 @@ MonoBehaviour:
   playerAnimator: {fileID: 2100158998019484695}
   backpackBandaidAnimator: {fileID: 5758071429925389044}
   rangedBandaid: {fileID: 0}
+  cellBandaidPrefab: {fileID: 1234301374161041188, guid: 0bce7b02eea9340959e2ba822e983c4d,
+    type: 3}
   actionPointUI: {fileID: 0}
   maxPoints: 5
 --- !u!1001 &4282768347282882056

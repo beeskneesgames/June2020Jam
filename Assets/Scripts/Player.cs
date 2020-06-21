@@ -27,6 +27,7 @@ public class Player : MonoBehaviour {
     public Animator playerAnimator;
     public Animator backpackBandaidAnimator;
     public RangedBandaid rangedBandaid;
+    public GameObject cellBandaidPrefab;
 
     public Vector2Int CurrentCoords { get; private set; }
 
@@ -103,7 +104,7 @@ public class Player : MonoBehaviour {
         ResetCoords();
 
         CurrentDirection = Direction.South;
-        transform.localEulerAngles = new Vector3(0, 90.0f, 0);
+        transform.localEulerAngles = new Vector3(0.0f, 90.0f, 0.0f);
 
         if (moveCoroutine != null) {
             StopCoroutine(moveCoroutine);
@@ -121,7 +122,23 @@ public class Player : MonoBehaviour {
 
     public void RangedFix(Vector2Int coords) {
         StartShootAnimation();
+
+        Vector3 cellPosition = Grid.Instance.PositionForCoords(coords);
+        rangedBandaid.transform.position = new Vector3(
+            cellPosition.x,
+            rangedBandaid.transform.position.y,
+            cellPosition.z
+        );
+
         rangedBandaid.GetComponent<Animator>().SetTrigger("StartFall");
+
+        GameObject cellBandaid = Instantiate(cellBandaidPrefab);
+        cellBandaid.transform.position = new Vector3(
+            cellPosition.x,
+            0.0f,
+            cellPosition.z
+        );
+
         //Grid.Instance.CellInfoAt(coords).RangedFix();
     }
 
