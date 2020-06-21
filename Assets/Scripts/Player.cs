@@ -25,7 +25,9 @@ public class Player : MonoBehaviour {
     }
 
     public Animator playerAnimator;
-    public Animator bandaidAnimator;
+    public Animator backpackBandaidAnimator;
+    public RangedBandaid rangedBandaid;
+    public GameObject cellBandaidPrefab;
 
     public Vector2Int CurrentCoords { get; private set; }
 
@@ -36,13 +38,16 @@ public class Player : MonoBehaviour {
     }
 
     // Movement
-    public bool IsMoving { get; private set; } = false;
+    public bool IsPerformingAction { get; private set; } = false;
     public List<Vector2Int> MovementPath { get; private set; }
     private const float MaxTimeMoving = 0.25f;
     private Coroutine moveCoroutine;
 
     // Spinnin, spinnin, spinnin while my hands up
     public Direction CurrentDirection { get; private set; }
+
+    // Fixes
+    private Vector2Int rangedFixCoords = new Vector2Int(-1, -1);
 
     // Action Points
     public TextMeshProUGUI actionPointUI;
@@ -78,12 +83,12 @@ public class Player : MonoBehaviour {
     }
 
     public void MoveTo(Vector2Int endCoords, System.Action callback = null) {
-        if (IsMoving) {
+        if (IsPerformingAction) {
             // Don't allow double-moving
             return;
         }
 
-        IsMoving = true;
+        IsPerformingAction = true;
         moveCoroutine = StartCoroutine(PerformMoveTo(endCoords, callback));
     }
 
@@ -102,7 +107,7 @@ public class Player : MonoBehaviour {
         ResetCoords();
 
         CurrentDirection = Direction.South;
-        transform.localEulerAngles = new Vector3(0, 90.0f, 0);
+        transform.localEulerAngles = new Vector3(0.0f, 90.0f, 0.0f);
 
         if (moveCoroutine != null) {
             StopCoroutine(moveCoroutine);
@@ -111,11 +116,44 @@ public class Player : MonoBehaviour {
 
     public void StartShootAnimation() {
         playerAnimator.SetTrigger("FixRanged");
-        bandaidAnimator.SetTrigger("StartShoot");
+        backpackBandaidAnimator.SetTrigger("StartShoot");
     }
 
     public void StartMoveAnimation() {
         playerAnimator.SetTrigger("StartMove");
+    }
+
+    public void RangedFix(Vector2Int coords) {
+        IsPerformingAction = true;
+        rangedFixCoords = coords;
+        StartShootAnimation();
+    }
+
+    public void ShootAnimationEnded() {
+        rangedBandaid.StartFall(Grid.Instance.PositionForCoords(rangedFixCoords));
+    }
+
+    public void FallAnimationEnded() {
+        Vector3 cellPosition = Grid.Instance.PositionForCoords(rangedFixCoords);
+
+        GameObject cellBandaid = Instantiate(cellBandaidPrefab);
+        cellBandaid.transform.position = new Vector3(
+            cellPosition.x,
+            0.0f,
+            cellPosition.z
+        );
+        cellBandaid.transform.localEulerAngles = new Vector3(
+            cellBandaid.transform.localEulerAngles.x,
+            UnityEngine.Random.Range(0.0f, 360.0f),
+            cellBandaid.transform.localEulerAngles.z
+        );
+        cellBandaid.GetComponent<CellBandaid>().StartShrink();
+    }
+
+    public void FinishRangedFix() {
+        Grid.Instance.CellInfoAt(rangedFixCoords).RangedFix();
+        rangedFixCoords = new Vector2Int(-1, -1);
+        IsPerformingAction = false;
     }
 
     public void StartSkidAnimation() {
@@ -161,7 +199,9 @@ public class Player : MonoBehaviour {
             playerAnimator.SetTrigger("StopMove");
         }
 
-        IsMoving = false;
+        IsPerformingAction = false;
+        MovementPath = null;
+        Grid.Instance.ClearPath();
         callback?.Invoke();
     }
 

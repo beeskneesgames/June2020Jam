@@ -45,7 +45,6 @@ public class DamageManager : MonoBehaviour {
     }
 
     public void Spread() {
-        Debug.Log("Spread");
         if ((Turn.Instance.TurnCount % spreadRate) == 0) {
             // Divide current heads
             if (damageHeads.Count > 0) {

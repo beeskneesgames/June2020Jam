@@ -300,10 +300,12 @@ public class Grid : MonoBehaviour {
     private void UpdateDisplayedPath() {
         ClearPath();
 
-        if (Player.Instance.IsMoving) {
-            ShowPath(Player.Instance.MovementPath);
-        } else if (ActionManager.Instance.CurrentAction == ActionManager.Action.Move && HasHoveredCoords) {
-            ShowPath(PathBetween(Player.Instance.CurrentCell.Coords, hoveredCoords, Player.diagonalMoveAllowed));
+        if (ActionManager.Instance.CurrentAction == ActionManager.Action.Move) {
+            if (Player.Instance.IsPerformingAction) {
+                ShowPath(Player.Instance.MovementPath);
+            } else if (HasHoveredCoords) {
+                ShowPath(PathBetween(Player.Instance.CurrentCell.Coords, hoveredCoords, Player.diagonalMoveAllowed));
+            }
         }
     }
 
