@@ -28,6 +28,11 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start() {
+        AudioManager.Instance.Stop("Intro");
+        AudioManager.Instance.Play("Theme");
+    }
+
     public void EnableGame() {
         gameUI.SetActive(true);
         actionUI.SetActive(true);

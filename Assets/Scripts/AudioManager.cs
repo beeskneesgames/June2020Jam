@@ -33,7 +33,25 @@ public class AudioManager : MonoBehaviour {
         }
     }
 
-    private void Play(string soundName) {
+    private void Start() {
+        Play("Intro");
+    }
+
+    public void Mute(string soundName) {
+        Sound sound = Array.Find(sounds, item => item.name == soundName);
+        CheckForSound(sound, soundName);
+
+        sound.source.volume = 0.0f;
+    }
+
+    public void Unmute(string soundName) {
+        Sound sound = Array.Find(sounds, item => item.name == soundName);
+        CheckForSound(sound, soundName);
+
+        sound.source.volume = 1.0f;
+    }
+
+    public void Play(string soundName) {
         Sound sound = Array.Find(sounds, item => item.name == soundName);
         CheckForSound(sound, soundName);
 
@@ -43,7 +61,7 @@ public class AudioManager : MonoBehaviour {
         sound.source.Play();
     }
 
-    private void Stop(string soundName) {
+    public void Stop(string soundName) {
         Sound sound = Array.Find(sounds, item => item.name == soundName);
         CheckForSound(sound, soundName);
 

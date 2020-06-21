@@ -47,36 +47,36 @@ MonoBehaviour:
   sounds:
   - name: Theme
     clip: {fileID: 8300000, guid: e844a5c64678e45c6badc1a3f561df52, type: 3}
-    volume: 1
+    volume: 0.75
     volumeVariance: 0
-    pitch: 0
+    pitch: 1
     pitchVariance: 0
     loop: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: Intro
     clip: {fileID: 8300000, guid: e99c1979ca08d42f6a2a03c41f6e20b0, type: 3}
-    volume: 1
+    volume: 0.75
     volumeVariance: 0
-    pitch: 0
+    pitch: 1
     pitchVariance: 0
     loop: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: Win
     clip: {fileID: 8300000, guid: 30fabc2bc2f234a708bf12a6a1ece834, type: 3}
-    volume: 1
+    volume: 0.75
     volumeVariance: 0
-    pitch: 0
+    pitch: 1
     pitchVariance: 0
     loop: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: Lose
     clip: {fileID: 8300000, guid: 4db1e42405e10414796697dc3ae1ce27, type: 3}
-    volume: 1
+    volume: 0.75
     volumeVariance: 0
-    pitch: 0
+    pitch: 1
     pitchVariance: 0
     loop: 1
     mixerGroup: {fileID: 0}
