@@ -25,7 +25,8 @@ public class Player : MonoBehaviour {
     }
 
     public Animator playerAnimator;
-    public Animator bandaidAnimator;
+    public Animator backpackBandaidAnimator;
+    public RangedBandaid rangedBandaid;
 
     public Vector2Int CurrentCoords { get; private set; }
 
@@ -111,11 +112,17 @@ public class Player : MonoBehaviour {
 
     public void StartShootAnimation() {
         playerAnimator.SetTrigger("FixRanged");
-        bandaidAnimator.SetTrigger("StartShoot");
+        backpackBandaidAnimator.SetTrigger("StartShoot");
     }
 
     public void StartMoveAnimation() {
         playerAnimator.SetTrigger("StartMove");
+    }
+
+    public void RangedFix(Vector2Int coords) {
+        StartShootAnimation();
+        rangedBandaid.GetComponent<Animator>().SetTrigger("StartFall");
+        //Grid.Instance.CellInfoAt(coords).RangedFix();
     }
 
     public void StartSkidAnimation() {

@@ -118,8 +118,7 @@ public class ActionManager : MonoBehaviour {
     }
 
     private void Ranged(Vector2Int coords) {
-        Player.Instance.StartShootAnimation();
-        Grid.Instance.CellInfoAt(coords).RangedFix();
+        Player.Instance.RangedFix(coords);
     }
 
     private void Bomb(Vector2Int coords) {

@@ -110,7 +110,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAnimator: {fileID: 2100158998019484695}
-  bandaidAnimator: {fileID: 5758071429925389044}
+  backpackBandaidAnimator: {fileID: 5758071429925389044}
+  rangedBandaid: {fileID: 0}
   actionPointUI: {fileID: 0}
   maxPoints: 5
 --- !u!1001 &4282768347282882056
