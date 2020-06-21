@@ -200,6 +200,8 @@ public class Player : MonoBehaviour {
         }
 
         IsPerformingAction = false;
+        MovementPath = null;
+        Grid.Instance.ClearPath();
         callback?.Invoke();
     }
 
