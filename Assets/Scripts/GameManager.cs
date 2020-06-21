@@ -105,6 +105,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void TriggerWin() {
+        SceneLoader.StartWinScene();
     }
 
     private void TriggerLoss() {
