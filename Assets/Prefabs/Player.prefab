@@ -126,6 +126,8 @@ MonoBehaviour:
   rangedBandaid: {fileID: 0}
   cellBandaidPrefab: {fileID: 1234301374161041188, guid: 0bce7b02eea9340959e2ba822e983c4d,
     type: 3}
+  bombPrefab: {fileID: 4955207488861911235, guid: b10cfcf7132fe4b10a63a5628c4e68e6,
+    type: 3}
   actionPointUI: {fileID: 0}
   maxPoints: 5
 --- !u!1001 &4282768347282882056
