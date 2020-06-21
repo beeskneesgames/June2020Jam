@@ -15,6 +15,12 @@ public class Player : MonoBehaviour {
 
     public static bool diagonalFixAllowed = false;
     public static bool diagonalMoveAllowed = false;
+    public static Vector2Int StartCoords {
+        get {
+            return Grid.Instance.Size - new Vector2Int(1, 1);
+        }
+    }
+
     private const float StartY = -1.49f;
 
     private static Player instance;
@@ -271,7 +277,7 @@ public class Player : MonoBehaviour {
     }
 
     private void ResetCoords() {
-        MoveToImmediate(new Vector2Int(Grid.Instance.Size.x - 1, Grid.Instance.Size.y - 1));
+        MoveToImmediate(StartCoords);
     }
 
     private Vector3 NormalizedPosition(Vector3 position) {
