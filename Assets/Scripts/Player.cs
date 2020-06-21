@@ -38,7 +38,7 @@ public class Player : MonoBehaviour {
     }
 
     // Movement
-    public bool IsMoving { get; private set; } = false;
+    public bool IsPerformingAction { get; private set; } = false;
     public List<Vector2Int> MovementPath { get; private set; }
     private const float MaxTimeMoving = 0.25f;
     private Coroutine moveCoroutine;
@@ -83,12 +83,12 @@ public class Player : MonoBehaviour {
     }
 
     public void MoveTo(Vector2Int endCoords, System.Action callback = null) {
-        if (IsMoving) {
+        if (IsPerformingAction) {
             // Don't allow double-moving
             return;
         }
 
-        IsMoving = true;
+        IsPerformingAction = true;
         moveCoroutine = StartCoroutine(PerformMoveTo(endCoords, callback));
     }
 
@@ -124,8 +124,9 @@ public class Player : MonoBehaviour {
     }
 
     public void RangedFix(Vector2Int coords) {
-        StartShootAnimation();
+        IsPerformingAction = true;
         rangedFixCoords = coords;
+        StartShootAnimation();
     }
 
     public void ShootAnimationEnded() {
@@ -134,6 +135,7 @@ public class Player : MonoBehaviour {
 
     public void FallAnimationEnded() {
         Vector3 cellPosition = Grid.Instance.PositionForCoords(rangedFixCoords);
+
         GameObject cellBandaid = Instantiate(cellBandaidPrefab);
         cellBandaid.transform.position = new Vector3(
             cellPosition.x,
@@ -145,8 +147,13 @@ public class Player : MonoBehaviour {
             UnityEngine.Random.Range(0.0f, 360.0f),
             cellBandaid.transform.localEulerAngles.z
         );
+        cellBandaid.GetComponent<CellBandaid>().StartShrink();
+    }
 
+    public void FinishRangedFix() {
         Grid.Instance.CellInfoAt(rangedFixCoords).RangedFix();
+        rangedFixCoords = new Vector2Int(-1, -1);
+        IsPerformingAction = false;
     }
 
     public void StartSkidAnimation() {
@@ -192,7 +199,7 @@ public class Player : MonoBehaviour {
             playerAnimator.SetTrigger("StopMove");
         }
 
-        IsMoving = false;
+        IsPerformingAction = false;
         callback?.Invoke();
     }
 

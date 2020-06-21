@@ -300,7 +300,7 @@ public class Grid : MonoBehaviour {
     private void UpdateDisplayedPath() {
         ClearPath();
 
-        if (Player.Instance.IsMoving) {
+        if (Player.Instance.IsPerformingAction) {
             ShowPath(Player.Instance.MovementPath);
         } else if (ActionManager.Instance.CurrentAction == ActionManager.Action.Move && HasHoveredCoords) {
             ShowPath(PathBetween(Player.Instance.CurrentCell.Coords, hoveredCoords, Player.diagonalMoveAllowed));

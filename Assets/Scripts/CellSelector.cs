@@ -59,7 +59,7 @@ public class CellSelector : MonoBehaviour {
 
     private bool CanPerformAction {
         get {
-            return !Player.Instance.IsMoving &&
+            return !Player.Instance.IsPerformingAction &&
                     ActionManager.Instance.CurrentAction != ActionManager.Action.None &&
                     hitCellWithinActionCoords;
         }
