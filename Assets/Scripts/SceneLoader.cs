@@ -14,6 +14,10 @@ public class SceneLoader {
         SceneManager.LoadScene("CreditsScene");
     }
 
+    public static void StartLoseScene() {
+        SceneManager.LoadScene("LoseScene");
+    }
+
     public static void ExitGame() {
         Application.Quit();
     }
