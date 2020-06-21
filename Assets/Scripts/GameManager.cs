@@ -1,8 +1,14 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     private const float LossPercent = 0.5f;
+
     public WinLoseUI winLoseUI;
+    public GameObject gameUI;
+    public GameObject actionUI;
+    public GameObject debugUI;
+
     private bool stateChanged = false;
 
     private static GameManager instance;
@@ -20,6 +26,14 @@ public class GameManager : MonoBehaviour {
 
         instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    public void EnableGame() {
+        gameUI.SetActive(true);
+        actionUI.SetActive(true);
+        debugUI.SetActive(Debug.isDebugBuild);
+
+        Player.Instance.EnterGame();
     }
 
     private void LateUpdate() {

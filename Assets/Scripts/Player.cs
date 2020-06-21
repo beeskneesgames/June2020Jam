@@ -15,6 +15,7 @@ public class Player : MonoBehaviour {
 
     public static bool diagonalFixAllowed = false;
     public static bool diagonalMoveAllowed = false;
+    private const float StartY = -1.49f;
 
     private static Player instance;
     public static Player Instance {
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour {
     }
 
     public Animator playerAnimator;
+    public Animator bandaidAnimator;
 
     public Vector2Int CurrentCoords { get; private set; }
 
@@ -46,6 +48,7 @@ public class Player : MonoBehaviour {
     public TextMeshProUGUI actionPointUI;
     public int maxPoints = 5;
     private int actionPoints;
+
     public int ActionPoints {
         get {
             return actionPoints;
@@ -69,7 +72,9 @@ public class Player : MonoBehaviour {
     }
 
     private void Start() {
-        Reset();
+        // We don't fully call Reset() here because the player starts out in an
+        // animation.
+        ResetAP();
     }
 
     public void MoveTo(Vector2Int endCoords, System.Action callback = null) {
@@ -104,8 +109,28 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private IEnumerator PerformMoveTo(Vector2Int endCoords, System.Action callback = null) {
+    public void StartShootAnimation() {
+        playerAnimator.SetTrigger("FixRanged");
+        bandaidAnimator.SetTrigger("StartShoot");
+    }
+
+    public void StartMoveAnimation() {
         playerAnimator.SetTrigger("StartMove");
+    }
+
+    public void StartSkidAnimation() {
+        playerAnimator.SetTrigger("StartSkid");
+    }
+
+    public void EnterGame() {
+        transform.parent = null;
+        transform.position = new Vector3(0.0f, StartY, 0.0f);
+        Reset();
+        GameManager.Instance.StateChanged();
+    }
+
+    private IEnumerator PerformMoveTo(Vector2Int endCoords, System.Action callback = null) {
+        StartMoveAnimation();
 
         MovementPath = Grid.PathBetween(CurrentCoords, endCoords, diagonalMoveAllowed);
 
@@ -193,9 +218,9 @@ public class Player : MonoBehaviour {
             // 1. The player is traveling more than 1 cell.
             // 2. The player is more than 10% of the way between the
             //    second-to-last and the last cell in their path.
-            // 2. The skid has not already been started.
+            // 3. The skid has not already been started.
             if (shouldSkid && !isSkidding && isLastCoords && percentComplete > 0.1f) {
-                playerAnimator.SetTrigger("StartSkid");
+                StartSkidAnimation();
                 isSkidding = true;
             }
 
