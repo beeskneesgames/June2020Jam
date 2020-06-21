@@ -2,7 +2,7 @@
 using UnityEngine;
 
 public class ActionManager : MonoBehaviour {
-    public const int RangedFixRange = 5;
+    public const int RangedFixRange = 3;
 
     private static ActionManager instance;
     public ActionMenu actionMenu;

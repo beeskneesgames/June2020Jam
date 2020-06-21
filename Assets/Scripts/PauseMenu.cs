@@ -43,6 +43,7 @@ public class PauseMenu : MonoBehaviour {
     }
 
     public void OnResetClicked() {
+        Time.timeScale = oldTimeScale;
         GameManager.Instance.Reset();
         menuContainer.SetActive(false);
     }
