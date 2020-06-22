@@ -2856,39 +2856,47 @@ MonoBehaviour:
 
     <b>You lose if:</b>
 
-    * 50% of the grid falls into the alternate timelines.
+    * 50% of the grid falls into
+    the alternate timelines.
 
     * You step into the alternate timelines.
 
 
-    <b>You win if:</b>
+    <b>You
+    win if:</b>
 
     * You survive A turns without losing.
 
-    * You fix all the cells with timeline damage.
+    * You fix all the
+    cells with timeline damage.
 
 
     <b>Your tools:</b>
 
-    These are the tools at your disposal. You only have B action points every turn,
-    so choose wisely!
+    These are the tools
+    at your disposal. You only have B action points every turn, so choose wisely!
 
 
-    * Move (1-C AP): Move to the selected cell (no diagonals). Each cell costs 1 action
+    *
+    Move (1-C AP): Move to the selected cell (no diagonals). Each cell costs 1 action
     point.
 
-    * Melee fix (D AP): Fix all the cells adjacent to you (including diagonals).
+    * Melee fix (D AP): Fix all the cells adjacent to you (including
+    diagonals).
 
     * Ranged fix (E AP): Fix a single cell of your choice.
 
-    * Bomb (F AP): Leave a bomb on the selected cell. If the alternate timelines hit
+    *
+    Bomb (F AP): Leave a bomb on the selected cell. If the alternate timelines hit
     the bomb, its cell and all its adjacent cells get fixed (including diagonals).
 
 
-    <b>How the alternate timelines work</b>
+    <b>How
+    the alternate timelines work</b>
 
-    Every turn, the alternate timeline "heads" move to a new cell and consume it.
-    Every G turns, each head splits into two. Watch out for exponential growth!
+    Every turn, the alternate timeline "heads"
+    move to a new cell and consume it. Every G turns, each head splits into two.
+    Watch out for exponential growth!
 
 
     <b>Hit Escape to quit.</b>'
@@ -10640,7 +10648,7 @@ PrefabInstance:
     - target: {fileID: 6080193068588553201, guid: 9bd6a6860191141d9b0f5d401ba75332,
         type: 3}
       propertyPath: sounds.Array.size
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6080193068588553201, guid: 9bd6a6860191141d9b0f5d401ba75332,
         type: 3}
@@ -10665,6 +10673,26 @@ PrefabInstance:
     - target: {fileID: 6080193068588553201, guid: 9bd6a6860191141d9b0f5d401ba75332,
         type: 3}
       propertyPath: sounds.Array.data[9].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6080193068588553201, guid: 9bd6a6860191141d9b0f5d401ba75332,
+        type: 3}
+      propertyPath: sounds.Array.data[10].name
+      value: Spread
+      objectReference: {fileID: 0}
+    - target: {fileID: 6080193068588553201, guid: 9bd6a6860191141d9b0f5d401ba75332,
+        type: 3}
+      propertyPath: sounds.Array.data[10].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: a43e1796a89e2441d8ce4d810504d360, type: 3}
+    - target: {fileID: 6080193068588553201, guid: 9bd6a6860191141d9b0f5d401ba75332,
+        type: 3}
+      propertyPath: sounds.Array.data[10].volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6080193068588553201, guid: 9bd6a6860191141d9b0f5d401ba75332,
+        type: 3}
+      propertyPath: sounds.Array.data[10].pitch
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -45,6 +45,8 @@ public class DamageManager : MonoBehaviour {
     }
 
     public void Spread() {
+        AudioManager.Instance.Play("Spread");
+
         if ((Turn.Instance.TurnCount % spreadRate) == 0) {
             // Divide current heads
             if (damageHeads.Count > 0) {
