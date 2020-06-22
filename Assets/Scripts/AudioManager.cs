@@ -79,7 +79,9 @@ public class AudioManager : MonoBehaviour {
             IntroPlaying = false;
         }
 
-        sound.source.Stop();
+        if (sound.source) {
+            sound.source.Stop();
+        }
     }
 
     private void CheckForSound(Sound sound, string soundName) {
