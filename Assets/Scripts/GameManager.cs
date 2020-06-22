@@ -91,10 +91,6 @@ public class GameManager : MonoBehaviour {
         } else if (CheckForWin()) {
             TriggerWin();
         }
-
-        if (Turn.Instance.TurnCount > 1) {
-            vehicle.StartUlt();
-        }
     }
 
     private bool CheckForLoss() {
@@ -122,7 +118,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void TriggerWin() {
-        SceneLoader.StartWinScene();
+        vehicle.StartUlt();
     }
 
     private void TriggerLoss() {

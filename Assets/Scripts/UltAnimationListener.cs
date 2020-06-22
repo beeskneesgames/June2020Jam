@@ -9,5 +9,11 @@ public class UltAnimationListener : MonoBehaviour {
 
     public void OnExplosionWillEnd() {
         Grid.Instance.FixAllCells();
+        StartCoroutine(ShowWinScreenAfterDelay());
+    }
+
+    public IEnumerator ShowWinScreenAfterDelay() {
+        yield return new WaitForSeconds(1.0f);
+        SceneLoader.StartWinScene();
     }
 }
