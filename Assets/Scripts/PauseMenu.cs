@@ -52,4 +52,12 @@ public class PauseMenu : MonoBehaviour {
 
         SceneLoader.StartTitleScene();
     }
+
+    public void OnButtonClick() {
+        AudioManager.Instance.PlayBtnClick();
+    }
+
+    public void OnButtonHover() {
+        AudioManager.Instance.PlayBtnHover();
+    }
 }

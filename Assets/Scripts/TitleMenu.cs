@@ -34,4 +34,12 @@ public class TitleMenu : MonoBehaviour {
     public void ExitGame() {
         SceneLoader.ExitGame();
     }
+
+    public void OnButtonClick() {
+        AudioManager.Instance.PlayBtnClick();
+    }
+
+    public void OnButtonHover() {
+        AudioManager.Instance.PlayBtnHover();
+    }
 }
