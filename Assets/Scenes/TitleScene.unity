@@ -542,8 +542,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2021923902}
-        m_MethodName: PlayBtnClick
+      - m_Target: {fileID: 1898429554}
+        m_MethodName: OnButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -607,8 +607,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 2021923902}
-          m_MethodName: PlayBtnHover
+        - m_Target: {fileID: 1898429554}
+          m_MethodName: OnButtonHover
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -827,8 +827,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2021923902}
-        m_MethodName: PlayBtnClick
+      - m_Target: {fileID: 1898429554}
+        m_MethodName: OnButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -892,8 +892,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 2021923902}
-          m_MethodName: PlayBtnHover
+        - m_Target: {fileID: 1898429554}
+          m_MethodName: OnButtonHover
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1149,8 +1149,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2021923902}
-        m_MethodName: PlayBtnClick
+      - m_Target: {fileID: 1898429554}
+        m_MethodName: OnButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1214,8 +1214,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 2021923902}
-          m_MethodName: PlayBtnHover
+        - m_Target: {fileID: 1898429554}
+          m_MethodName: OnButtonHover
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1294,18 +1294,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bd6a6860191141d9b0f5d401ba75332, type: 3}
---- !u!114 &2021923902 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6080193068588553201, guid: 9bd6a6860191141d9b0f5d401ba75332,
-    type: 3}
-  m_PrefabInstance: {fileID: 2021923901}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df730c4cc139e42f2bf23c3c5ed60c3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2056409210
 GameObject:
   m_ObjectHideFlags: 0

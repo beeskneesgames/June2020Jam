@@ -12,4 +12,12 @@ public class LoseUI : MonoBehaviour {
 
         SceneLoader.StartMainScene();
     }
+
+    public void OnButtonClick() {
+        AudioManager.Instance.PlayBtnClick();
+    }
+
+    public void OnButtonHover() {
+        AudioManager.Instance.PlayBtnHover();
+    }
 }
