@@ -7,8 +7,11 @@ public class GameManager : MonoBehaviour {
     public GameObject gameUI;
     public GameObject actionUI;
     public GameObject debugUI;
+    public VehicleAnimationListener vehicle;
 
     private bool stateChanged = false;
+
+    public bool IsGameplayEnabled { get; private set; } = false;
 
     private static GameManager instance;
     public static GameManager Instance {
@@ -36,16 +39,26 @@ public class GameManager : MonoBehaviour {
         AudioManager.Instance.Stop("Theme");
     }
 
-    public void EnableGame() {
+    public void EnableGameplay() {
         gameUI.SetActive(true);
         actionUI.SetActive(true);
         debugUI.SetActive(Debug.isDebugBuild);
 
         Player.Instance.EnterGame();
+
+        IsGameplayEnabled = true;
+    }
+
+    public void DisableGameplay() {
+        IsGameplayEnabled = false;
+
+        gameUI.SetActive(false);
+        actionUI.SetActive(false);
+        debugUI.SetActive(false);
     }
 
     private void LateUpdate() {
-        if (stateChanged) {
+        if (IsGameplayEnabled && stateChanged) {
             if (Turn.Instance.TurnCount > 0) {
                 CheckEndGame();
             }
@@ -105,7 +118,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void TriggerWin() {
-        SceneLoader.StartWinScene();
+        vehicle.StartUlt();
     }
 
     private void TriggerLoss() {

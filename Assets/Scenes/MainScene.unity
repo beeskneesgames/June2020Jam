@@ -211,7 +211,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &31753194
 GameObject:
@@ -450,7 +450,7 @@ RectTransform:
   m_Children:
   - {fileID: 812188044}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -505,6 +505,11 @@ PrefabInstance:
       propertyPath: debugUI
       value: 
       objectReference: {fileID: 1134053683}
+    - target: {fileID: 3925421017620871706, guid: 767c2120a653e4d83bf19cfa8be6af87,
+        type: 3}
+      propertyPath: vehicle
+      value: 
+      objectReference: {fileID: 947720603671870044}
     - target: {fileID: 3925421017620871707, guid: 767c2120a653e4d83bf19cfa8be6af87,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2851,48 +2856,42 @@ MonoBehaviour:
 
     <b>You lose if:</b>
 
-    * 50% of the grid falls into
-    the alternate timelines.
+    * 50% of the grid falls into the alternate timelines.
 
     * You step into the alternate timelines.
 
 
-    <b>You
-    win if:</b>
+    <b>You win if:</b>
 
     * You survive A turns without losing.
+
+    * You fix all the cells with timeline damage.
 
 
     <b>Your tools:</b>
 
-    These
-    are the tools at your disposal. You only have B action points every turn, so
-    choose wisely!
+    These are the tools at your disposal. You only have B action points every turn,
+    so choose wisely!
 
 
-    * Move (1-C AP): Move to the selected cell (no diagonals).
-    Each cell costs 1 action point.
+    * Move (1-C AP): Move to the selected cell (no diagonals). Each cell costs 1 action
+    point.
 
-    * Melee fix (D AP): Fix all the cells adjacent
-    to you (including diagonals).
+    * Melee fix (D AP): Fix all the cells adjacent to you (including diagonals).
 
-    * Ranged fix (E AP): Fix a single cell of
-    your choice.
+    * Ranged fix (E AP): Fix a single cell of your choice.
 
-    * Bomb (F AP): Leave a bomb on the selected cell. If the alternate
-    timelines hit the bomb, its cell and all its adjacent cells get fixed (including
-    diagonals).
+    * Bomb (F AP): Leave a bomb on the selected cell. If the alternate timelines hit
+    the bomb, its cell and all its adjacent cells get fixed (including diagonals).
 
 
     <b>How the alternate timelines work</b>
 
-    Every turn, the
-    alternate timeline "heads" move to a new cell and consume it. Every G turns,
-    each head splits into two. Watch out for exponential growth!
+    Every turn, the alternate timeline "heads" move to a new cell and consume it.
+    Every G turns, each head splits into two. Watch out for exponential growth!
 
 
-    <b>Hit Escape
-    to quit.</b>'
+    <b>Hit Escape to quit.</b>'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3586,7 +3585,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &638425022
 GameObject:
@@ -4862,6 +4861,80 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 872723681}
   m_CullTransparentMesh: 0
+--- !u!1001 &879301838
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 440672062820871554, guid: d93efb5b6d7b7472a9c1bafab7c09784,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440672062820871554, guid: d93efb5b6d7b7472a9c1bafab7c09784,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440672062820871554, guid: d93efb5b6d7b7472a9c1bafab7c09784,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440672062820871554, guid: d93efb5b6d7b7472a9c1bafab7c09784,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440672062820871554, guid: d93efb5b6d7b7472a9c1bafab7c09784,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440672062820871554, guid: d93efb5b6d7b7472a9c1bafab7c09784,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440672062820871554, guid: d93efb5b6d7b7472a9c1bafab7c09784,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 440672062820871554, guid: d93efb5b6d7b7472a9c1bafab7c09784,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 440672062820871554, guid: d93efb5b6d7b7472a9c1bafab7c09784,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440672062820871554, guid: d93efb5b6d7b7472a9c1bafab7c09784,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440672062820871554, guid: d93efb5b6d7b7472a9c1bafab7c09784,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4951785174840079550, guid: d93efb5b6d7b7472a9c1bafab7c09784,
+        type: 3}
+      propertyPath: m_Name
+      value: UltFall
+      objectReference: {fileID: 0}
+    - target: {fileID: 4951785174840079550, guid: d93efb5b6d7b7472a9c1bafab7c09784,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d93efb5b6d7b7472a9c1bafab7c09784, type: 3}
 --- !u!1001 &961984512
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5195,7 +5268,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &990033129
 MonoBehaviour:
@@ -5464,7 +5537,7 @@ RectTransform:
   m_Children:
   - {fileID: 1198119530}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 30, y: 225, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6170,7 +6243,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1138743034
 GameObject:
@@ -7062,7 +7135,7 @@ RectTransform:
   m_Children:
   - {fileID: 1134053684}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7156,7 +7229,7 @@ Transform:
   m_Children:
   - {fileID: 1076349996}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1360906701
 Animator:
@@ -7379,7 +7452,7 @@ Transform:
   - {fileID: 153747983}
   - {fileID: 2137336976}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1391134640
 MonoBehaviour:
@@ -8011,7 +8084,7 @@ Transform:
   - {fileID: 986588525}
   - {fileID: 1975801622}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1624551020
 GameObject:
@@ -9001,7 +9074,7 @@ RectTransform:
   m_Children:
   - {fileID: 2016429098}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -10458,6 +10531,45 @@ PrefabInstance:
       objectReference: {fileID: 482263212}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 903a55a83a6f84b419d11dad010499ad, type: 3}
+--- !u!1 &947720603671870043 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 137240009095198584, guid: 903a55a83a6f84b419d11dad010499ad,
+    type: 3}
+  m_PrefabInstance: {fileID: 947720603671870042}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &947720603671870044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947720603671870043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90b24c8e4810948b39173ddb7fc90ca0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ultFallPrefab: {fileID: 4951785174840079550, guid: d93efb5b6d7b7472a9c1bafab7c09784,
+    type: 3}
+--- !u!95 &947720603671870045
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947720603671870043}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fce09511517084641a6dda71258d8601, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &2417210678221400509
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -80,7 +80,7 @@ public class CellInfo {
         HasObstacle = false;
     }
 
-    private void Fix() {
+    public void Fix() {
         IsDamaged = false;
 
         if (HasDamageHead) {

@@ -28,6 +28,6 @@ public class MainIntroController : MonoBehaviour {
         animator.StopPlayback();
         animator.enabled = false;
 
-        GameManager.Instance.EnableGame();
+        GameManager.Instance.EnableGameplay();
     }
 }
