@@ -93,7 +93,6 @@ public class ActionManager : MonoBehaviour {
 
     public void Reset() {
         CurrentAction = Action.None;
-        actionMenu.UnpressAllBtns();
         Grid.Instance.ClearActionArea();
     }
 

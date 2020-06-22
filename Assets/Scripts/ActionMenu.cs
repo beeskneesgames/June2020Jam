@@ -43,45 +43,23 @@ public class ActionMenu : MonoBehaviour {
     }
 
     public void OnMoveClicked() {
-        ToggleBtn(moveBtn);
+        AudioManager.Instance.PlayBtnClick();
         ActionManager.Instance.CurrentAction = ActionManager.Action.Move;
     }
 
     public void OnMeleeFixClicked() {
+        AudioManager.Instance.PlayBtnClick();
         ActionManager.Instance.CurrentAction = ActionManager.Action.Melee;
         ActionManager.Instance.PerformCurrentActionOn(Player.Instance.CurrentCoords);
     }
 
     public void OnRangedFixClicked() {
-        ToggleBtn(rangedBtn);
+        AudioManager.Instance.PlayBtnClick();
         ActionManager.Instance.CurrentAction = ActionManager.Action.Ranged;
     }
 
     public void OnBombClicked() {
-        ToggleBtn(bombBtn);
+        AudioManager.Instance.PlayBtnClick();
         ActionManager.Instance.CurrentAction = ActionManager.Action.Bomb;
-    }
-
-    private void ToggleBtn(Button btn) {
-        if (btn.image.color == defaultColor) {
-            UnpressBtn(btn);
-        } else {
-            PressBtn(btn);
-        }
-    }
-
-    private void PressBtn(Button btn) {
-        btn.image.color = pressedColor;
-    }
-
-    private void UnpressBtn(Button btn) {
-        btn.image.color = defaultColor;
-    }
-
-    public void UnpressAllBtns() {
-        UnpressBtn(moveBtn);
-        UnpressBtn(meleeBtn);
-        UnpressBtn(rangedBtn);
-        UnpressBtn(bombBtn);
     }
 }
