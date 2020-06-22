@@ -7,6 +7,7 @@ public class CellBandaid : MonoBehaviour {
     private bool shouldShrink;
 
     private void Start() {
+        AudioManager.Instance.Play("Bandaid");
         animator = GetComponent<Animator>();
     }
 

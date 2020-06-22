@@ -208,6 +208,7 @@ public class Player : MonoBehaviour {
     }
 
     private IEnumerator PerformMoveTo(Vector2Int endCoords, System.Action callback = null) {
+        AudioManager.Instance.Play("Run");
         StartMoveAnimation();
 
         MovementPath = Grid.PathBetween(CurrentCoords, endCoords, diagonalMoveAllowed);
@@ -236,6 +237,7 @@ public class Player : MonoBehaviour {
 
         // If we didn't finish the movement with a skid, stop the move.
         if (!shouldSkid) {
+            AudioManager.Instance.Stop("Run");
             playerAnimator.SetTrigger("StopMove");
         }
 
@@ -300,6 +302,8 @@ public class Player : MonoBehaviour {
             //    second-to-last and the last cell in their path.
             // 3. The skid has not already been started.
             if (shouldSkid && !isSkidding && isLastCoords && percentComplete > 0.1f) {
+                AudioManager.Instance.Stop("Run");
+                AudioManager.Instance.Play("Skid");
                 StartSkidAnimation();
                 isSkidding = true;
             }
