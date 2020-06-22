@@ -68,6 +68,7 @@ public class CellInfo {
     }
 
     public void AddBomb() {
+        AudioManager.Instance.Play("SmallBomb");
         HasBomb = true;
         Player.Instance.UseActionPoints(BombCost);
     }
