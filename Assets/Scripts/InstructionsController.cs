@@ -38,9 +38,15 @@ public class InstructionsController : MonoBehaviour {
 
     public void OnOpenButtonClicked() {
         instructionsContainer.SetActive(true);
+        AudioManager.Instance.PlayBtnClick();
     }
 
     public void OnCloseButtonClicked() {
         instructionsContainer.SetActive(false);
+        AudioManager.Instance.PlayBtnClick();
+    }
+
+    public void OnButtonHover() {
+        AudioManager.Instance.PlayBtnHover();
     }
 }
