@@ -9,6 +9,7 @@ public class VehicleAnimationListener : MonoBehaviour {
     }
 
     public void StartUlt() {
+        AudioManager.Instance.Play("BigLaunch");
         GameManager.Instance.DisableGameplay();
         animator.SetTrigger("StartUlt");
     }

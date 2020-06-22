@@ -162,3 +162,30 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  - name: SmallBomb
+    clip: {fileID: 8300000, guid: 5778aa8dcf2f54741ac0f42677869af4, type: 3}
+    volume: 0.5
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: BigBomb
+    clip: {fileID: 8300000, guid: 070db7b0f8ffb4095a10443ef7f5dd6a, type: 3}
+    volume: 0.5
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: BigLaunch
+    clip: {fileID: 8300000, guid: 79b3621fc2ab44c62a31ec41d037e2c3, type: 3}
+    volume: 0.5
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
