@@ -10,6 +10,7 @@ public class VehicleTitleController : MonoBehaviour {
     }
 
     public void StartMove() {
+        AudioManager.Instance.Play("Drive");
         animator.SetTrigger("StartMove");
     }
 
