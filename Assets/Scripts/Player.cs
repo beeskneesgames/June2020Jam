@@ -14,6 +14,7 @@ public class Player : MonoBehaviour {
     }
 
     public static bool diagonalFixAllowed = false;
+
     public static bool diagonalMoveAllowed = false;
     public static Vector2Int StartCoords {
         get {
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour {
     public Animator backpackBandaidAnimator;
     public RangedBandaid rangedBandaid;
     public GameObject cellBandaidPrefab;
+    public GameObject meleeBandaidPrefab;
     public GameObject bombPrefab;
 
     public Vector2Int CurrentCoords { get; private set; }
@@ -54,6 +56,7 @@ public class Player : MonoBehaviour {
     public Direction CurrentDirection { get; private set; }
 
     // Fixes
+    private bool meleeFixInProgress = false;
     private Vector2Int rangedFixCoords = new Vector2Int(-1, -1);
     private List<Bomb> bombs = new List<Bomb>();
 
@@ -118,6 +121,7 @@ public class Player : MonoBehaviour {
         transform.localEulerAngles = new Vector3(0.0f, 90.0f, 0.0f);
 
         rangedFixCoords = new Vector2Int(-1, -1);
+        meleeFixInProgress = false;
 
         foreach (var bomb in bombs) {
             Destroy(bomb.gameObject);
@@ -166,9 +170,35 @@ public class Player : MonoBehaviour {
     }
 
     public void FinishRangedFix() {
+        // Make sure we don't fix multiple times from one melee fix command.
+        if (!meleeFixInProgress) {
+            return;
+        }
+
         Grid.Instance.CellInfoAt(rangedFixCoords).RangedFix();
         rangedFixCoords = new Vector2Int(-1, -1);
         IsPerformingAction = false;
+        meleeFixInProgress = false;
+    }
+
+    internal void MeleeFix() {
+        IsPerformingAction = true;
+        meleeFixInProgress = true;
+        playerAnimator.SetTrigger("FixMelee");
+
+        foreach (var cell in Grid.Instance.AdjacentTo(Player.Instance.CurrentCoords, true)) {
+            GameObject meleeBandaid = Instantiate(meleeBandaidPrefab);
+            Vector3 cellPosition = Grid.Instance.PositionForCoords(cell.Coords);
+            meleeBandaid.transform.position = new Vector3(
+                cellPosition.x,
+                meleeBandaid.transform.position.y,
+                cellPosition.z
+            );
+        }
+    }
+
+    public void FinishMeleeFix() {
+        Grid.Instance.CellInfoAt(Player.Instance.CurrentCoords).MeleeFix();
     }
 
     public void PlaceBomb(Vector2Int coords) {
