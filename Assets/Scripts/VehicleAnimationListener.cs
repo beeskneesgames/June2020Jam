@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class VehicleAnimationListener : MonoBehaviour {
+    public GameObject ultFallPrefab;
     private Animator animator;
 
     private void Awake() {
@@ -14,6 +15,6 @@ public class VehicleAnimationListener : MonoBehaviour {
     }
 
     public void OnUltOffscreen() {
-        // TODO: Make falling head
+        Instantiate(ultFallPrefab);
     }
 }

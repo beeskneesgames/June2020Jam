@@ -7,6 +7,7 @@ public class Grid : MonoBehaviour {
     public GameObject cellPrefab;
     public GameObject rowPrefab;
     public TextMeshProUGUI percentDamagedUI;
+
     public Vector2Int Size = new Vector2Int(16, 16);
 
     private List<Vector2Int> actionArea = new List<Vector2Int>();
@@ -294,6 +295,14 @@ public class Grid : MonoBehaviour {
                 0,
                 zOffset + i
             );
+        }
+    }
+
+    public void FixAllCells() {
+        foreach (var cell in AllCells) {
+            if (cell.IsDamaged) {
+                cell.Fix();
+            }
         }
     }
 
