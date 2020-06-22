@@ -19,11 +19,11 @@ public class MainIntroController : MonoBehaviour {
     public void OnPlayerWillStop() {
         Player.Instance.StartSkidAnimation();
         AudioManager.Instance.Stop("Run");
-        AudioManager.Instance.Play("Turn");
+        AudioManager.Instance.Play("Skid");
     }
 
     public void OnIntroFinished() {
-        AudioManager.Instance.Stop("Turn");
+        AudioManager.Instance.Stop("Skid");
 
         animator.StopPlayback();
         animator.enabled = false;
