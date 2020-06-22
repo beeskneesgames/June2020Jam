@@ -114,7 +114,7 @@ public class Grid : MonoBehaviour {
     public void UpdatePercentDamagedUI() {
         float floatDamaged = Instance.PercentDamaged();
 
-        percentDamagedUI.text = String.Format("Timeline Damage: {0:P0}", floatDamaged);
+        percentDamagedUI.text = String.Format("TIMELINE DAMAGE: {0:P0}", floatDamaged);
     }
 
     public void SetActionArea(List<Vector2Int> coordsList) {

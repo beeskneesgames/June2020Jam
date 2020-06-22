@@ -21,13 +21,13 @@ public class ActionMenu : MonoBehaviour {
         if (Player.Instance.ActionPoints == 1) {
             moveAPRange = $"{Player.Instance.ActionPoints}";
         } else {
-            moveAPRange = $"1 - {Player.Instance.ActionPoints}";
+            moveAPRange = $"1-{Player.Instance.ActionPoints}";
         }
 
-        moveBtnTMP.text = $"Move: {moveAPRange} AP";
-        meleeBtn.GetComponentInChildren<TextMeshProUGUI>().text = $"Melee Fix: {CellInfo.MeleeFixCost} AP";
-        rangedBtn.GetComponentInChildren<TextMeshProUGUI>().text = $"Ranged Fix: {CellInfo.RangedFixCost} AP";
-        bombBtn.GetComponentInChildren<TextMeshProUGUI>().text = $"Place Bomb: {CellInfo.BombCost} AP";
+        moveBtnTMP.text = $"{moveAPRange}";
+        meleeBtn.GetComponentInChildren<TextMeshProUGUI>().text = $"{CellInfo.MeleeFixCost}";
+        rangedBtn.GetComponentInChildren<TextMeshProUGUI>().text = $"{CellInfo.RangedFixCost}";
+        bombBtn.GetComponentInChildren<TextMeshProUGUI>().text = $"{CellInfo.BombCost}";
     }
 
     private void Update() {
@@ -36,10 +36,10 @@ public class ActionMenu : MonoBehaviour {
         if (Player.Instance.ActionPoints == 1) {
             moveAPRange = $"{Player.Instance.ActionPoints}";
         } else {
-            moveAPRange = $"1 - {Player.Instance.ActionPoints}";
+            moveAPRange = $"1-{Player.Instance.ActionPoints}";
         }
 
-        moveBtnTMP.text = $"Move: {moveAPRange} AP";
+        moveBtnTMP.text = $"{moveAPRange}";
     }
 
     public void OnMoveClicked() {

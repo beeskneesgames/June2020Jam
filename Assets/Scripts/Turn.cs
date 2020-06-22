@@ -5,7 +5,7 @@ public class Turn : MonoBehaviour {
     private static Turn instance;
     private int turnCount;
 
-    public const int MaxTurnCount = 2;
+    public const int MaxTurnCount = 25;
     public TextMeshProUGUI turnUI;
 
     public int TurnCount {
@@ -15,7 +15,7 @@ public class Turn : MonoBehaviour {
         private set {
             int oldTurnCount = turnCount;
             turnCount = value;
-            turnUI.text = $"Turn {turnCount + 1}";
+            turnUI.text = $"TURN {turnCount + 1}";
 
             if (oldTurnCount < turnCount) {
                 DamageManager.Instance.Spread();
