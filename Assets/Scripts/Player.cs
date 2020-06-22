@@ -170,15 +170,10 @@ public class Player : MonoBehaviour {
     }
 
     public void FinishRangedFix() {
-        // Make sure we don't fix multiple times from one melee fix command.
-        if (!meleeFixInProgress) {
-            return;
-        }
 
         Grid.Instance.CellInfoAt(rangedFixCoords).RangedFix();
         rangedFixCoords = new Vector2Int(-1, -1);
         IsPerformingAction = false;
-        meleeFixInProgress = false;
     }
 
     internal void MeleeFix() {
@@ -198,7 +193,14 @@ public class Player : MonoBehaviour {
     }
 
     public void FinishMeleeFix() {
+        // Make sure we don't fix multiple times from one melee fix command.
+        if (!meleeFixInProgress) {
+            return;
+        }
+
         Grid.Instance.CellInfoAt(Player.Instance.CurrentCoords).MeleeFix();
+        IsPerformingAction = false;
+        meleeFixInProgress = false;
     }
 
     public void PlaceBomb(Vector2Int coords) {
