@@ -21,6 +21,7 @@ public class InstructionsController : MonoBehaviour {
             "",
             "<b>You win if:</b>",
             $"* You survive {Turn.MaxTurnCount} turns without losing.",
+            "* You fix all the cells with timeline damage.",
             "",
             "<b>Your tools:</b>",
             $"These are the tools at your disposal. You only have {Player.Instance.maxPoints} action points every turn, so choose wisely!",
