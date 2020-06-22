@@ -32,7 +32,9 @@ public class InstructionsController : MonoBehaviour {
             $"* Bomb ({CellInfo.BombCost} AP): Leave a bomb on the selected cell. If the alternate timelines hit the bomb, its cell and all its adjacent cells get fixed (including diagonals).",
             "",
             "<b>How the alternate timelines work</b>",
-            $"Every turn, the alternate timeline \"heads\" move to a new cell and consume it. Every {DamageManager.Instance.spreadRate} turns, each head splits into two. Watch out for exponential growth!"
+            $"Every turn, the alternate timeline \"heads\" move to a new cell and consume it. Every {DamageManager.Instance.spreadRate} turns, each head splits into two. Watch out for exponential growth!",
+            "",
+            "<b>Hit Escape to quit.</b>"
         );
     }
 
