@@ -113,6 +113,7 @@ public class ActionManager : MonoBehaviour {
     }
 
     private void Melee() {
+        AudioManager.Instance.Play("Melee");
         Player.Instance.playerAnimator.SetTrigger("FixMelee");
         Grid.Instance.CellInfoAt(Player.Instance.CurrentCoords).MeleeFix();
     }
