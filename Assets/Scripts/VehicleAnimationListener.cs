@@ -11,6 +11,7 @@ public class VehicleAnimationListener : MonoBehaviour {
     }
 
     public void StartUlt() {
+        GameManager.Instance.DisableGameplay();
         animator.SetTrigger("StartUlt");
     }
 

@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour {
 
     private bool stateChanged = false;
 
+    public bool IsGameplayEnabled { get; private set; } = false;
+
     private static GameManager instance;
     public static GameManager Instance {
         get {
@@ -37,16 +39,26 @@ public class GameManager : MonoBehaviour {
         AudioManager.Instance.Stop("Theme");
     }
 
-    public void EnableGame() {
+    public void EnableGameplay() {
         gameUI.SetActive(true);
         actionUI.SetActive(true);
         debugUI.SetActive(Debug.isDebugBuild);
 
         Player.Instance.EnterGame();
+
+        IsGameplayEnabled = true;
+    }
+
+    public void DisableGameplay() {
+        IsGameplayEnabled = false;
+
+        gameUI.SetActive(false);
+        actionUI.SetActive(false);
+        debugUI.SetActive(false);
     }
 
     private void LateUpdate() {
-        if (stateChanged) {
+        if (IsGameplayEnabled && stateChanged) {
             if (Turn.Instance.TurnCount > 0) {
                 CheckEndGame();
             }
