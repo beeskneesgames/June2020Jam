@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -711,6 +711,11 @@ PrefabInstance:
       propertyPath: debugUI
       value: 
       objectReference: {fileID: 1134053683}
+    - target: {fileID: 3925421017620871706, guid: 767c2120a653e4d83bf19cfa8be6af87,
+        type: 3}
+      propertyPath: vehicle
+      value: 
+      objectReference: {fileID: 947720603671870044}
     - target: {fileID: 3925421017620871707, guid: 767c2120a653e4d83bf19cfa8be6af87,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11421,6 +11426,43 @@ PrefabInstance:
       objectReference: {fileID: 482263212}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 903a55a83a6f84b419d11dad010499ad, type: 3}
+--- !u!1 &947720603671870043 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 137240009095198584, guid: 903a55a83a6f84b419d11dad010499ad,
+    type: 3}
+  m_PrefabInstance: {fileID: 947720603671870042}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &947720603671870044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947720603671870043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90b24c8e4810948b39173ddb7fc90ca0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &947720603671870045
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947720603671870043}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fce09511517084641a6dda71258d8601, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &2417210678221400509
 PrefabInstance:
   m_ObjectHideFlags: 0

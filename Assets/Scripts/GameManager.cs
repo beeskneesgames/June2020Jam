@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
     public GameObject gameUI;
     public GameObject actionUI;
     public GameObject debugUI;
+    public VehicleAnimationListener vehicle;
 
     private bool stateChanged = false;
 
@@ -77,6 +78,10 @@ public class GameManager : MonoBehaviour {
             TriggerLoss();
         } else if (CheckForWin()) {
             TriggerWin();
+        }
+
+        if (Turn.Instance.TurnCount > 1) {
+            vehicle.StartUlt();
         }
     }
 
