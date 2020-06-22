@@ -442,6 +442,7 @@ GameObject:
   - component: {fileID: 1166921224}
   - component: {fileID: 1166921223}
   - component: {fileID: 1166921222}
+  - component: {fileID: 1166921225}
   m_Layer: 5
   m_Name: CreditsButton
   m_TagString: Untagged
@@ -523,6 +524,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2021923902}
+        m_MethodName: PlayBtnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1166921223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,6 +572,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1166921220}
   m_CullTransparentMesh: 0
+--- !u!114 &1166921225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166921220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2021923902}
+          m_MethodName: PlayBtnHover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1348725900
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,6 +727,7 @@ GameObject:
   - component: {fileID: 1397168478}
   - component: {fileID: 1397168477}
   - component: {fileID: 1397168476}
+  - component: {fileID: 1397168479}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -768,6 +809,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2021923902}
+        m_MethodName: PlayBtnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1397168477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -805,6 +857,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1397168474}
   m_CullTransparentMesh: 0
+--- !u!114 &1397168479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1397168474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2021923902}
+          m_MethodName: PlayBtnHover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &1530047574
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -962,6 +1042,7 @@ GameObject:
   - component: {fileID: 2019377754}
   - component: {fileID: 2019377753}
   - component: {fileID: 2019377752}
+  - component: {fileID: 2019377755}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -1043,6 +1124,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2021923902}
+        m_MethodName: PlayBtnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2019377753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1080,6 +1172,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2019377750}
   m_CullTransparentMesh: 0
+--- !u!114 &2019377755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019377750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2021923902}
+          m_MethodName: PlayBtnHover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &2021923901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1149,6 +1269,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6080193068588553201, guid: 9bd6a6860191141d9b0f5d401ba75332,
         type: 3}
+      propertyPath: sounds.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6080193068588553201, guid: 9bd6a6860191141d9b0f5d401ba75332,
+        type: 3}
       propertyPath: sounds.Array.data[1].volumeVariance
       value: 0
       objectReference: {fileID: 0}
@@ -1177,8 +1302,60 @@ PrefabInstance:
       propertyPath: sounds.Array.data[0].pitch
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6080193068588553201, guid: 9bd6a6860191141d9b0f5d401ba75332,
+        type: 3}
+      propertyPath: sounds.Array.data[10].name
+      value: BtnHover
+      objectReference: {fileID: 0}
+    - target: {fileID: 6080193068588553201, guid: 9bd6a6860191141d9b0f5d401ba75332,
+        type: 3}
+      propertyPath: sounds.Array.data[10].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: e5455c2c54d3f4c009e82e4d0a297221, type: 3}
+    - target: {fileID: 6080193068588553201, guid: 9bd6a6860191141d9b0f5d401ba75332,
+        type: 3}
+      propertyPath: sounds.Array.data[10].volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6080193068588553201, guid: 9bd6a6860191141d9b0f5d401ba75332,
+        type: 3}
+      propertyPath: sounds.Array.data[10].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6080193068588553201, guid: 9bd6a6860191141d9b0f5d401ba75332,
+        type: 3}
+      propertyPath: sounds.Array.data[11].name
+      value: BtnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 6080193068588553201, guid: 9bd6a6860191141d9b0f5d401ba75332,
+        type: 3}
+      propertyPath: sounds.Array.data[11].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1eef5c0a6052d4b31828c84c675d453f, type: 3}
+    - target: {fileID: 6080193068588553201, guid: 9bd6a6860191141d9b0f5d401ba75332,
+        type: 3}
+      propertyPath: sounds.Array.data[11].volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6080193068588553201, guid: 9bd6a6860191141d9b0f5d401ba75332,
+        type: 3}
+      propertyPath: sounds.Array.data[11].pitch
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bd6a6860191141d9b0f5d401ba75332, type: 3}
+--- !u!114 &2021923902 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6080193068588553201, guid: 9bd6a6860191141d9b0f5d401ba75332,
+    type: 3}
+  m_PrefabInstance: {fileID: 2021923901}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df730c4cc139e42f2bf23c3c5ed60c3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2056409210
 GameObject:
   m_ObjectHideFlags: 0

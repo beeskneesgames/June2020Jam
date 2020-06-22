@@ -35,6 +35,14 @@ public class AudioManager : MonoBehaviour {
         }
     }
 
+    public void PlayBtnHover() {
+        Play("BtnHover");
+    }
+
+    public void PlayBtnClick() {
+        Play("BtnClick");
+    }
+
     public void Mute(string soundName) {
         Sound sound = Array.Find(sounds, item => item.name == soundName);
         CheckForSound(sound, soundName);
