@@ -667,7 +667,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -677,10 +677,11 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: b7c28ad0da2434bd49ea3c519fd1911e,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: b7c28ad0da2434bd49ea3c519fd1911e, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 99a3cb0ae2ec3413380d9f5f0bf19363, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 99a3cb0ae2ec3413380d9f5f0bf19363, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -8443,7 +8444,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -8453,10 +8454,11 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 7c723f508e5904827ba044c7cacfcd55,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 7c723f508e5904827ba044c7cacfcd55, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: cfbbd3862a38342f289f939ee442898a, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: cfbbd3862a38342f289f939ee442898a, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -9159,7 +9161,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -9169,10 +9171,11 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: c015a4c155ec14959a61e75fa0c151ad,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: c015a4c155ec14959a61e75fa0c151ad, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 3fb62d6d86fdc470786572a3d6ad0ff1, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 3fb62d6d86fdc470786572a3d6ad0ff1, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -10954,6 +10957,35 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 7032044279104485253, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_Transition
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032044279104485253, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 61fa73abbbdb14da1a78fd094b9ab5f5,
+        type: 3}
+    - target: {fileID: 7032044279104485253, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_SpriteState.m_PressedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 61fa73abbbdb14da1a78fd094b9ab5f5,
+        type: 3}
+    - target: {fileID: 7032044279104485253, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_SpriteState.m_SelectedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: df8e854af0d894894afe0f5d10d76491,
+        type: 3}
+    - target: {fileID: 7032044279104485253, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_SpriteState.m_DisabledSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: df8e854af0d894894afe0f5d10d76491,
+        type: 3}
     - target: {fileID: 7032044279104485254, guid: eec33171f083b463c8df379f4be5be46,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -11470,6 +11502,35 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7032044279804971541, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_Transition
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032044279804971541, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c3ef377328b40403cb31146b6bf75944,
+        type: 3}
+    - target: {fileID: 7032044279804971541, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_SpriteState.m_PressedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c3ef377328b40403cb31146b6bf75944,
+        type: 3}
+    - target: {fileID: 7032044279804971541, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_SpriteState.m_SelectedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fa89a6b03de3f4740a25ceeae49331ac,
+        type: 3}
+    - target: {fileID: 7032044279804971541, guid: eec33171f083b463c8df379f4be5be46,
+        type: 3}
+      propertyPath: m_SpriteState.m_DisabledSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fa89a6b03de3f4740a25ceeae49331ac,
+        type: 3}
     - target: {fileID: 7032044279804971542, guid: eec33171f083b463c8df379f4be5be46,
         type: 3}
       propertyPath: m_AnchoredPosition.y
