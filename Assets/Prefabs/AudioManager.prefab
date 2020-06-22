@@ -119,7 +119,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Ranged
     clip: {fileID: 8300000, guid: 750be79cb1eb94ea9a82e263049d69e3, type: 3}
-    volume: 0.75
+    volume: 0.5
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
