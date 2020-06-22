@@ -118,6 +118,7 @@ public class ActionManager : MonoBehaviour {
     }
 
     private void Ranged(Vector2Int coords) {
+        AudioManager.Instance.Play("Ranged");
         Player.Instance.RangedFix(coords);
     }
 
