@@ -2,6 +2,10 @@
 
 public class TitleMenu : MonoBehaviour {
     public void Start() {
+        AudioManager.Instance.Stop("Drive");
+        AudioManager.Instance.Stop("Run");
+        AudioManager.Instance.Stop("Skid");
+
         if (!AudioManager.Instance.IntroPlaying) {
             AudioManager.Instance.Play("Intro");
         }

@@ -24,6 +24,10 @@ public class PauseMenu : MonoBehaviour {
     }
 
     public void Resume() {
+        AudioManager.Instance.Unmute("Drive");
+        AudioManager.Instance.Unmute("Run");
+        AudioManager.Instance.Unmute("Skid");
+
         Globals.isPaused = false;
         Time.timeScale = oldTimeScale;
 
@@ -31,6 +35,10 @@ public class PauseMenu : MonoBehaviour {
     }
 
     public void Pause() {
+        AudioManager.Instance.Mute("Drive");
+        AudioManager.Instance.Mute("Run");
+        AudioManager.Instance.Mute("Skid");
+
         Globals.isPaused = true;
         oldTimeScale = Time.timeScale;
         Time.timeScale = 0.0f;
@@ -39,12 +47,9 @@ public class PauseMenu : MonoBehaviour {
     }
 
     public void ExitGame() {
-        SceneLoader.StartTitleScene();
-    }
-
-    public void OnResetClicked() {
         Time.timeScale = oldTimeScale;
         GameManager.Instance.Reset();
-        menuContainer.SetActive(false);
+
+        SceneLoader.StartTitleScene();
     }
 }
