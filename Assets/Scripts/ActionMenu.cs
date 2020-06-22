@@ -62,4 +62,8 @@ public class ActionMenu : MonoBehaviour {
         AudioManager.Instance.PlayBtnClick();
         ActionManager.Instance.CurrentAction = ActionManager.Action.Bomb;
     }
+
+    public void OnButtonHover() {
+        AudioManager.Instance.PlayBtnHover();
+    }
 }
