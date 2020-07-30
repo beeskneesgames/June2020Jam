@@ -2,6 +2,8 @@
 
 https://beeskneesgames.itch.io/oxo
 
+![OXO banner](https://img.itch.zone/aW1nLzM3MjE4MTkucG5n/original/eo2KNk.png)
+
 Oh no! The construction job has gone awry, and the timelines have started splitting again. It's time to call in OXO to repair the damage before it's too late.
 
 Game created by: Alex Benson, Jake Card, and Jessica Card
