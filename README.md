@@ -1,6 +1,7 @@
 # OXO
 
-https://beeskneesgames.itch.io/oxo
+Play the game here: https://beeskneesgames.itch.io/oxo
+Read about the development of the game here:  https://beesknees.games/blog/a-web-developer-walks-into-a-game-jam
 
 ![OXO banner](https://img.itch.zone/aW1nLzM3MjE4MTkucG5n/original/eo2KNk.png)
 
