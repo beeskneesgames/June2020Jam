@@ -1,9 +1,5 @@
 # OXO
 
-Play the game here: https://beeskneesgames.itch.io/oxo
-
-Read about the development of the game here:  https://beesknees.games/blog/a-web-developer-walks-into-a-game-jam
-
 ![OXO banner](https://img.itch.zone/aW1nLzM3MjE4MTkucG5n/original/eo2KNk.png)
 
 Oh no! The construction job has gone awry, and the timelines have started splitting again. It's time to call in OXO to repair the damage before it's too late.
@@ -19,6 +15,9 @@ Created for the Portland Indie Gaming Squad June 2020 Slow Jam Game Jam.
 Technical theme: Turn-Based
 Creative theme: Alternate Timeline
  
+Play the game here: https://beeskneesgames.itch.io/oxo
+
+Read about the development of the game here:  https://beesknees.games/blog/a-web-developer-walks-into-a-game-jam
 
 **RULES**
 
